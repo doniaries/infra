@@ -1,0 +1,39 @@
+<?php
+
+
+
+use App\Enums\JenisLaporan;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('lapors', function (Blueprint $table) {
+            $table->id();
+            $table->string('no_tiket')->unique();
+            $table->datetime('tgl_laporan');
+            $table->string('nama_pelapor');
+            $table->foreignId('opd_id')->constrained('opds')->cascadeOnDelete();
+            $table->enum('jenis_laporan', ['Laporan Gangguan', 'Koordinasi Teknis'])->default('Laporan Gangguan');
+            $table->text('uraian_laporan')->nullable();
+            $table->string('file_laporan')->nullable();
+            $table->string('status_laporan')->default('Belum Diproses');
+            $table->string('keterangan_petugas')->default('belum ada');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('lapors');
+    }
+};
