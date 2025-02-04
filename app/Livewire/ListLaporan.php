@@ -81,9 +81,12 @@ class ListLaporan extends Component implements HasTable, HasForms
             ->defaultSort('created_at', 'desc')
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->slideOver()
+                    // ->slideOver()
+                    ->label('Buat Laporan Baru')
                     ->model(Lapor::class)
                     ->form(LaporForm::schema())
-            ]);
+            ])
+            ->emptyStateHeading('Belum Ada Laporan')
+            ->emptyStateIcon('heroicon-m-chat-bubble-left-right');
     }
 }
