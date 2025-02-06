@@ -17,7 +17,8 @@
         "filament/tables": "^3.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
-        "stephenjude/filament-blog": "*"
+        "stephenjude/filament-blog": "*",
+        "swisnl/filament-backgrounds": "^1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

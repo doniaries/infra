@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call([
             PeralatanSeeder::class,
+            OperatorSeeder::class,
 
         ]);
     }

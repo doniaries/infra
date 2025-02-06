@@ -77,4 +77,9 @@ class OperatorResource extends Resource
     {
         return static::getModel()::count();
     }
+
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return 'success';
+    }
 }
