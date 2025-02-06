@@ -209,14 +209,8 @@ class LaporResource extends Resource
                         Notification::make()
                             ->success()
                             ->title('Status laporan diperbarui')
-                            ->body(fn($record) => "Status laporan {$record->no_tiket} telah diubah")
-                            ->actions([
-                                Action::make('view')
-                                    ->button()
-                                    ->url(fn($record) => route('filament.resources.lapors.edit', ['record' => $record]))
-                            ])
+                            ->body('Status laporan telah diubah')
                             ->persistent()
-                            ->sendToDatabase(auth()->user())
                     )
             ])
 

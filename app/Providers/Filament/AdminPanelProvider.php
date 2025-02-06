@@ -29,6 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->id('admin')
             ->path('admin')
+            ->brandName('FIlament')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
