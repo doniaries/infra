@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class Bts extends Model
@@ -39,5 +40,19 @@ class Bts extends Model
     public function jorong()
     {
         return $this->belongsTo(Jorong::class);
+    }
+
+    protected function location(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => [
+                'lat' => $this->latitude,
+                'lng' => $this->longitude,
+            ],
+            set: fn($value) => [
+                'latitude' => $value['lat'] ?? null,
+                'longitude' => $value['lng'] ?? null,
+            ],
+        );
     }
 }

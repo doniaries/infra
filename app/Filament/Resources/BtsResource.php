@@ -28,106 +28,127 @@ class BtsResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Section::make('Lokasi BTS')
-                ->description('Pilih lokasi BTS dengan menggeser marker pada peta')
+            Forms\Components\Grid::make()
+                ->columns(2)
                 ->schema([
-                    Actions::make([
-                        Action::make('Set Default Location')
-                            ->icon('heroicon-m-map-pin')
-                            ->action(function (Set $set, $state, $livewire): void {
-                                $set('location', [
-                                    'lat' => '-0.663802906743856',
-                                    'lng' => '100.9366966185208'
-                                ]);
-                                $set('latitude', '-0.663802906743856');
-                                $set('longitude', '100.9366966185208');
-                                $livewire->dispatch('refreshMap');
-                            })
-                    ])->verticalAlignment(VerticalAlignment::Start),
-
-                    Map::make('location')
-                        ->label('Peta')
-                        ->columnSpanFull()
-                        ->defaultLocation(-0.663802906743856, 100.9366966185208)
-                        ->afterStateUpdated(function (Set $set, ?array $state): void {
-                            if (isset($state['lat']) && isset($state['lng'])) {
-                                $set('latitude', $state['lat']);
-                                $set('longitude', $state['lng']);
-                            }
-                        })
-                        ->extraStyles([
-                            'min-height: 400px',
-                            'border-radius: 8px'
-                        ])
-                        ->showMarker()
-                        ->draggable()
-                        ->clickable(true)
-                        ->showZoomControl()
-                        ->showFullscreenControl()
-                        ->showMyLocationButton()
-                        ->zoom(12),
-
-                    Forms\Components\Grid::make(2)
+                    // Kolom Kiri - Form Isian
+                    Section::make('Informasi BTS')
+                        ->columnSpan(1)
                         ->schema([
-                            Forms\Components\TextInput::make('latitude')
-                                ->numeric()
-                                ->readOnly()
+                            Forms\Components\Select::make('operator_id')
+                                ->relationship('operator', 'nama_operator')
+                                ->required()
+                                ->searchable(),
+
+                            Forms\Components\Select::make('kecamatan_id')
+                                ->relationship('kecamatan', 'nama')
+                                ->required()
+                                ->searchable()
+                                ->preload(),
+
+                            Forms\Components\Select::make('nagari_id')
+                                ->relationship('nagari', 'nama')
+                                ->required()
+                                ->searchable()
+                                ->preload(),
+
+                            Forms\Components\TextInput::make('lokasi')
+                                ->label('Alamat Lengkap')
                                 ->required(),
-                            Forms\Components\TextInput::make('longitude')
-                                ->numeric()
-                                ->readOnly()
+
+                            Forms\Components\Select::make('teknologi')
+                                ->options([
+                                    '2G' => '2G',
+                                    '3G' => '3G',
+                                    '4G' => '4G',
+                                    '4G+5G' => '4G+5G',
+                                    '5G' => '5G',
+                                ])
                                 ->required(),
+
+                            Forms\Components\Select::make('status')
+                                ->options([
+                                    'aktif' => 'Aktif',
+                                    'non-aktif' => 'Non-Aktif'
+                                ])
+                                ->required(),
+
+                            Forms\Components\TextInput::make('tahun_bangun')
+                                ->required()
+                                ->maxLength(4),
+
+                            Forms\Components\TextInput::make('pemilik')
+                                ->required()
+                                ->maxLength(255),
+
+
                         ]),
-                ])->columnSpan('full'),
 
-            Section::make('Informasi BTS')
-                ->schema([
-                    Forms\Components\Select::make('operator_id')
-                        ->relationship('operator', 'nama_operator')
-                        ->required()
-                        ->searchable(),
+                    // Kolom Kanan - Peta
+                    Section::make('Lokasi BTS')
+                        ->columnSpan(1)
+                        ->schema([
+                            Actions::make([
+                                Action::make('Set Default Location')
+                                    ->icon('heroicon-m-map-pin')
+                                    ->action(function (Set $set, $state, $livewire): void {
+                                        $set('location', [
+                                            'lat' => '-0.663802906743856',
+                                            'lng' => '100.9366966185208'
+                                        ]);
+                                        $set('latitude', '-0.663802906743856');
+                                        $set('longitude', '100.9366966185208');
+                                        $livewire->dispatch('refreshMap');
+                                    })
+                            ])->verticalAlignment(VerticalAlignment::Start),
 
-                    Forms\Components\Select::make('kecamatan_id')
-                        ->relationship('kecamatan', 'nama')
-                        ->required()
-                        ->searchable()
-                        ->preload(),
-
-                    Forms\Components\Select::make('nagari_id')
-                        ->relationship('nagari', 'nama')
-                        ->required()
-                        ->searchable()
-                        ->preload(),
-
-                    Forms\Components\TextInput::make('lokasi')
-                        ->label('Alamat Lengkap')
-                        ->required(),
-
-                    Forms\Components\Select::make('teknologi')
-                        ->options([
-                            '2G' => '2G',
-                            '3G' => '3G',
-                            '4G' => '4G',
-                            '4G+5G' => '4G+5G',
-                            '5G' => '5G',
-                        ])
-                        ->required(),
-
-                    Forms\Components\Select::make('status')
-                        ->options([
-                            'aktif' => 'Aktif',
-                            'non-aktif' => 'Non-Aktif'
-                        ])
-                        ->required(),
-
-                    Forms\Components\TextInput::make('tahun_bangun')
-                        ->required()
-                        ->maxLength(4),
-
-                    Forms\Components\TextInput::make('pemilik')
-                        ->required()
-                        ->maxLength(255),
-                ])->columns(2),
+                            Map::make('location')
+                                ->label('Peta')
+                                ->columnSpanFull()
+                                ->defaultLocation(-0.663802906743856, 100.9366966185208)
+                                ->afterStateUpdated(function (Set $set, ?array $state): void {
+                                    if (isset($state['lat']) && isset($state['lng'])) {
+                                        $set('latitude', (string)$state['lat']);
+                                        $set('longitude', (string)$state['lng']);
+                                    }
+                                })
+                                ->afterStateHydrated(function ($component, $state, $record): void {
+                                    if ($record) {
+                                        $component->state([
+                                            'lat' => (float)$record->latitude,
+                                            'lng' => (float)$record->longitude,
+                                        ]);
+                                    }
+                                })
+                                ->extraStyles([
+                                    'min-height: 600px',
+                                    'border-radius: 8px'
+                                ])
+                                ->showMarker()
+                                ->draggable(true)
+                                ->clickable(true)
+                                ->showZoomControl()
+                                ->showFullscreenControl()
+                                ->showMyLocationButton()
+                                ->zoom(14)
+                                ->tilesUrl("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"),
+                            Forms\Components\Grid::make(2)
+                                ->schema([
+                                    Forms\Components\TextInput::make('latitude')
+                                        ->label('Latitude')
+                                        ->required()
+                                        ->numeric()
+                                        ->readOnly()
+                                        ->dehydrated(true),
+                                    Forms\Components\TextInput::make('longitude')
+                                        ->label('Longitude')
+                                        ->required()
+                                        ->numeric()
+                                        ->readOnly()
+                                        ->dehydrated(true),
+                                ]),
+                        ]),
+                ])
         ]);
     }
 
@@ -183,8 +204,8 @@ class BtsResource extends Resource
     {
         return [
             'index' => Pages\ListBts::route('/'),
-            // 'create' => Pages\CreateBts::route('/create'),
-            // 'edit' => Pages\EditBts::route('/{record}/edit'),
+            'create' => Pages\CreateBts::route('/create'),
+            'edit' => Pages\EditBts::route('/{record}/edit'),
         ];
     }
 
