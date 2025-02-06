@@ -17,7 +17,17 @@ class PeralatanResource extends Resource
 {
     protected static ?string $model = Peralatan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-cube';
+
+
+    protected static ?int $navigationSort = 5;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Master Data';
+    }
+
+
 
     public static function form(Form $form): Form
     {

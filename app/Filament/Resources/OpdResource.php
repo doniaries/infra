@@ -17,7 +17,15 @@ class OpdResource extends Resource
 {
     protected static ?string $model = Opd::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
+
+    protected static ?int $navigationSort = 1;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Master Data';
+    }
+
 
     public static function form(Form $form): Form
     {
@@ -83,5 +91,15 @@ class OpdResource extends Resource
             // 'create' => Pages\CreateOpd::route('/create'),
             // 'edit' => Pages\EditOpd::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return 'success';
     }
 }
