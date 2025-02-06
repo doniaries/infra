@@ -40,14 +40,11 @@ class BtsResource extends Resource
                         ->schema([
                             Forms\Components\Select::make('operator_id')
                                 ->relationship('operator', 'nama_operator')
-                                ->preload()
                                 ->required(),
 
                             Forms\Components\Select::make('kecamatan_id')
                                 ->relationship('kecamatan', 'nama')
-                                ->preload()
                                 ->required()
-                                ->searchable()
                                 ->live(),
 
                             Forms\Components\Select::make('nagari_id')
@@ -118,9 +115,10 @@ class BtsResource extends Resource
                                 ->required(),
 
                             Forms\Components\TextInput::make('tahun_bangun')
-                                ->maxLength(4),
-
-
+                                ->numeric()
+                                ->default('2023')
+                                ->minValue(2000)
+                                ->maxValue(2030),
 
                         ]),
 
