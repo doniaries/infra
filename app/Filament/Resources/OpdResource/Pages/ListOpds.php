@@ -13,13 +13,7 @@ class ListOpds extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            \EightyNine\ExcelImport\ExcelImportAction::make()
-                ->color("success"),
             Actions\CreateAction::make(),
         ];
-    }
-    protected function getRedirectUrl(): string
-    {
-        return $this->getResource()::getUrl('index');
     }
 }

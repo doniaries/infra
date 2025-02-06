@@ -195,7 +195,6 @@ class LaporResource extends Resource
             ])
             //mengurutkan inputan terakhir
             ->defaultSort('created_at', 'desc')
-
             ->filters([
                 // Tambahkan filter di sini jika diperlukan
 

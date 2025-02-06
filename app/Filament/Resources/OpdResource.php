@@ -2,43 +2,40 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\OpdResource\Pages;
+use App\Filament\Resources\OpdResource\RelationManagers;
 use App\Models\Opd;
 use Filament\Forms;
-use Filament\Tables;
 use Filament\Forms\Form;
-use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Illuminate\Support\Facades\Cache;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\OpdResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\OpdResource\RelationManagers;
-use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 
 class OpdResource extends Resource
 {
     protected static ?string $model = Opd::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
-    protected static ?string $navigationGroup = 'Setting';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
+                Forms\Components\TextInput::make('nama')
+                    ->label('Nama OPD')
                     ->unique(ignoreRecord: true)
+                    ->required()
                     ->live()
-                    ->extraInputAttributes(['style' => 'text-transform: uppercase']) // uppercase
-                    ->maxLength(100),
+                    ->extraInputAttributes(['style' => 'text-transform: uppercase'])
+                    ->maxLength(100)
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
                     ->label('Nama Instansi')
@@ -52,15 +49,18 @@ class OpdResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('created_at', 'asc')
             ->filters([
                 //
             ])
+            ->striped()
             ->actions([
                 Tables\Actions\EditAction::make()
-                    ->button(),
+                    ->button()
+                    ->slideOver(),
                 Tables\Actions\DeleteAction::make()
-                    ->button(),
+                    ->button()
+                    ->slideOver(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -82,20 +82,6 @@ class OpdResource extends Resource
             'index' => Pages\ListOpds::route('/'),
             // 'create' => Pages\CreateOpd::route('/create'),
             // 'edit' => Pages\EditOpd::route('/{record}/edit'),
-        ];
-    }
-
-
-    public static function getPermissionPrefixes(): array
-    {
-        return [
-            'view',
-            'view_any',
-            'create',
-            'update',
-            'delete',
-            'delete_any',
-            'publish'
         ];
     }
 }

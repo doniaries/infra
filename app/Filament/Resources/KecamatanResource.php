@@ -18,7 +18,13 @@ class KecamatanResource extends Resource
     protected static ?string $model = Kecamatan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Setting';
+
+    protected static ?int $navigationSort = 2;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Master Data';
+    }
 
     public static function form(Form $form): Form
     {
@@ -29,7 +35,7 @@ class KecamatanResource extends Resource
                     ->unique(ignoreRecord: true)
                     ->live()
                     ->extraInputAttributes(['style' => 'text-transform: uppercase'])
-                    ->maxLength(255),
+                    ->maxLength(100),
             ]);
     }
 
@@ -38,6 +44,7 @@ class KecamatanResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
+                    ->label('Nama Kecamatan')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -49,6 +56,7 @@ class KecamatanResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('created_at', 'desc')
+            ->striped()
             ->filters([
                 //
             ])
@@ -77,5 +85,15 @@ class KecamatanResource extends Resource
             // 'create' => Pages\CreateKecamatan::route('/create'),
             // 'edit' => Pages\EditKecamatan::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return 'danger';
     }
 }

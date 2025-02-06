@@ -18,7 +18,13 @@ class JorongResource extends Resource
     protected static ?string $model = Jorong::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Setting';
+
+    protected static ?int $navigationSort = 4;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Master Data';
+    }
 
     public static function form(Form $form): Form
     {
@@ -38,10 +44,13 @@ class JorongResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nagari.nama')
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('nama')
+                    ->label('Nama Jorong')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('nagari.nama')
+                    ->label('Nama Nagari')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -52,6 +61,7 @@ class JorongResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('created_at', 'desc')
+            ->striped()
             ->filters([
                 //
             ])
@@ -80,5 +90,16 @@ class JorongResource extends Resource
             // 'create' => Pages\CreateJorong::route('/create'),
             // 'edit' => Pages\EditJorong::route('/{record}/edit'),
         ];
+    }
+
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return 'success';
     }
 }

@@ -19,7 +19,12 @@ class NagariResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Setting';
+    protected static ?int $navigationSort = 3;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Master Data';
+    }
 
     public static function form(Form $form): Form
     {
@@ -46,9 +51,11 @@ class NagariResource extends Resource
             ->columns([
 
                 Tables\Columns\TextColumn::make('nama')
+                    ->label('Nama Nagari')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('kecamatan.nama')
+                    ->label('Nama Kecamatan')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -89,5 +96,15 @@ class NagariResource extends Resource
             // 'create' => Pages\CreateNagari::route('/create'),
             // 'edit' => Pages\EditNagari::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): string|array|null
+    {
+        return 'danger';
     }
 }

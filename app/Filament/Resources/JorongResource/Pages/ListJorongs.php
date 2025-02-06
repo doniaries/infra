@@ -13,6 +13,8 @@ class ListJorongs extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            \EightyNine\ExcelImport\ExcelImportAction::make()
+                ->color("success"),
             Actions\CreateAction::make(),
         ];
     }
