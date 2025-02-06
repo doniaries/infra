@@ -22,6 +22,8 @@ class Bts extends Model
         'pemilik',
     ];
 
+
+
     public function operator()
     {
         return $this->belongsTo(Operator::class, 'operator_id');

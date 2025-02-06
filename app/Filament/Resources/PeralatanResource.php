@@ -88,4 +88,9 @@ class PeralatanResource extends Resource
             // 'edit' => Pages\EditPeralatan::route('/{record}/edit'),
         ];
     }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 }

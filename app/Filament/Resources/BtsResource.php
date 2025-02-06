@@ -77,9 +77,6 @@ class BtsResource extends Resource
                                 ->required()
                                 ->maxLength(4),
 
-                            Forms\Components\TextInput::make('pemilik')
-                                ->required()
-                                ->maxLength(255),
 
 
                         ]),
@@ -88,20 +85,6 @@ class BtsResource extends Resource
                     Section::make('Lokasi BTS')
                         ->columnSpan(1)
                         ->schema([
-                            Actions::make([
-                                Action::make('Set Default Location')
-                                    ->icon('heroicon-m-map-pin')
-                                    ->action(function (Set $set, $state, $livewire): void {
-                                        $set('location', [
-                                            'lat' => '-0.663802906743856',
-                                            'lng' => '100.9366966185208'
-                                        ]);
-                                        $set('latitude', '-0.663802906743856');
-                                        $set('longitude', '100.9366966185208');
-                                        $livewire->dispatch('refreshMap');
-                                    })
-                            ])->verticalAlignment(VerticalAlignment::Start),
-
                             Map::make('location')
                                 ->label('Peta')
                                 ->columnSpanFull()
@@ -132,6 +115,19 @@ class BtsResource extends Resource
                                 ->showMyLocationButton()
                                 ->zoom(14)
                                 ->tilesUrl("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"),
+                            // Actions::make([
+                            //     Action::make('Set Default Location')
+                            //         ->icon('heroicon-m-map-pin')
+                            //         ->action(function (Set $set, $state, $livewire): void {
+                            //             $set('location', [
+                            //                 'lat' => '-0.663802906743856',
+                            //                 'lng' => '100.9366966185208'
+                            //             ]);
+                            //             $set('latitude', '-0.663802906743856');
+                            //             $set('longitude', '100.9366966185208');
+                            //             $livewire->dispatch('refreshMap');
+                            //         })
+                            // ])->verticalAlignment(VerticalAlignment::Start),
                             Forms\Components\Grid::make(2)
                                 ->schema([
                                     Forms\Components\TextInput::make('latitude')
