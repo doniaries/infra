@@ -47,13 +47,42 @@ class BtsResource extends Resource
                                 ->relationship('kecamatan', 'nama')
                                 ->preload()
                                 ->required()
-                                ->searchable(),
+                                ->searchable()
+                                ->live(),
 
                             Forms\Components\Select::make('nagari_id')
-                                ->relationship('nagari', 'nama')
+                                ->relationship(
+                                    'nagari',
+                                    'nama',
+                                    fn(Builder $query, callable $get) =>
+                                    $query->when(
+                                        $get('kecamatan_id'),
+                                        fn($query, $kecamatan_id) =>
+                                        $query->where('kecamatan_id', $kecamatan_id)
+                                    )
+                                )
                                 ->required()
                                 ->searchable()
-                                ->preload(),
+                                ->preload()
+                                ->live()
+                                ->visible(fn(callable $get) => filled($get('kecamatan_id')))
+                                ->afterStateUpdated(fn(callable $set) => $set('jorong_id', null)),
+
+                            Forms\Components\Select::make('jorong_id')
+                                ->relationship(
+                                    'jorong',
+                                    'nama',
+                                    fn(Builder $query, callable $get) =>
+                                    $query->when(
+                                        $get('nagari_id'),
+                                        fn($query, $nagari_id) =>
+                                        $query->where('nagari_id', $nagari_id)
+                                    )
+                                )
+                                ->required()
+                                ->searchable()
+                                ->preload()
+                                ->visible(fn(callable $get) => filled($get('nagari_id'))),
 
 
                             Forms\Components\TextInput::make('lokasi')
@@ -89,7 +118,6 @@ class BtsResource extends Resource
                                 ->required(),
 
                             Forms\Components\TextInput::make('tahun_bangun')
-                                ->required()
                                 ->maxLength(4),
 
 
@@ -127,7 +155,7 @@ class BtsResource extends Resource
                                     'min-height: 50vh',
                                     'border-radius: 10px'
                                 ])
-                                ->liveLocation(true, true, 5000) //agar peta bisa ambil koordinat
+                                ->liveLocation(true, false, 100000) //agar peta bisa ambil koordinat
                                 ->showMarker(true)
                                 ->markerColor("#22c55eff")
                                 ->markerHtml('<div class="custom-marker">...</div>')
@@ -255,7 +283,6 @@ class BtsResource extends Resource
                         'non-aktif' => 'danger',
                     }),
                 Tables\Columns\TextColumn::make('tahun_bangun'),
-                Tables\Columns\TextColumn::make('pemilik'),
             ])
             ->filters([
                 //

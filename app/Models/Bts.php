@@ -12,8 +12,9 @@ class Bts extends Model
 
     protected $fillable = [
         'operator_id',
-        'nagari_id',
         'kecamatan_id',
+        'nagari_id',
+        'jorong_id',
         'lokasi',
         'latitude',
         'longitude',
@@ -41,7 +42,7 @@ class Bts extends Model
 
     public function jorong()
     {
-        return $this->belongsTo(Jorong::class);
+        return $this->belongsTo(Jorong::class, 'jorong_id');
     }
 
     // Accessor untuk location

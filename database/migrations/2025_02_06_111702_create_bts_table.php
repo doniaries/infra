@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('bts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('operator_id')->constrained('operators')->cascadeOnDelete();
-            $table->foreignId('nagari_id')->constrained('nagaris')->cascadeOnDelete();
             $table->foreignId('kecamatan_id')->constrained('kecamatans')->cascadeOnDelete();
+            $table->foreignId('nagari_id')->constrained('nagaris')->cascadeOnDelete();
+            $table->foreignId('jorong_id')->constrained('jorongs')->cascadeOnDelete();
             $table->string('lokasi');
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
@@ -23,6 +24,11 @@ return new class extends Migration
             $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
             $table->string('tahun_bangun');
             $table->timestamps();
+
+            $table->index('operator_id');
+            $table->index('kecamatan_id');
+            $table->index('nagari_id');
+            $table->index('jorong_id');
         });
     }
 
