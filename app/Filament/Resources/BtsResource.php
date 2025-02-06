@@ -8,14 +8,15 @@ use Filament\Tables;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Forms\Components\Button;
 use Filament\Resources\Resource;
 use Dotswan\MapPicker\Fields\Map;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Actions;
-use Filament\Forms\Components\Actions\Action;
-use Filament\Support\Enums\VerticalAlignment;
+use Filament\Forms\Components\Section;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\BtsResource\Pages;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Support\Enums\VerticalAlignment;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\BtsResource\RelationManagers;
 
@@ -37,14 +38,14 @@ class BtsResource extends Resource
                         ->schema([
                             Forms\Components\Select::make('operator_id')
                                 ->relationship('operator', 'nama_operator')
-                                ->required()
-                                ->searchable(),
+                                ->preload()
+                                ->required(),
 
                             Forms\Components\Select::make('kecamatan_id')
                                 ->relationship('kecamatan', 'nama')
+                                ->preload()
                                 ->required()
-                                ->searchable()
-                                ->preload(),
+                                ->searchable(),
 
                             Forms\Components\Select::make('nagari_id')
                                 ->relationship('nagari', 'nama')
@@ -56,6 +57,14 @@ class BtsResource extends Resource
                                 ->label('Alamat Lengkap')
                                 ->required(),
 
+
+                            Actions::make([
+                                Action::make('openMap')
+                                    ->label('Buka di Google Maps')
+                                    ->icon('heroicon-m-map')
+                                    ->url(fn($get) => "https://www.google.com/maps?q=" . $get('latitude') . ',' . $get('longitude'))
+                                    ->openUrlInNewTab()
+                            ])->columnSpanFull(),
                             Forms\Components\Select::make('teknologi')
                                 ->options([
                                     '2G' => '2G',
@@ -90,13 +99,13 @@ class BtsResource extends Resource
                                 ->columnSpanFull()
                                 ->defaultLocation(-0.663802906743856, 100.9366966185208)
                                 ->afterStateUpdated(function (Set $set, ?array $state): void {
-                                    if (isset($state['lat']) && isset($state['lng'])) {
-                                        $set('latitude', (string)$state['lat']);
-                                        $set('longitude', (string)$state['lng']);
+                                    if ($state) {
+                                        $set('latitude', $state['lat']);
+                                        $set('longitude', $state['lng']);
                                     }
                                 })
-                                ->afterStateHydrated(function ($component, $state, $record): void {
-                                    if ($record) {
+                                ->afterStateHydrated(function (Map $component, $state, $record): void {
+                                    if ($record && $record->latitude && $record->longitude) {
                                         $component->state([
                                             'lat' => (float)$record->latitude,
                                             'lng' => (float)$record->longitude,
@@ -104,45 +113,71 @@ class BtsResource extends Resource
                                     }
                                 })
                                 ->extraStyles([
-                                    'min-height: 600px',
-                                    'border-radius: 8px'
+                                    'min-height: 150vh',
+                                    'border-radius: 10px'
                                 ])
-                                ->showMarker()
-                                ->draggable(true)
-                                ->clickable(true)
-                                ->showZoomControl()
+                                ->liveLocation(true, true, 5000)
+                                ->showMarker(true)
+                                ->markerColor("#22c55eff")
+                                ->markerHtml('<div class="custom-marker">...</div>')
+                                ->markerIconUrl('/images/marker.png')
+                                ->markerIconSize([32, 32])
+                                ->markerIconClassName('my-marker-class')
+                                ->markerIconAnchor([16, 32])
                                 ->showFullscreenControl()
-                                ->showMyLocationButton()
+                                ->showZoomControl()
+                                ->draggable()
+                                ->tilesUrl("https://tile.openstreetmap.de/{z}/{x}/{y}.png")
                                 ->zoom(14)
-                                ->tilesUrl("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"),
-                            // Actions::make([
-                            //     Action::make('Set Default Location')
-                            //         ->icon('heroicon-m-map-pin')
-                            //         ->action(function (Set $set, $state, $livewire): void {
-                            //             $set('location', [
-                            //                 'lat' => '-0.663802906743856',
-                            //                 'lng' => '100.9366966185208'
-                            //             ]);
-                            //             $set('latitude', '-0.663802906743856');
-                            //             $set('longitude', '100.9366966185208');
-                            //             $livewire->dispatch('refreshMap');
-                            //         })
-                            // ])->verticalAlignment(VerticalAlignment::Start),
-                            Forms\Components\Grid::make(2)
-                                ->schema([
-                                    Forms\Components\TextInput::make('latitude')
-                                        ->label('Latitude')
-                                        ->required()
-                                        ->numeric()
-                                        ->readOnly()
-                                        ->dehydrated(true),
-                                    Forms\Components\TextInput::make('longitude')
-                                        ->label('Longitude')
-                                        ->required()
-                                        ->numeric()
-                                        ->readOnly()
-                                        ->dehydrated(true),
-                                ]),
+                                ->detectRetina()
+                                ->showMyLocationButton()
+                                ->geoMan(false)
+                                ->geoManEditable(false)
+                                ->geoManPosition('topleft')
+                                ->drawCircleMarker()
+                                ->rotateMode()
+                                ->clickable(true) //click to move marker
+                                ->drawMarker()
+                                ->drawPolygon()
+                                ->drawPolyline()
+                                ->drawCircle()
+                                ->dragMode(true)
+                                ->cutPolygon()
+                                ->editPolygon()
+                                ->deleteLayer()
+                                ->setColor('#3388ff')
+                                ->setFilledColor('#cad9ec'),
+
+                            Forms\Components\TextInput::make('latitude')
+                                ->label('Latitude')
+                                ->required()
+                                ->numeric()
+                                ->live(onBlur: true) // Ubah ke onBlur
+                                ->reactive() // Tambahkan ini
+                                ->afterStateUpdated(function ($state, Set $set, $get) {
+                                    if ($state && $get('longitude')) {
+                                        $set('location', [
+                                            'lat' => floatval($state),
+                                            'lng' => floatval($get('longitude'))
+                                        ]);
+                                    }
+                                }),
+
+                            Forms\Components\TextInput::make('longitude')
+                                ->label('Longitude')
+                                ->required()
+                                ->numeric()
+                                ->live(onBlur: true) // Ubah ke onBlur
+                                ->reactive() // Tambahkan ini
+                                ->afterStateUpdated(function ($state, Set $set, $get) {
+                                    if ($state && $get('latitude')) {
+                                        $set('location', [
+                                            'lat' => floatval($get('latitude')),
+                                            'lng' => floatval($state)
+                                        ]);
+                                    }
+                                }),
+
                         ]),
                 ])
         ]);
