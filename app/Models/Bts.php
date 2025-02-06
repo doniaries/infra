@@ -24,7 +24,6 @@ class Bts extends Model
     ];
 
 
-
     public function operator()
     {
         return $this->belongsTo(Operator::class, 'operator_id');
@@ -55,5 +54,16 @@ class Bts extends Model
             ];
         }
         return null;
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (!$model->lokasi && $model->latitude && $model->longitude) {
+                $model->lokasi = $model->latitude . ', ' . $model->longitude;
+            }
+        });
     }
 }

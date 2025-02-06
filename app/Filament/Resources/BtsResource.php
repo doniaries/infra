@@ -56,7 +56,6 @@ class BtsResource extends Resource
                                 ->preload(),
 
 
-
                             Forms\Components\TextInput::make('lokasi')
                                 ->label('Titik Koordinat')
                                 ->disabled()
@@ -230,12 +229,15 @@ class BtsResource extends Resource
                 Tables\Columns\TextColumn::make('nagari.nama')
                     ->sortable()
                     ->searchable(),
-                // Tables\Columns\TextColumn::make('lokasi')
+                Tables\Columns\TextColumn::make('lokasi')
+                    ->copyable()
+                    ->label('Titik Koordinat')
+                    ->sortable()
+                    ->searchable(),
+                // Tables\Columns\TextColumn::make('location.lat')
                 //     ->searchable(),
-                Tables\Columns\TextColumn::make('location.lat')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('location.lng')
-                    ->searchable(),
+                // Tables\Columns\TextColumn::make('location.lng')
+                //     ->searchable(),
 
                 Tables\Columns\TextColumn::make('teknologi')
                     ->badge()
