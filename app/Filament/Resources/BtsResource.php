@@ -2,23 +2,24 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\BtsResource\Pages;
+use App\Filament\Resources\BtsResource\RelationManagers;
 use App\Models\Bts;
+use Dotswan\MapPicker\Fields\Map;
 use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Set;
+use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
+use Filament\Resources\Resource;
+use Filament\Support\Enums\VerticalAlignment;
+use Filament\Tables;
 use Filament\Tables\Table;
 use Forms\Components\Button;
-use Filament\Resources\Resource;
-use Dotswan\MapPicker\Fields\Map;
-use Filament\Forms\Components\Actions;
-use Filament\Forms\Components\Section;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\BtsResource\Pages;
-use Filament\Forms\Components\Actions\Action;
-use Filament\Support\Enums\VerticalAlignment;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\BtsResource\RelationManagers;
+use Illuminate\Support\HtmlString;
 
 class BtsResource extends Resource
 {
@@ -96,8 +97,9 @@ class BtsResource extends Resource
                         ->schema([
                             Map::make('location')
                                 ->label('Peta')
+                                ->helperText(new HtmlString(' <strong> Klik lokasi pada peta.</strong>'))
                                 ->columnSpanFull()
-                                ->defaultLocation(-0.663802906743856, 100.9366966185208)
+                                ->defaultLocation(-0.6659520479353943, 100.9443495032019)
                                 ->afterStateUpdated(function (Set $set, ?array $state): void {
                                     if ($state) {
                                         $set('latitude', $state['lat']);
@@ -113,10 +115,10 @@ class BtsResource extends Resource
                                     }
                                 })
                                 ->extraStyles([
-                                    'min-height: 150vh',
+                                    'min-height: 50vh',
                                     'border-radius: 10px'
                                 ])
-                                ->liveLocation(true, true, 5000)
+                                ->liveLocation(true, true, 5000) //agar peta bisa ambil koordinat
                                 ->showMarker(true)
                                 ->markerColor("#22c55eff")
                                 ->markerHtml('<div class="custom-marker">...</div>')
@@ -126,11 +128,11 @@ class BtsResource extends Resource
                                 ->markerIconAnchor([16, 32])
                                 ->showFullscreenControl()
                                 ->showZoomControl()
-                                ->draggable()
+                                ->draggable(true)
                                 ->tilesUrl("https://tile.openstreetmap.de/{z}/{x}/{y}.png")
                                 ->zoom(14)
                                 ->detectRetina()
-                                ->showMyLocationButton()
+                                ->showMyLocationButton(true)
                                 ->geoMan(false)
                                 ->geoManEditable(false)
                                 ->geoManPosition('topleft')
