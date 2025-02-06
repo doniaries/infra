@@ -28,6 +28,7 @@ class JorongResource extends Resource
                     ->required()
                     ->relationship('nagari', 'nama'),
                 Forms\Components\TextInput::make('nama')
+                    ->label('Nama Jorong')
                     ->required()
                     ->maxLength(255),
             ]);

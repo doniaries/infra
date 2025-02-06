@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\OpdResource\Pages;
-use App\Filament\Resources\OpdResource\RelationManagers;
-use App\Models\Opd;
+use App\Filament\Resources\OperatorResource\Pages;
+use App\Filament\Resources\OperatorResource\RelationManagers;
+use App\Models\Operator;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,25 +12,20 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 
-class OpdResource extends Resource
+class OperatorResource extends Resource
 {
-    protected static ?string $model = Opd::class;
+    protected static ?string $model = Operator::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
-    protected static ?string $navigationGroup = 'Setting';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('nama_operator')
                     ->required()
-                    ->unique(ignoreRecord: true)
-                    ->live()
-                    ->extraInputAttributes(['style' => 'text-transform: uppercase']) // uppercase
-                    ->maxLength(100),
+                    ->maxLength(255),
             ]);
     }
 
@@ -38,7 +33,7 @@ class OpdResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('nama_operator')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -49,13 +44,11 @@ class OpdResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -74,23 +67,14 @@ class OpdResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListOpds::route('/'),
-            // 'create' => Pages\CreateOpd::route('/create'),
-            // 'edit' => Pages\EditOpd::route('/{record}/edit'),
+            'index' => Pages\ListOperators::route('/'),
+            'create' => Pages\CreateOperator::route('/create'),
+            'edit' => Pages\EditOperator::route('/{record}/edit'),
         ];
     }
 
-
-    public static function getPermissionPrefixes(): array
+    public static function getNavigationBadge(): ?string
     {
-        return [
-            'view',
-            'view_any',
-            'create',
-            'update',
-            'delete',
-            'delete_any',
-            'publish'
-        ];
+        return static::getModel()::count();
     }
 }

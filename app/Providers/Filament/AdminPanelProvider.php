@@ -52,11 +52,13 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('30s')
             ->authMiddleware([
                 Authenticate::class,
 
             ])->plugins([
-                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
+                // \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
             ]);
     }
 }

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Filament\Resources\LaporResource;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Filament\Notifications\Notification;
 
 class Lapor extends Model
 {
@@ -42,4 +43,8 @@ class Lapor extends Model
     {
         return Storage::url($this->file_laporan);
     }
+
+    protected $dispatchesEvents = [
+        'created' => \App\Events\LaporCreated::class,
+    ];
 }

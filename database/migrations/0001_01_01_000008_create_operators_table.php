@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('operators', function (Blueprint $table) {
             $table->id();
             $table->string('nama_operator');
-            $table->string('pemilik');
             $table->timestamps();
         });
     }

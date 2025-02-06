@@ -20,6 +20,8 @@ use Forms\Components\BadgeColumn;
 use Illuminate\Support\HtmlString;
 use Filament\Tables\Columns\Column;
 use Filament\Forms\Components\Section;
+use Filament\Notifications\Notification;
+use Filament\Notifications\Actions\Action;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\LaporResource\Pages;
@@ -31,7 +33,7 @@ use App\Filament\Resources\LaporResource\RelationManagers;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 
 
-class LaporResource extends Resource  implements HasShieldPermissions
+class LaporResource extends Resource
 {
     protected static ?string $model = Lapor::class;
 
@@ -204,23 +206,21 @@ class LaporResource extends Resource  implements HasShieldPermissions
                     ->slideOver()
                     ->icon('heroicon-s-pencil')
                     ->tooltip('Edit Laporan')
-                    ->mutateRecordDataUsing(function (array $data): array {
-                        // Otomatis update status menjadi sedang diproses
-                        $data['status_laporan'] = 'Sedang Diproses';
-                        return $data;
-                    })
-                    ->using(function ($record, array $data) {
-                        // Pastikan hanya field yang diizinkan yang diupdate
-                        $record->update([
-                            'status_laporan' => $data['status_laporan'],
-                            'keterangan_petugas' => $data['keterangan_petugas']
-                        ]);
-                        return $record;
-                    })
-                    ->disabledForm(fn($record) => $record->status_laporan === 'Selesai Diproses')
-                    ->color('success'),
-
+                    ->successNotification(
+                        Notification::make()
+                            ->success()
+                            ->title('Status laporan diperbarui')
+                            ->body(fn($record) => "Status laporan {$record->no_tiket} telah diubah")
+                            ->actions([
+                                Action::make('view')
+                                    ->button()
+                                    ->url(fn($record) => route('filament.resources.lapors.edit', ['record' => $record]))
+                            ])
+                            ->persistent()
+                            ->sendToDatabase(auth()->user())
+                    )
             ])
+
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
@@ -257,5 +257,10 @@ class LaporResource extends Resource  implements HasShieldPermissions
     {
         // Logika untuk membuat laporan
         return view('lapor.index');
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

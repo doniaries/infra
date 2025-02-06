@@ -2,17 +2,19 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Broadcasting
-    |--------------------------------------------------------------------------
-    |
-    | By uncommenting the Laravel Echo configuration, you may connect Filament
-    | to any Pusher-compatible websockets server.
-    |
-    | This will allow your users to receive real-time notifications.
-    |
-    */
+    'database_notifications' => [
+        'enabled' => true,
+        'polling_interval' => '30s',
+
+    ],
+
+    'middleware' => [
+        'base' => [
+            \Filament\Http\Middleware\DispatchServingFilamentEvent::class,
+            \Filament\Notifications\Http\Middleware\ProcessNotifications::class,
+        ],
+    ],
+
 
     'broadcasting' => [
 

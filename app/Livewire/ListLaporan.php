@@ -2,26 +2,26 @@
 
 namespace App\Livewire;
 
-use App\Models\Opd;
-use Filament\Forms;
-use Filament\Tables;
 use App\Models\Lapor;
-use Livewire\Component;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
+use App\Models\Opd;
 use App\Services\LaporForm;
-use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
-use Forms\Components\TextInput;
-use Filament\Forms\Components\Select;
+use Filament\Forms;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
+use Filament\Notifications\Notification;
+use Filament\Notifications\Actions\Action;
 use Filament\Support\Enums\FontFamily;
 use Filament\Support\Enums\FontWeight;
-use Filament\Tables\Contracts\HasTable;
-use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Tables;
 use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Table;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
+use Livewire\Component;
 
 class ListLaporan extends Component implements HasTable, HasForms
 {
@@ -77,14 +77,24 @@ class ListLaporan extends Component implements HasTable, HasForms
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
+
             ])
             ->defaultSort('created_at', 'desc')
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    // ->slideOver()
                     ->label('Buat Laporan Baru')
                     ->model(Lapor::class)
                     ->form(LaporForm::schema())
+                    ->successNotification(
+                        Notification::make()
+                            ->success()
+                            ->title('Laporan berhasil dibuat')
+                            ->body('Laporan baru telah diterima ke sistem')
+                            ->persistent()
+                            ->sendToDatabase()
+                    )
+
             ])
             ->emptyStateHeading('Belum Ada Laporan')
             ->emptyStateIcon('heroicon-m-chat-bubble-left-right');

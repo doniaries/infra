@@ -11,18 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('towers', function (Blueprint $table) {
+        Schema::create('bts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('operator_id')->constrained('operators')->cascadeOnDelete();
             $table->foreignId('nagari_id')->constrained('nagaris')->cascadeOnDelete();
             $table->foreignId('kecamatan_id')->constrained('kecamatans')->cascadeOnDelete();
-            $table->decimal('latitude');
-            $table->decimal('longitude');
+            $table->string('lokasi');
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table->enum('teknologi', ['2G', '3G', '4G', '4G+5G', '5G'])->default('4G');
             $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
-            $table->string('alamat');
             $table->string('tahun_bangun');
-            $table->string('pemilik');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('towers');
+        Schema::dropIfExists('bts');
     }
 };
