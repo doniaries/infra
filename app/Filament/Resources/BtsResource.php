@@ -2,24 +2,25 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BtsResource\Pages;
-use App\Filament\Resources\BtsResource\RelationManagers;
 use App\Models\Bts;
-use Dotswan\MapPicker\Fields\Map;
 use Filament\Forms;
-use Filament\Forms\Components\Actions;
-use Filament\Forms\Components\Actions\Action;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Form;
-use Filament\Forms\Set;
-use Filament\Resources\Resource;
-use Filament\Support\Enums\VerticalAlignment;
 use Filament\Tables;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Forms\Components\Button;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\Resource;
+use Dotswan\MapPicker\Fields\Map;
 use Illuminate\Support\HtmlString;
+use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Section;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\BtsResource\Pages;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Support\Enums\VerticalAlignment;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\BtsResource\RelationManagers;
 
 class BtsResource extends Resource
 {
@@ -53,11 +54,48 @@ class BtsResource extends Resource
                                 ->required()
                                 ->searchable()
                                 ->preload(),
+                            Forms\Components\TextInput::make('latitude')
+                                ->label('Latitude')
+                                ->required()
+                                ->numeric()
+                                ->live()
+                                ->afterStateUpdated(function ($state, Set $set, $get) {
+                                    if ($state) {
+                                        $longitude = $get('longitude');
+                                        if ($longitude) {
+                                            $set('location', [
+                                                'lat' => floatval($state),
+                                                'lng' => floatval($longitude)
+                                            ]);
+                                            $set('lokasi', $state . ', ' . $longitude);
+                                        }
+                                    }
+                                }),
+
+
+                            Forms\Components\TextInput::make('longitude')
+                                ->label('Longitude')
+                                ->required()
+                                ->numeric()
+                                ->live()
+                                ->afterStateUpdated(function ($state, Set $set, $get) {
+                                    if ($state) {
+                                        $latitude = $get('latitude');
+                                        if ($latitude) {
+                                            $set('location', [
+                                                'lat' => floatval($latitude),
+                                                'lng' => floatval($state)
+                                            ]);
+                                            $set('lokasi', $latitude . ', ' . $state);
+                                        }
+                                    }
+                                }),
+
 
                             Forms\Components\TextInput::make('lokasi')
-                                ->label('Alamat Lengkap')
+                                ->label('Titik Koordinat')
+                                ->disabled()
                                 ->required(),
-
 
                             Actions::make([
                                 Action::make('openMap')
@@ -74,6 +112,8 @@ class BtsResource extends Resource
                                     '4G+5G' => '4G+5G',
                                     '5G' => '5G',
                                 ])
+
+                                ->default('4G')
                                 ->required(),
 
                             Forms\Components\Select::make('status')
@@ -81,6 +121,7 @@ class BtsResource extends Resource
                                     'aktif' => 'Aktif',
                                     'non-aktif' => 'Non-Aktif'
                                 ])
+                                ->default('aktif')
                                 ->required(),
 
                             Forms\Components\TextInput::make('tahun_bangun')
@@ -104,6 +145,7 @@ class BtsResource extends Resource
                                     if ($state) {
                                         $set('latitude', $state['lat']);
                                         $set('longitude', $state['lng']);
+                                        $set('lokasi', $state['lat'] . ', ' . $state['lng']);
                                     }
                                 })
                                 ->afterStateHydrated(function (Map $component, $state, $record): void {
@@ -162,6 +204,8 @@ class BtsResource extends Resource
                                             'lat' => floatval($state),
                                             'lng' => floatval($get('longitude'))
                                         ]);
+                                        // Menggabungkan lat dan long ke field lokasi
+                                        $set('lokasi', $state . ', ' . $get('longitude'));
                                     }
                                 }),
 
@@ -177,6 +221,8 @@ class BtsResource extends Resource
                                             'lat' => floatval($get('latitude')),
                                             'lng' => floatval($state)
                                         ]);
+                                        // Menggabungkan lat dan long ke field lokasi
+                                        $set('lokasi', $get('latitude') . ', ' . $state);
                                     }
                                 }),
 
@@ -190,6 +236,13 @@ class BtsResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('operator.nama_operator')
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'TELKOMSEL' => 'danger',
+
+                        'INDOSAT' => 'warning',
+                        'XL AXIATA' => 'primary',
+                    })
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('kecamatan.nama')
@@ -198,10 +251,22 @@ class BtsResource extends Resource
                 Tables\Columns\TextColumn::make('nagari.nama')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('lokasi')
+                // Tables\Columns\TextColumn::make('lokasi')
+                //     ->searchable(),
+                Tables\Columns\TextColumn::make('location.lat')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('location.lng')
+                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('teknologi')
-                    ->badge(),
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        '2G' => 'danger',
+                        '3G' => 'primary',
+                        '4G' => 'secondary',
+                        '4G+5G' => 'info',
+                        '5G' => 'success',
+                    }),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
@@ -237,8 +302,8 @@ class BtsResource extends Resource
     {
         return [
             'index' => Pages\ListBts::route('/'),
-            'create' => Pages\CreateBts::route('/create'),
-            'edit' => Pages\EditBts::route('/{record}/edit'),
+            // 'create' => Pages\CreateBts::route('/create'),
+            // 'edit' => Pages\EditBts::route('/{record}/edit'),
         ];
     }
 

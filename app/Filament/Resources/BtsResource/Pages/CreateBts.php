@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateBts extends CreateRecord
 {
     protected static string $resource = BtsResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }
