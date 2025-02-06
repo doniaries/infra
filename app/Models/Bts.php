@@ -45,17 +45,15 @@ class Bts extends Model
         return $this->belongsTo(Jorong::class);
     }
 
-    protected function location(): Attribute
+    // Accessor untuk location
+    public function getLocationAttribute(): ?array
     {
-        return Attribute::make(
-            get: fn() => [
-                'lat' => $this->latitude,
-                'lng' => $this->longitude,
-            ],
-            set: fn($value) => [
-                'latitude' => $value['lat'] ?? null,
-                'longitude' => $value['lng'] ?? null,
-            ],
-        );
+        if ($this->latitude && $this->longitude) {
+            return [
+                'lat' => (float) $this->latitude,
+                'lng' => (float) $this->longitude,
+            ];
+        }
+        return null;
     }
 }

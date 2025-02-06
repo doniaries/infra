@@ -54,42 +54,7 @@ class BtsResource extends Resource
                                 ->required()
                                 ->searchable()
                                 ->preload(),
-                            Forms\Components\TextInput::make('latitude')
-                                ->label('Latitude')
-                                ->required()
-                                ->numeric()
-                                ->live()
-                                ->afterStateUpdated(function ($state, Set $set, $get) {
-                                    if ($state) {
-                                        $longitude = $get('longitude');
-                                        if ($longitude) {
-                                            $set('location', [
-                                                'lat' => floatval($state),
-                                                'lng' => floatval($longitude)
-                                            ]);
-                                            $set('lokasi', $state . ', ' . $longitude);
-                                        }
-                                    }
-                                }),
 
-
-                            Forms\Components\TextInput::make('longitude')
-                                ->label('Longitude')
-                                ->required()
-                                ->numeric()
-                                ->live()
-                                ->afterStateUpdated(function ($state, Set $set, $get) {
-                                    if ($state) {
-                                        $latitude = $get('latitude');
-                                        if ($latitude) {
-                                            $set('location', [
-                                                'lat' => floatval($latitude),
-                                                'lng' => floatval($state)
-                                            ]);
-                                            $set('lokasi', $latitude . ', ' . $state);
-                                        }
-                                    }
-                                }),
 
 
                             Forms\Components\TextInput::make('lokasi')
@@ -143,9 +108,12 @@ class BtsResource extends Resource
                                 ->defaultLocation(-0.6659520479353943, 100.9443495032019)
                                 ->afterStateUpdated(function (Set $set, ?array $state): void {
                                     if ($state) {
-                                        $set('latitude', $state['lat']);
-                                        $set('longitude', $state['lng']);
-                                        $set('lokasi', $state['lat'] . ', ' . $state['lng']);
+                                        $lat = number_format($state['lat'], 6, '.', '');
+                                        $lng = number_format($state['lng'], 6, '.', '');
+
+                                        $set('latitude', $lat);
+                                        $set('longitude', $lng);
+                                        $set('lokasi', $lat . ', ' . $lng);
                                     }
                                 })
                                 ->afterStateHydrated(function (Map $component, $state, $record): void {
@@ -196,33 +164,44 @@ class BtsResource extends Resource
                                 ->label('Latitude')
                                 ->required()
                                 ->numeric()
-                                ->live(onBlur: true) // Ubah ke onBlur
-                                ->reactive() // Tambahkan ini
+                                ->live()
                                 ->afterStateUpdated(function ($state, Set $set, $get) {
-                                    if ($state && $get('longitude')) {
-                                        $set('location', [
-                                            'lat' => floatval($state),
-                                            'lng' => floatval($get('longitude'))
-                                        ]);
-                                        // Menggabungkan lat dan long ke field lokasi
-                                        $set('lokasi', $state . ', ' . $get('longitude'));
+                                    if ($state) {
+                                        $longitude = $get('longitude');
+                                        if ($longitude) {
+                                            // Format angka dengan 6 digit desimal
+                                            $lat = number_format(floatval($state), 6, '.', '');
+                                            $lng = number_format(floatval($longitude), 6, '.', '');
+
+                                            $set('location', [
+                                                'lat' => floatval($lat),
+                                                'lng' => floatval($lng)
+                                            ]);
+                                            $set('lokasi', $lat . ', ' . $lng);
+                                        }
                                     }
                                 }),
+
 
                             Forms\Components\TextInput::make('longitude')
                                 ->label('Longitude')
                                 ->required()
                                 ->numeric()
-                                ->live(onBlur: true) // Ubah ke onBlur
-                                ->reactive() // Tambahkan ini
+                                ->live()
                                 ->afterStateUpdated(function ($state, Set $set, $get) {
-                                    if ($state && $get('latitude')) {
-                                        $set('location', [
-                                            'lat' => floatval($get('latitude')),
-                                            'lng' => floatval($state)
-                                        ]);
-                                        // Menggabungkan lat dan long ke field lokasi
-                                        $set('lokasi', $get('latitude') . ', ' . $state);
+                                    if ($state) {
+                                        $latitude = $get('latitude');
+                                        if ($latitude) {
+                                            // Format angka dengan 6 digit desimal
+                                            $lat = number_format(floatval($latitude), 6, '.', '');
+                                            $lng = number_format(floatval($state), 6, '.', '');
+
+                                            $set('location', [
+                                                'lat' => floatval($lat),
+                                                'lng' => floatval($lng)
+                                            ]);
+                                            $set('lokasi', $lat . ', ' . $lng);
+                                        }
                                     }
                                 }),
 
