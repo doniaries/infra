@@ -13,7 +13,7 @@ class Opd extends Model
     protected $table = "opds";
 
     protected $fillable = [
-        'name',
+        'nama',
     ];
 
 

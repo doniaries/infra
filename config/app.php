@@ -5,6 +5,7 @@ return [
 
     'provider' => [
         Barryvdh\Debugbar\ServiceProvider::class,
+        Dotswan\MapPicker\MapPickerServiceProvider::class,
 
     ],
 
