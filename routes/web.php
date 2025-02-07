@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
-Route::get('/laporform', PublicLaporForm::class)->name('public.laporform');
+Route::get('/lapor', PublicLaporForm::class)->name('public.laporform');
 
 // Tangkap semua route yang tidak ditemukan
 Route::fallback(function () {
@@ -19,3 +19,6 @@ Route::fallback(function () {
 Route::get('/login', function () {
     return redirect('/admin/login');
 })->name('login');
+
+
+Route::get('/list-laporan', ListLaporan::class)->name('list.laporan');
