@@ -1,19 +1,15 @@
 <?php
 
+use App\Livewire\PublicLaporForm;
 use App\Livewire\ListLaporan;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/', Listlaporan::class);
-
-Route::get('/laporform.php', ListLaporan::class);
-
-// Route::get('/', function () {
-//     return redirect('/admin/login');
-// });
+Route::get('/laporform', PublicLaporForm::class)->name('public.laporform');
 
 // Tangkap semua route yang tidak ditemukan
 Route::fallback(function () {

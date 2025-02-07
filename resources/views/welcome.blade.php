@@ -36,7 +36,7 @@
     </style>
     <!-- navigation -->
     <header class="navigation bg-tertiary">
-        <nav class="navbar navbar-expand-xl navbar-light text-center py-3">
+        <nav class="py-3 text-center navbar navbar-expand-xl navbar-light">
             <div class="container">
                 <a class="navbar-brand" href="{{ asset('/') }}">
                     <img loading="prelaod" decoding="async" class="img-fluid" width="160"
@@ -47,13 +47,12 @@
                     aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                    <ul class="m-auto mb-2 navbar-nav mb-lg-0">
                         <li class="nav-item"> <a class="nav-link" href="{{ asset('/') }}">Home</a></li>
-                        <li class="nav-item "> <a class="nav-link" href="about.html">About Us</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="about.html">About Us</a></li>
 
                     </ul>
-                    <a href="laporform.php" wire:click.prevent="redirectToLaporForm"
-                        class="btn btn-outline-primary">Buat Laporan</a>
+                    <a href="{{ route('public.laporform') }}" class="btn btn-outline-primary">Buat Laporan</a>
                 </div>
             </div>
         </nav>
@@ -71,37 +70,37 @@
                 <div class="modal-body">
                     <form action="#!" method="post">
                         <div class="row">
-                            <div class="col-lg-6 mb-4 pb-2">
+                            <div class="pb-2 mb-4 col-lg-6">
                                 <div class="form-group">
                                     <label for="loan_amount" class="form-label">Amount</label>
-                                    <input type="number" class="form-control shadow-none" id="loan_amount"
+                                    <input type="number" class="shadow-none form-control" id="loan_amount"
                                         placeholder="ex: 25000">
                                 </div>
                             </div>
-                            <div class="col-lg-6 mb-4 pb-2">
+                            <div class="pb-2 mb-4 col-lg-6">
                                 <div class="form-group">
                                     <label for="loan_how_long_for" class="form-label">How long for?</label>
-                                    <input type="number" class="form-control shadow-none" id="loan_how_long_for"
+                                    <input type="number" class="shadow-none form-control" id="loan_how_long_for"
                                         placeholder="ex: 12">
                                 </div>
                             </div>
-                            <div class="col-lg-12 mb-4 pb-2">
+                            <div class="pb-2 mb-4 col-lg-12">
                                 <div class="form-group">
                                     <label for="loan_repayment" class="form-label">Repayment</label>
-                                    <input type="number" class="form-control shadow-none" id="loan_repayment"
+                                    <input type="number" class="shadow-none form-control" id="loan_repayment"
                                         disabled>
                                 </div>
                             </div>
-                            <div class="col-lg-6 mb-4 pb-2">
+                            <div class="pb-2 mb-4 col-lg-6">
                                 <div class="form-group">
                                     <label for="loan_full_name" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control shadow-none" id="loan_full_name">
+                                    <input type="text" class="shadow-none form-control" id="loan_full_name">
                                 </div>
                             </div>
-                            <div class="col-lg-6 mb-4 pb-2">
+                            <div class="pb-2 mb-4 col-lg-6">
                                 <div class="form-group">
                                     <label for="loan_email_address" class="form-label">Email address</label>
-                                    <input type="email" class="form-control shadow-none" id="loan_email_address">
+                                    <input type="email" class="shadow-none form-control" id="loan_email_address">
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -114,19 +113,18 @@
         </div>
     </div>
 
-    <section class="banner bg-tertiary position-relative overflow-hidden">
+    <section class="overflow-hidden banner bg-tertiary position-relative">
         <div class="container">
             <div class="row align-items-center justify-content-center">
-                <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="mb-5 col-lg-6 mb-lg-0">
                     <div class="block text-center text-lg-start pe-0 pe-xl-5">
-                        <h2 class="text-capitalize mb-4">Ada Gangguan Jaringan Atau Ada Konsultasi Teknis!</h2>
+                        <h2 class="mb-4 text-capitalize">Ada Gangguan Jaringan Atau Ada Konsultasi Teknis!</h2>
                         <h3 class="mb-5">Sampaikan kepada kami</h3>
-                        <a href="laporform.php" wire:click.prevent="redirectToLaporForm"
-                            class="btn btn-outline-primary">Buat Laporan</a>
+                        <a href="{{ route('public.laporform') }}" class="btn btn-outline-primary">Buat Laporan</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="ps-lg-5 text-center">
+                    <div class="text-center ps-lg-5">
                         <img loading="lazy" decoding="async" src="{{ asset('front/images/about-us.png') }}"
                             alt="banner image" class="w-100">
                     </div>
@@ -186,15 +184,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
-                    <div class="section-title pt-4">
-                        <p class="text-primary text-uppercase fw-bold mb-3">Our Services</p>
+                    <div class="pt-4 section-title">
+                        <p class="mb-3 text-primary text-uppercase fw-bold">Our Services</p>
                         <h1>Our online services</h1>
                         <p>Lorem ipsum dolor sit amet, consectetur adipreiscing elit. Lacus penatibus tincidunt</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 service-item">
                     <a class="text-black" href="service-details.html">
-                        <div class="block"> <span class="colored-box text-center h3 mb-4">01</span>
+                        <div class="block"> <span class="mb-4 text-center colored-box h3">01</span>
                             <h3 class="mb-3 service-title">Digital Marketing</h3>
                             <p class="mb-0 service-description">Lorem ipsum dolor sit amet, consetetur sadipscing
                                 elitr, sed diam nonumy
@@ -204,7 +202,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 service-item">
                     <a class="text-black" href="service-details.html">
-                        <div class="block"> <span class="colored-box text-center h3 mb-4">02</span>
+                        <div class="block"> <span class="mb-4 text-center colored-box h3">02</span>
                             <h3 class="mb-3 service-title">Web Design</h3>
                             <p class="mb-0 service-description">Lorem ipsum dolor sit amet, consetetur sadipscing
                                 elitr, sed diam nonumy
@@ -214,7 +212,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 service-item">
                     <a class="text-black" href="service-details.html">
-                        <div class="block"> <span class="colored-box text-center h3 mb-4">03</span>
+                        <div class="block"> <span class="mb-4 text-center colored-box h3">03</span>
                             <h3 class="mb-3 service-title">SEO</h3>
                             <p class="mb-0 service-description">Lorem ipsum dolor sit amet, consetetur sadipscing
                                 elitr, sed diam nonumy
@@ -224,7 +222,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 service-item">
                     <a class="text-black" href="service-details.html">
-                        <div class="block"> <span class="colored-box text-center h3 mb-4">04</span>
+                        <div class="block"> <span class="mb-4 text-center colored-box h3">04</span>
                             <h3 class="mb-3 service-title">Logo Design</h3>
                             <p class="mb-0 service-description">Lorem ipsum dolor sit amet, consetetur sadipscing
                                 elitr, sed diam nonumy
@@ -234,7 +232,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 service-item">
                     <a class="text-black" href="service-details.html">
-                        <div class="block"> <span class="colored-box text-center h3 mb-4">05</span>
+                        <div class="block"> <span class="mb-4 text-center colored-box h3">05</span>
                             <h3 class="mb-3 service-title">Graphic Design</h3>
                             <p class="mb-0 service-description">Lorem ipsum dolor sit amet, consetetur sadipscing
                                 elitr, sed diam nonumy
@@ -252,7 +250,7 @@
     <footer class="section-sm bg-tertiary">
         <div class="container">
             <div class="row justify-content-between">
-                <div class="col-lg-2 col-md-4 col-6 mb-4">
+                <div class="mb-4 col-lg-2 col-md-4 col-6">
                     <div class="footer-widget">
                         <h5 class="mb-4 text-primary font-secondary">Service</h5>
                         <ul class="list-unstyled">
@@ -269,7 +267,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-6 mb-4">
+                <div class="mb-4 col-lg-2 col-md-4 col-6">
                     <div class="footer-widget">
                         <h5 class="mb-4 text-primary font-secondary">Quick Links</h5>
                         <ul class="list-unstyled">
@@ -284,7 +282,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-6 mb-4">
+                <div class="mb-4 col-lg-2 col-md-4 col-6">
                     <div class="footer-widget">
                         <h5 class="mb-4 text-primary font-secondary">Other Links</h5>
                         <ul class="list-unstyled">
