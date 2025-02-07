@@ -37,7 +37,7 @@ final class LaporForm
                             ->hint('Harap Dicatat Untuk Cek Status Laporan!')
                             ->hintIcon('heroicon-m-exclamation-circle')
                             ->hintColor('danger')
-                            ->default(fn ($record) => $record && $record->exists ? $record->no_tiket : Str::random(5))
+                            ->default(fn($record) => $record && $record->exists ? $record->no_tiket : Str::random(5))
                             ->unique(ignoreRecord: true)
                             ->readOnly(true),
                     ]),
@@ -52,8 +52,7 @@ final class LaporForm
                                 ->minLength(3)
                                 ->required(),
                             Forms\Components\Select::make('opd_id')
-                                ->options(Opd::all()->pluck('name', 'id'))
-                                // ->relationship('opd', 'name')
+                                ->options(Opd::all()->pluck('nama', 'id'))
                                 //mempercepat pencarian
                                 ->searchDebounce(200)
                                 //menambahkan data opd secara langsung di form

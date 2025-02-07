@@ -87,7 +87,7 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            // ->databaseNotifications()
+            ->databaseNotifications()
             // ->databaseNotificationsPolling('30s')
             ->authMiddleware([
                 Authenticate::class,

@@ -32,10 +32,12 @@ class Lapor extends Model
         'keterangan_petugas',
     ];
 
+
+
     //untuk relationship perlu dituliskan
     public function opd(): BelongsTo
     {
-        return $this->belongsTo(Opd::class);
+        return $this->belongsTo(Opd::class, 'opd_id');
     }
 
 
@@ -44,7 +46,7 @@ class Lapor extends Model
         return Storage::url($this->file_laporan);
     }
 
-    protected $dispatchesEvents = [
-        'created' => \App\Events\LaporCreated::class,
-    ];
+    // protected $dispatchesEvents = [
+    //     'created' => \App\Events\LaporCreated::class,
+    // ];
 }
