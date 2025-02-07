@@ -15,21 +15,21 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Super Admin',
-        //     'email' => 'superadmin@gmail.com',
-        //     'password' => bcrypt('password'),
+        User::factory()->create([
+            'name' => 'Super Admin',
+            'email' => 'superadmin@gmail.com',
+            'password' => bcrypt('password'),
 
-        // ]);
+        ]);
 
 
         $this->call([
             PeralatanSeeder::class,
             OperatorSeeder::class,
             KecamatanSeeder::class,
-            ShieldSeeder::class,
-            RoleSeeder::class,
-            UserSeeder::class,
+            // ShieldSeeder::class,
+            // RoleSeeder::class,
+            // UserSeeder::class,
 
         ]);
     }
