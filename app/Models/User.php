@@ -41,10 +41,13 @@ class User extends Authenticatable
         ];
     }
 
-
+    public function canAccessTenant(Model $tenant): bool
+    {
+        return $this->teams->contains($tenant);
+    }
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return str_ends_with($this->email, '@infrastruktur.successmandiri.com') && $this->hasVerifiedEmail();
+        return true;
     }
 }
