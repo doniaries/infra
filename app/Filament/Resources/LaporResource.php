@@ -234,18 +234,18 @@ class LaporResource extends Resource
             // 'edit' => Pages\EditLapor::route('/{record}/edit'),
         ];
     }
-    public static function getPermissionPrefixes(): array
-    {
-        return [
-            'view',
-            'view_any',
-            'create',
-            'update',
-            'delete',
-            'delete_any',
-            'publish'
-        ];
-    }
+    // public static function getPermissionPrefixes(): array
+    // {
+    //     return [
+    //         'view',
+    //         'view_any',
+    //         'create',
+    //         'update',
+    //         'delete',
+    //         'delete_any',
+    //         'publish'
+    //     ];
+    // }
     public function create()
     {
         // Logika untuk membuat laporan
