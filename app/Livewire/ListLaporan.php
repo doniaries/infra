@@ -86,14 +86,14 @@ class ListLaporan extends Component implements HasTable, HasForms
                     ->label('Buat Laporan Baru')
                     ->model(Lapor::class)
                     ->form(LaporForm::schema())
-                // ->successNotification(
-                //     Notification::make()
-                //         ->success()
-                //         ->title('Laporan berhasil dibuat')
-                //         ->body('Laporan baru telah diterima ke sistem')
-                //         ->persistent()
-                //         ->sendToDatabase()
-                // )
+                    ->successNotification(
+                        Notification::make()
+                            ->success()
+                            ->title('Laporan berhasil dibuat')
+                            ->body('Laporan baru telah diterima ke sistem')
+                            ->persistent()
+                            ->sendToDatabase(true)
+                    )
 
             ])
             ->emptyStateHeading('Belum Ada Laporan')
