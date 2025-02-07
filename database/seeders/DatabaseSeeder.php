@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             PeralatanSeeder::class,
             OperatorSeeder::class,
             KecamatanSeeder::class,
+            ShieldSeeder::class,
+            RoleSeeder::class,
 
         ]);
     }
