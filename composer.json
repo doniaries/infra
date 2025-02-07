@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.2",
         "abanoubnassem/filament-grecaptcha-field": "^0.0.7",
+        "bezhansalleh/filament-shield": "^3.3",
         "dotswan/filament-map-picker": "^1.7",
         "eightynine/filament-excel-import": "^3.1",
         "filament/filament": "^3.2",

@@ -94,7 +94,7 @@ class AdminPanelProvider extends PanelProvider
 
             ])->plugins([
                 FilamentBackgroundsPlugin::make(),
-                // \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
             ]);
     }
 }
