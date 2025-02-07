@@ -16,7 +16,7 @@ class ListLapors extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            // Actions\CreateAction::make(),
         ];
     }
 
@@ -32,17 +32,17 @@ class ListLapors extends ListRecords
                 ->icon('heroicon-o-bolt-slash')
                 ->badgeColor('danger')
                 ->badge($counts['belum_diproses'])
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('status_laporan', 'belum diproses')),
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('status_laporan', 'belum diproses')),
             'sedang diproses' => Tab::make('Sedang Diproses ')
                 ->icon('heroicon-o-bolt')
                 ->badgeColor('warning')
                 ->badge($counts['sedang_diproses'])
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('status_laporan', 'sedang diproses')),
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('status_laporan', 'sedang diproses')),
             'selesai diproses' => Tab::make('Selesai Diproses ')
                 ->icon('heroicon-o-check-circle')
                 ->badgeColor('success')
                 ->badge($counts['selesai_diproses'])
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('status_laporan', 'selesai diproses')),
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('status_laporan', 'selesai diproses')),
         ];
     }
 

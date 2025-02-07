@@ -39,6 +39,8 @@ class LaporResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-bell-alert';
 
+    protected static ?string $navigationLabel = 'Laporan';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -76,8 +78,7 @@ class LaporResource extends Resource
                             ->required()
                             ->maxLength(255),
                         Forms\Components\Select::make('opd_id')
-                            // ->options(Opd::all()->pluck('name', 'id'))
-                            ->relationship('opd', 'name')
+                            ->options(Opd::all()->pluck('nama', 'id'))
                             ->preload()
                             //mempercepat pencarian
                             ->searchDebounce(200)
@@ -171,7 +172,7 @@ class LaporResource extends Resource
                 Tables\Columns\TextColumn::make('nama_pelapor')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('opd.name')
+                Tables\Columns\TextColumn::make('opd.nama')
                     ->numeric()
                     ->sortable(),
 
@@ -179,10 +180,9 @@ class LaporResource extends Resource
                 // sdsd
                 Tables\Columns\TextColumn::make('keterangan_petugas')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('file_laporan'),
-
-                // ->openUrlInNewTab()
-                // ->url(fn ($record) => Storage::url($record->file_laporan)),
+                Tables\Columns\TextColumn::make('file_laporan')
+                    ->openUrlInNewTab()
+                    ->url(fn($record) => Storage::url($record->file_laporan)),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
