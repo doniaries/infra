@@ -31,14 +31,28 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->brandName('FIlament')
             ->login()
+
             ->colors([
-                'primary' => Color::Amber,
                 'danger' => Color::Red,
-                'warning' => Color::Orange,
+                'gray' => Color::Zinc,
+                'info' => Color::Blue,
+                'primary' => Color::Amber,
                 'success' => Color::Green,
-                'info' => Color::Yellow,
-                'secondary' => Color::Blue,
-                'gray' => Color::Gray,
+                'warning' => Color::Yellow,
+
+                // Warna tambahan yang menarik
+                'purple' => Color::Purple,
+                'indigo' => Color::Indigo,
+                'cyan' => Color::Cyan,
+                'emerald' => Color::Emerald,
+                'teal' => Color::Teal,
+                'orange' => Color::Orange,
+                'rose' => Color::Rose,
+                'pink' => Color::Pink,
+                'sky' => Color::Sky,
+                'lime' => Color::Lime,
+                'fuchsia' => Color::Fuchsia,
+                'violet' => Color::Violet,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -50,6 +64,7 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
             ])
+            ->unsavedChangesAlerts()
             ->navigationGroups([
                 NavigationGroup::make()
                     ->label('Master Data')
