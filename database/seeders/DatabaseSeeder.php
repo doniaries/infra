@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'superadmin@gmail.com',
             'password' => bcrypt('password'),
+            'is_active' => true,
 
         ]);
 
