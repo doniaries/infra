@@ -5,18 +5,23 @@ namespace App\Filament\Resources;
 use App\Models\Bts;
 use Filament\Forms;
 use Filament\Tables;
+use Components\Group;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Forms\Components\Button;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Dotswan\MapPicker\Fields\Map;
 use Illuminate\Support\HtmlString;
 use Filament\Forms\Components\Actions;
-use Filament\Forms\Components\Section;
+use Filament\Infolists\Components\Grid;
 use Illuminate\Database\Eloquent\Model;
+use Dotswan\MapPicker\Infolists\MapEntry;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Infolists\Components\Section;
 use Filament\Tables\Enums\ActionsPosition;
+use Filament\Infolists\Components\TextEntry;
 use App\Filament\Resources\BtsResource\Pages;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Support\Enums\VerticalAlignment;
@@ -36,7 +41,7 @@ class BtsResource extends Resource
                 ->columns(2)
                 ->schema([
                     // Left Column - Map
-                    Section::make('Peta Lokasi')
+                    Forms\Components\Section::make('Peta Lokasi')
                         ->columnSpan(1)
                         ->schema([
                             Forms\Components\TextInput::make('titik_koordinat')
@@ -129,7 +134,7 @@ class BtsResource extends Resource
                         ]),
 
                     // Right Column - Information
-                    Section::make('Informasi BTS')
+                    Forms\Components\Section::make('Informasi BTS')
                         ->columnSpan(1)
                         ->schema([
                             Forms\Components\Select::make('operator_id')
@@ -274,7 +279,8 @@ class BtsResource extends Resource
                     ->iconButton(),
                 Tables\Actions\EditAction::make()
                     ->iconButton(),
-                // Tables\Actions\ViewAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->iconButton(),
 
             ], position: ActionsPosition::BeforeColumns)
 
@@ -285,6 +291,65 @@ class BtsResource extends Resource
             ]);
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                \Filament\Infolists\Components\Grid::make(2)
+                    ->schema([
+                        // Kolom Kiri - Peta
+                        \Filament\Infolists\Components\Section::make('Peta Lokasi')
+                            ->columnSpan(1)
+                            ->schema([
+                                MapEntry::make('location')
+                                    ->extraAttributes([
+                                        'style' => 'min-height: 50vh; border-radius: 10px;'
+                                    ])
+                                    ->state(fn($record) => [
+                                        'lat' => $record?->latitude,
+                                        'lng' => $record?->longitude
+                                    ])
+                                    ->showMarker()
+                                    ->markerColor("#22c55eff")
+                                    ->showFullscreenControl()
+                                    ->draggable(false)
+                                    ->zoom(15),
+                            ]),
+
+                        // Kolom Kanan - Informasi
+                        \Filament\Infolists\Components\Section::make('Informasi BTS')
+                            ->columnSpan(1)
+                            ->schema([
+                                \Filament\Infolists\Components\TextEntry::make('operator.nama_operator')
+                                    ->label('Operator')
+                                    ->badge()
+                                    ->color(fn(string $state): string => match ($state) {
+                                        'TELKOMSEL' => 'danger',
+                                        'INDOSAT' => 'warning',
+                                        'XL AXIATA' => 'primary',
+                                    }),
+                                \Filament\Infolists\Components\TextEntry::make('titik_koordinat')
+                                    ->label('Titik Koordinat'),
+                                \Filament\Infolists\Components\TextEntry::make('alamat')
+                                    ->label('Alamat'),
+                                \Filament\Infolists\Components\TextEntry::make('kecamatan.nama')
+                                    ->label('Kecamatan'),
+                                \Filament\Infolists\Components\TextEntry::make('nagari.nama')
+                                    ->label('Nagari'),
+                                \Filament\Infolists\Components\TextEntry::make('status')
+                                    ->label('Status')
+                                    ->badge()
+                                    ->color(fn(string $state): string => match ($state) {
+                                        'aktif' => 'success',
+                                        'non-aktif' => 'danger',
+                                        default => 'gray'
+                                    }),
+                                \Filament\Infolists\Components\TextEntry::make('tahun_bangun')
+                                    ->label('Tahun Bangun'),
+                            ]),
+                    ]),
+            ]);
+    }
 
     public static function getRelations(): array
     {

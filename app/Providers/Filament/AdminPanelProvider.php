@@ -31,7 +31,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->brandName('Bank Data Infrastruktur')
             ->login()
-
+            ->spa()
+            ->topNavigation()
             ->colors([
                 'danger' => Color::Red,
                 'gray' => Color::Zinc,
