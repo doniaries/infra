@@ -53,194 +53,196 @@ class BtsResource extends Resource
                                     ->openUrlInNewTab()
                             ])->columnSpanFull(),
 
+                            Map::make('location')
+                            ->label('Peta')
+                            ->helperText(new HtmlString(' <strong> Klik lokasi pada peta.</strong>'))
+                            ->columnSpanFull()
+                            ->defaultLocation(-0.6659520479353943, 100.9443495032019)
+                            ->afterStateUpdated(function (Set $set, ?array $state): void {
+                                if ($state) {
+                                    $lat = number_format($state['lat'], 6, '.', '');
+                                    $lng = number_format($state['lng'], 6, '.', '');
 
-                            Forms\Components\Select::make('operator_id')
-                                ->relationship('operator', 'nama_operator')
-                                ->required(),
+                                    $set('latitude', $lat);
+                                    $set('longitude', $lng);
+                                    $set('titik_koordinat', $lat . ', ' . $lng);
+                                }
+                            })
+                            ->afterStateHydrated(function (Map $component, $state, $record): void {
+                                if ($record && $record->latitude && $record->longitude) {
+                                    $component->state([
+                                        'lat' => (float)$record->latitude,
+                                        'lng' => (float)$record->longitude,
+                                    ]);
+                                }
+                            })
+                            ->extraStyles([
+                                'min-height: 50vh',
+                                'border-radius: 10px'
+                            ])
+                            ->liveLocation(true, false, 100000) //agar peta bisa ambil koordinat
+                            ->showMarker(true)
+                            ->markerColor("#22c55eff")
+                            ->markerHtml('<div class="custom-marker">...</div>')
+                            ->markerIconUrl('/images/marker.png')
+                            ->markerIconSize([32, 32])
+                            ->markerIconClassName('my-marker-class')
+                            ->markerIconAnchor([16, 32])
+                            ->showFullscreenControl()
+                            ->showZoomControl()
+                            ->draggable(true)
+                            ->tilesUrl("https://tile.openstreetmap.de/{z}/{x}/{y}.png")
+                            ->zoom(14)
+                            ->detectRetina()
+                            ->showMyLocationButton(true)
+                            ->geoMan(false)
+                            ->geoManEditable(false)
+                            ->geoManPosition('topleft')
+                            ->drawCircleMarker()
+                            ->rotateMode()
+                            ->clickable(true) //click to move marker
+                            ->drawMarker()
+                            ->drawPolygon()
+                            ->drawPolyline()
+                            ->drawCircle()
+                            ->dragMode(true)
+                            ->cutPolygon()
+                            ->editPolygon()
+                            ->deleteLayer()
+                            ->setColor('#3388ff')
+                            ->setFilledColor('#cad9ec'),
 
-                            Forms\Components\Select::make('kecamatan_id')
-                                ->relationship('kecamatan', 'nama')
-                                ->required()
-                                ->live(),
+                        Forms\Components\TextInput::make('latitude')
+                            ->label('Latitude')
+                            // ->required()
+                            ->numeric()
+                            ->live()
+                            ->afterStateUpdated(function ($state, Set $set, $get) {
+                                if ($state) {
+                                    $longitude = $get('longitude');
+                                    if ($longitude) {
+                                        // Format angka dengan 6 digit desimal
+                                        $lat = number_format(floatval($state), 6, '.', '');
+                                        $lng = number_format(floatval($longitude), 6, '.', '');
 
-                            Forms\Components\Select::make('nagari_id')
-                                ->relationship(
-                                    'nagari',
-                                    'nama',
-                                    fn(Builder $query, callable $get) =>
-                                    $query->when(
-                                        $get('kecamatan_id'),
-                                        fn($query, $kecamatan_id) =>
-                                        $query->where('kecamatan_id', $kecamatan_id)
-                                    )
-                                )
-                                ->required()
-                                ->searchable()
-                                ->preload()
-                                ->live()
-                                ->visible(fn(callable $get) => filled($get('kecamatan_id')))
-                                ->afterStateUpdated(fn(callable $set) => $set('jorong_id', null)),
-
-                            Forms\Components\Select::make('jorong_id')
-                                ->relationship(
-                                    'jorong',
-                                    'nama',
-                                    fn(Builder $query, callable $get) =>
-                                    $query->when(
-                                        $get('nagari_id'),
-                                        fn($query, $nagari_id) =>
-                                        $query->where('nagari_id', $nagari_id)
-                                    )
-                                )
-                                // ->required()
-                                ->searchable()
-                                ->preload()
-                                ->visible(fn(callable $get) => filled($get('nagari_id'))),
+                                        $set('location', [
+                                            'lat' => floatval($lat),
+                                            'lng' => floatval($lng)
+                                        ]);
+                                        $set('lokasi', $lat . ', ' . $lng);
+                                    }
+                                }
+                            }),
 
 
-                            Forms\Components\TextInput::make('pemilik')
-                                ->label('Pemilik BTS')
-                                ->required(),
-                            Forms\Components\TextInput::make('alamat')
-                                ->label('Alamat')
-                                ->required(),
+                        Forms\Components\TextInput::make('longitude')
+                            ->label('Longitude')
+                            // ->required()
+                            ->numeric()
+                            ->live()
+                            ->afterStateUpdated(function ($state, Set $set, $get) {
+                                if ($state) {
+                                    $latitude = $get('latitude');
+                                    if ($latitude) {
+                                        // Format angka dengan 6 digit desimal
+                                        $lat = number_format(floatval($latitude), 6, '.', '');
+                                        $lng = number_format(floatval($state), 6, '.', '');
+
+                                        $set('location', [
+                                            'lat' => floatval($lat),
+                                            'lng' => floatval($lng)
+                                        ]);
+                                        $set('lokasi', $lat . ', ' . $lng);
+                                    }
+                                }
+                            }),
+//------------------///
 
 
-                            Forms\Components\Select::make('teknologi')
-                                ->options([
-                                    '2G' => '2G',
-                                    '3G' => '3G',
-                                    '4G' => '4G',
-                                    '4G+5G' => '4G+5G',
-                                    '5G' => '5G',
-                                ])
-
-                                ->default('4G')
-                                ->required(),
-
-                            Forms\Components\Select::make('status')
-                                ->options([
-                                    'aktif' => 'Aktif',
-                                    'non-aktif' => 'Non-Aktif'
-                                ])
-                                ->default('aktif')
-                                ->required(),
-
-                            Forms\Components\TextInput::make('tahun_bangun')
-                                ->numeric()
-                                ->default('2023')
-                                ->minValue(2000)
-                                ->maxValue(2030),
-
-                        ]),
 
                     // Kolom Kanan - Peta
                     Section::make('Lokasi BTS')
                         ->columnSpan(1)
                         ->schema([
-                            Map::make('location')
-                                ->label('Peta')
-                                ->helperText(new HtmlString(' <strong> Klik lokasi pada peta.</strong>'))
-                                ->columnSpanFull()
-                                ->defaultLocation(-0.6659520479353943, 100.9443495032019)
-                                ->afterStateUpdated(function (Set $set, ?array $state): void {
-                                    if ($state) {
-                                        $lat = number_format($state['lat'], 6, '.', '');
-                                        $lng = number_format($state['lng'], 6, '.', '');
+                            Forms\Components\Select::make('operator_id')
+                            ->relationship('operator', 'nama_operator')
+                            ->required(),
 
-                                        $set('latitude', $lat);
-                                        $set('longitude', $lng);
-                                        $set('titik_koordinat', $lat . ', ' . $lng);
-                                    }
-                                })
-                                ->afterStateHydrated(function (Map $component, $state, $record): void {
-                                    if ($record && $record->latitude && $record->longitude) {
-                                        $component->state([
-                                            'lat' => (float)$record->latitude,
-                                            'lng' => (float)$record->longitude,
-                                        ]);
-                                    }
-                                })
-                                ->extraStyles([
-                                    'min-height: 50vh',
-                                    'border-radius: 10px'
-                                ])
-                                ->liveLocation(true, false, 100000) //agar peta bisa ambil koordinat
-                                ->showMarker(true)
-                                ->markerColor("#22c55eff")
-                                ->markerHtml('<div class="custom-marker">...</div>')
-                                ->markerIconUrl('/images/marker.png')
-                                ->markerIconSize([32, 32])
-                                ->markerIconClassName('my-marker-class')
-                                ->markerIconAnchor([16, 32])
-                                ->showFullscreenControl()
-                                ->showZoomControl()
-                                ->draggable(true)
-                                ->tilesUrl("https://tile.openstreetmap.de/{z}/{x}/{y}.png")
-                                ->zoom(14)
-                                ->detectRetina()
-                                ->showMyLocationButton(true)
-                                ->geoMan(false)
-                                ->geoManEditable(false)
-                                ->geoManPosition('topleft')
-                                ->drawCircleMarker()
-                                ->rotateMode()
-                                ->clickable(true) //click to move marker
-                                ->drawMarker()
-                                ->drawPolygon()
-                                ->drawPolyline()
-                                ->drawCircle()
-                                ->dragMode(true)
-                                ->cutPolygon()
-                                ->editPolygon()
-                                ->deleteLayer()
-                                ->setColor('#3388ff')
-                                ->setFilledColor('#cad9ec'),
+                        Forms\Components\Select::make('kecamatan_id')
+                            ->relationship('kecamatan', 'nama')
+                            ->required()
+                            ->live(),
 
-                            Forms\Components\TextInput::make('latitude')
-                                ->label('Latitude')
-                                // ->required()
-                                ->numeric()
-                                ->live()
-                                ->afterStateUpdated(function ($state, Set $set, $get) {
-                                    if ($state) {
-                                        $longitude = $get('longitude');
-                                        if ($longitude) {
-                                            // Format angka dengan 6 digit desimal
-                                            $lat = number_format(floatval($state), 6, '.', '');
-                                            $lng = number_format(floatval($longitude), 6, '.', '');
+                        Forms\Components\Select::make('nagari_id')
+                            ->relationship(
+                                'nagari',
+                                'nama',
+                                fn(Builder $query, callable $get) =>
+                                $query->when(
+                                    $get('kecamatan_id'),
+                                    fn($query, $kecamatan_id) =>
+                                    $query->where('kecamatan_id', $kecamatan_id)
+                                )
+                            )
+                            ->required()
+                            ->searchable()
+                            ->preload()
+                            ->live()
+                            ->visible(fn(callable $get) => filled($get('kecamatan_id')))
+                            ->afterStateUpdated(fn(callable $set) => $set('jorong_id', null)),
 
-                                            $set('location', [
-                                                'lat' => floatval($lat),
-                                                'lng' => floatval($lng)
-                                            ]);
-                                            $set('lokasi', $lat . ', ' . $lng);
-                                        }
-                                    }
-                                }),
+                        Forms\Components\Select::make('jorong_id')
+                            ->relationship(
+                                'jorong',
+                                'nama',
+                                fn(Builder $query, callable $get) =>
+                                $query->when(
+                                    $get('nagari_id'),
+                                    fn($query, $nagari_id) =>
+                                    $query->where('nagari_id', $nagari_id)
+                                )
+                            )
+                            // ->required()
+                            ->searchable()
+                            ->preload()
+                            ->visible(fn(callable $get) => filled($get('nagari_id'))),
 
 
-                            Forms\Components\TextInput::make('longitude')
-                                ->label('Longitude')
-                                // ->required()
-                                ->numeric()
-                                ->live()
-                                ->afterStateUpdated(function ($state, Set $set, $get) {
-                                    if ($state) {
-                                        $latitude = $get('latitude');
-                                        if ($latitude) {
-                                            // Format angka dengan 6 digit desimal
-                                            $lat = number_format(floatval($latitude), 6, '.', '');
-                                            $lng = number_format(floatval($state), 6, '.', '');
+                        Forms\Components\TextInput::make('pemilik')
+                            ->label('Pemilik BTS')
+                            ->required(),
+                        Forms\Components\TextInput::make('alamat')
+                            ->label('Alamat')
+                            ->required(),
 
-                                            $set('location', [
-                                                'lat' => floatval($lat),
-                                                'lng' => floatval($lng)
-                                            ]);
-                                            $set('lokasi', $lat . ', ' . $lng);
-                                        }
-                                    }
-                                }),
+
+                        Forms\Components\Select::make('teknologi')
+                            ->options([
+                                '2G' => '2G',
+                                '3G' => '3G',
+                                '4G' => '4G',
+                                '4G+5G' => '4G+5G',
+                                '5G' => '5G',
+                            ])
+
+                            ->default('4G')
+                            ->required(),
+
+                        Forms\Components\Select::make('status')
+                            ->options([
+                                'aktif' => 'Aktif',
+                                'non-aktif' => 'Non-Aktif'
+                            ])
+                            ->default('aktif')
+                            ->required(),
+
+                        Forms\Components\TextInput::make('tahun_bangun')
+                            ->numeric()
+                            ->default('2023')
+                            ->minValue(2000)
+                            ->maxValue(2030),
+
+                    ]),
 
                         ]),
                 ])
