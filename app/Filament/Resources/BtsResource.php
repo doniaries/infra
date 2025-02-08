@@ -76,15 +76,21 @@ class BtsResource extends Resource
                                         $query->where('nagari_id', $nagari_id)
                                     )
                                 )
-                                ->required()
+                                // ->required()
                                 ->searchable()
                                 ->preload()
                                 ->visible(fn(callable $get) => filled($get('nagari_id'))),
 
 
-                            Forms\Components\TextInput::make('lokasi')
+                            Forms\Components\TextInput::make('pemilik')
+                                ->label('Pemilik BTS')
+                                ->required(),
+                            Forms\Components\TextInput::make('alamat')
+                                ->label('Alamat')
+                                ->required(),
+                            Forms\Components\TextInput::make('titik_koordinat')
                                 ->label('Titik Koordinat')
-                                ->disabled()
+                                // ->disabled()
                                 ->required(),
 
                             Actions::make([
@@ -138,7 +144,7 @@ class BtsResource extends Resource
 
                                         $set('latitude', $lat);
                                         $set('longitude', $lng);
-                                        $set('lokasi', $lat . ', ' . $lng);
+                                        $set('titik_koordinat', $lat . ', ' . $lng);
                                     }
                                 })
                                 ->afterStateHydrated(function (Map $component, $state, $record): void {
@@ -187,7 +193,7 @@ class BtsResource extends Resource
 
                             Forms\Components\TextInput::make('latitude')
                                 ->label('Latitude')
-                                ->required()
+                                // ->required()
                                 ->numeric()
                                 ->live()
                                 ->afterStateUpdated(function ($state, Set $set, $get) {
@@ -210,7 +216,7 @@ class BtsResource extends Resource
 
                             Forms\Components\TextInput::make('longitude')
                                 ->label('Longitude')
-                                ->required()
+                                // ->required()
                                 ->numeric()
                                 ->live()
                                 ->afterStateUpdated(function ($state, Set $set, $get) {
@@ -255,9 +261,14 @@ class BtsResource extends Resource
                 Tables\Columns\TextColumn::make('nagari.nama')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('lokasi')
+                Tables\Columns\TextColumn::make('titik_koordinat')
                     ->copyable()
                     ->label('Titik Koordinat')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('alamat')
+                    ->label('Alamat')
+                    ->wrap()
                     ->sortable()
                     ->searchable(),
                 // Tables\Columns\TextColumn::make('location.lat')
@@ -280,7 +291,8 @@ class BtsResource extends Resource
                         'aktif' => 'success',
                         'non-aktif' => 'danger',
                     }),
-                Tables\Columns\TextColumn::make('tahun_bangun'),
+                Tables\Columns\TextColumn::make('tahun_bangun')
+                    ->sortable(),
             ])
             ->filters([
                 //

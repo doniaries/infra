@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('bts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('operator_id')->constrained('operators')->cascadeOnDelete();
-            $table->foreignId('kecamatan_id')->constrained('kecamatans')->cascadeOnDelete();
-            $table->foreignId('nagari_id')->constrained('nagaris')->cascadeOnDelete();
-            $table->foreignId('jorong_id')->constrained('jorongs')->cascadeOnDelete();
-            $table->string('lokasi');
-            $table->double('latitude')->nullable();
-            $table->double('longitude')->nullable();
-            $table->enum('teknologi', ['2G', '3G', '4G', '4G+5G', '5G'])->default('4G');
-            $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
+            $table->foreignId('operator_id')->nullable()->constrained('operators');
+            $table->foreignId('kecamatan_id')->constrained('kecamatans');
+            $table->foreignId('nagari_id')->constrained('nagaris');
+            $table->foreignId('jorong_id')->nullable()->constrained('jorongs');
+            $table->string('pemilik')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('titik_koordinat')->nullable();
+            // $table->double('latitude')->nullable();
+            // $table->double('longitude')->nullable();
+            $table->enum('teknologi', ['2G', '3G', '4G', '4G+5G', '5G'])->nullable()->default('4G');
+            $table->enum('status', ['aktif', 'non-aktif'])->nullable()->default('aktif');
             $table->string('tahun_bangun');
             $table->timestamps();
 

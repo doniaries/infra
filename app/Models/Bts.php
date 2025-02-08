@@ -15,13 +15,12 @@ class Bts extends Model
         'kecamatan_id',
         'nagari_id',
         'jorong_id',
-        'lokasi',
-        'latitude',
-        'longitude',
+        'pemilik',
+        'alamat',
+        'titik_koordinat',
         'teknologi',
         'status',
         'tahun_bangun',
-        'pemilik',
     ];
 
 
