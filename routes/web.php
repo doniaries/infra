@@ -1,8 +1,12 @@
 <?php
 
-use App\Livewire\PublicLaporForm;
+use App\Livewire\ListBts;
 use App\Livewire\ListLaporan;
+use App\Livewire\PublicLaporForm;
 use Illuminate\Support\Facades\Route;
+
+
+
 
 
 Route::get('/', function () {
@@ -22,3 +26,4 @@ Route::get('/login', function () {
 
 
 Route::get('/list-laporan', ListLaporan::class)->name('list.laporan');
+Route::get('/list-bts', ListBts::class)->name('list.bts');

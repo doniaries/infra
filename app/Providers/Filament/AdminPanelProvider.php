@@ -29,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->id('admin')
             ->path('admin')
-            ->brandName('FIlament')
+            ->brandName('Bank Data Infrastruktur')
             ->login()
 
             ->colors([
