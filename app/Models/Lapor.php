@@ -46,7 +46,13 @@ class Lapor extends Model
         return Storage::url($this->file_laporan);
     }
 
-    // protected $dispatchesEvents = [
-    //     'created' => \App\Events\LaporCreated::class,
-    // ];
+    protected static function booted()
+    {
+        static::updating(function ($lapor) {
+            // Jika keterangan petugas diubah dan status masih Belum Diproses
+            if ($lapor->isDirty('keterangan_petugas') && $lapor->getOriginal('status_laporan') === 'Belum Diproses') {
+                $lapor->status_laporan = 'Sedang Diproses';
+            }
+        });
+    }
 }

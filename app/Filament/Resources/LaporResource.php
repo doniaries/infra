@@ -141,14 +141,25 @@ class LaporResource extends Resource
                                 ->modalHeading('Selesaikan Laporan')
                                 ->modalDescription('Apakah Anda yakin ingin menyelesaikan laporan ini?')
                                 ->action(function ($record) {
-                                    $record->update([
-                                        'status_laporan' => 'Selesai Diproses'
-                                    ]);
+                                    try {
+                                        // Update status dan simpan perubahan
+                                        $record->fill([
+                                            'status_laporan' => 'Selesai Diproses'
+                                        ])->save();
 
-                                    Notification::make()
-                                        ->title('Laporan telah diselesaikan')
-                                        ->success()
-                                        ->send();
+                                        Notification::make()
+                                            ->title('Laporan telah diselesaikan')
+                                            ->success()
+                                            ->send();
+
+                                        // Redirect menggunakan helper redirect()
+                                        return redirect()->route('filament.admin.resources.lapors.index');
+                                    } catch (\Exception $e) {
+                                        Notification::make()
+                                            ->title('Gagal menyelesaikan laporan')
+                                            ->danger()
+                                            ->send();
+                                    }
                                 }),
                         ]),
                     ]),
@@ -223,44 +234,6 @@ class LaporResource extends Resource
 
             ])
             ->actions([
-                //     Tables\Actions\Action::make('proses_laporan')
-                //         ->label('Proses Laporan')
-                //         ->icon('heroicon-o-play')
-                //         ->color('warning')
-                //         ->visible(fn(Lapor $record) => $record->status_laporan === 'Belum Diproses')
-                //         ->action(function (Lapor $record) {
-                //             $record->update([
-                //                 'status_laporan' => 'Sedang Diproses',
-                //             ]);
-
-                //             Notification::make()
-                //                 ->title('Laporan sedang diproses')
-                //                 ->success()
-                //                 ->send();
-                //         }),
-
-                //     Tables\Actions\Action::make('tutup_laporan')
-                //         ->label('Tutup Laporan')
-                //         ->icon('heroicon-o-check')
-                //         ->color('success')
-                //         ->visible(fn(Lapor $record) => $record->status_laporan === 'Sedang Diproses')
-                //         ->form([
-                //             Forms\Components\Textarea::make('keterangan_petugas')
-                //                 ->label('Keterangan Penutupan')
-                //                 ->required(),
-                //         ])
-                //         ->action(function (Lapor $record, array $data) {
-                //             $record->update([
-                //                 'status_laporan' => 'Selesai Diproses',
-                //                 'keterangan_petugas' => $data['keterangan_petugas']
-                //             ]);
-
-                //             Notification::make()
-                //                 ->title('Laporan telah ditutup')
-                //                 ->success()
-                //                 ->send();
-                //         }),
-
                 Tables\Actions\EditAction::make()
                     ->iconButton()
                 // ->slideOver()
