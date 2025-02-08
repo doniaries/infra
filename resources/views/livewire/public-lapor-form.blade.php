@@ -61,6 +61,14 @@
                         </button>
                     </div>
                 </form>
+
+                <script>
+                    document.addEventListener('livewire:initialized', () => {
+                        Livewire.on('redirect', (url) => {
+                            window.location.href = url;
+                        });
+                    });
+                </script>
             </div>
         </div>
 

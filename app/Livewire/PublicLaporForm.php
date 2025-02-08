@@ -62,32 +62,13 @@ class PublicLaporForm extends Component implements HasForms
                             ->required()
                             ->maxLength(255),
 
-
                         Select::make('opd_id')
                             ->label('OPD')
                             ->options(Opd::pluck('nama', 'id'))
                             ->searchable()
                             ->preload()
                             ->required()
-                            ->createOptionAction(
-                                fn(Action $action) => $action
-                                    ->form([
-                                        TextInput::make('nama')
-                                            ->label('Nama OPD')
-                                            ->required()
-                                            ->maxLength(255)
-                                    ])
-                                    ->action(function (array $data) {
-                                        $opd = Opd::create($data);
-
-                                        $this->form->fill([
-                                            'opd_id' => $opd->id
-                                        ]);
-                                    })
-                            )
-                            ->createOptionModalHeading('Tambah OPD Baru')
-                            ->placeholder('Pilih atau tambah OPD baru'),
-                        // Tambahkan ini
+                            ->live(),
 
                         Select::make('jenis_laporan')
                             ->options([
@@ -96,13 +77,11 @@ class PublicLaporForm extends Component implements HasForms
                             ])
                             ->default('Laporan Gangguan')
                             ->required(),
-                        // Tambahkan ini
 
                         Textarea::make('uraian_laporan')
                             ->label('Uraian Laporan')
                             ->required()
-                            ->rows(5), // Tambahkan ini
-
+                            ->rows(5),
 
                         FileUpload::make('file_laporan')
                             ->label('Lampiran')
@@ -111,7 +90,7 @@ class PublicLaporForm extends Component implements HasForms
                             ->acceptedFileTypes(['application/pdf', 'image/*']),
 
                     ])
-                    ->columns(2) // Ubah ini dari 1 menjadi 12
+                    ->columns(2)
             ])
             ->statePath('data');
     }
@@ -126,14 +105,22 @@ class PublicLaporForm extends Component implements HasForms
             'keterangan_petugas' => 'Belum ada keterangan',
         ]);
 
+        // Kirim notifikasi dengan action untuk melihat list laporan
         Notification::make()
             ->success()
             ->title('Laporan Berhasil Dikirim')
             ->body("Nomor tiket Anda: {$lapor->no_tiket}")
+            ->persistent()
+            ->actions([
+                Action::make('lihat')
+                    ->label('Lihat Daftar Laporan')
+                    ->url(route('list.laporan'))
+                    ->button()
+            ])
             ->send();
 
         $this->form->fill();
-        redirect()->route('list.laporan');
+        $this->dispatch('redirect')->to(route('list.laporan'));
     }
 
     public function render(): View

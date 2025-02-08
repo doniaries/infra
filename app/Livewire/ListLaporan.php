@@ -4,37 +4,28 @@ namespace App\Livewire;
 
 use App\Models\Lapor;
 use App\Models\Opd;
-use App\Services\LaporForm;
-use Filament\Forms;
-use Filament\Forms\Components\Section;
+use Carbon\Carbon;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
-use Filament\Notifications\Actions\Action;
 use Filament\Support\Enums\FontFamily;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
 class ListLaporan extends Component implements HasTable, HasForms
 {
     use InteractsWithTable, InteractsWithForms;
-    public function render()
-    {
-        return view('livewire.list-laporan');
-    }
-
-    // public function index()
-    // {
-    //     return view('laporform');
-    // }
 
     public function table(Table $table): Table
     {
@@ -46,7 +37,7 @@ class ListLaporan extends Component implements HasTable, HasForms
                     ->label('No Tiket')
                     ->color('success')
                     ->copyable()
-                    ->copyMessage('kode tiket disalin ')
+                    ->copyMessage('kode tiket disalin')
                     ->copyMessageDuration(2000)
                     ->searchable()
                     ->weight(FontWeight::Bold)
@@ -61,12 +52,10 @@ class ListLaporan extends Component implements HasTable, HasForms
                 Tables\Columns\TextColumn::make('opd.name'),
                 Tables\Columns\TextColumn::make('status_laporan')
                     ->badge()
-                    ->color(function (string $state): string {
-                        return match ($state) {
-                            'Belum Diproses' => 'danger',
-                            'Sedang Diproses' => 'warning',
-                            'Selesai Diproses' => 'success',
-                        };
+                    ->color(fn(string $state): string => match ($state) {
+                        'Belum Diproses' => 'danger',
+                        'Sedang Diproses' => 'warning',
+                        'Selesai Diproses' => 'success',
                     }),
                 Tables\Columns\TextColumn::make('keterangan_petugas'),
                 Tables\Columns\TextColumn::make('created_at')
@@ -77,26 +66,81 @@ class ListLaporan extends Component implements HasTable, HasForms
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-
-
             ])
             ->defaultSort('created_at', 'desc')
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->label('Buat Laporan Baru')
                     ->model(Lapor::class)
-                    ->form(LaporForm::schema())
-                    // ->successNotification(
-                    //     Notification::make()
-                    //         ->success()
-                    //         ->title('Laporan berhasil dibuat')
-                    //         ->body('Laporan baru telah diterima ke sistem')
-                    //         ->persistent()
-                    //         ->sendToDatabase(true)
-                    // )
+                    ->form([
+                        DateTimePicker::make('tgl_laporan')
+                            ->default(Carbon::now())
+                            ->timezone('Asia/Jakarta')
+                            ->readOnly()
+                            ->required(),
 
+                        TextInput::make('no_tiket')
+                            ->prefixIcon('heroicon-o-ticket')
+                            ->label('No Tiket')
+                            ->hint('Harap Dicatat Untuk Cek Status Laporan!')
+                            ->hintColor('danger')
+                            ->default(fn() => Str::random(5))
+                            ->readOnly(),
+
+                        TextInput::make('nama_pelapor')
+                            ->label('Nama Lengkap')
+                            ->required()
+                            ->maxLength(255),
+
+                        Select::make('opd_id')
+                            ->label('OPD')
+                            ->options(Opd::pluck('nama', 'id'))
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->live(),
+
+                        Select::make('jenis_laporan')
+                            ->options([
+                                'Laporan Gangguan' => 'Laporan Gangguan',
+                                'Koordinasi Teknis' => 'Koordinasi Teknis',
+                            ])
+                            ->default('Laporan Gangguan')
+                            ->required(),
+
+                        Textarea::make('uraian_laporan')
+                            ->label('Uraian Laporan')
+                            ->required()
+                            ->rows(5),
+
+                        FileUpload::make('file_laporan')
+                            ->label('Lampiran')
+                            ->directory('public/laporan')
+                            ->maxSize(5120)
+                            ->acceptedFileTypes(['application/pdf', 'image/*']),
+                    ])
+                    ->successNotification(
+                        Notification::make()
+                            ->title('Laporan Berhasil Dibuat')
+                            ->body('Laporan baru telah diterima ke sistem')
+                            ->icon('heroicon-o-check-circle')
+                            ->iconColor('success')
+                            ->duration(5000)
+                            ->persistent()
+                            ->actions([
+                                \Filament\Notifications\Actions\Action::make('view')
+                                    ->label('Lihat Laporan')
+                                    ->url(fn(Lapor $record): string => route('list.laporan'))
+                                    ->button()
+                            ])
+                    )
             ])
             ->emptyStateHeading('Belum Ada Laporan')
             ->emptyStateIcon('heroicon-m-chat-bubble-left-right');
+    }
+
+    public function render()
+    {
+        return view('livewire.list-laporan');
     }
 }

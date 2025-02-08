@@ -59,7 +59,7 @@
     </header>
     <!-- /navigation -->
 
-    <div class="modal applyLoanModal fade" id="applyLoan" tabindex="-1" aria-labelledby="applyLoanLabel"
+    {{-- <div class="modal applyLoanModal fade" id="applyLoan" tabindex="-1" aria-labelledby="applyLoanLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -111,7 +111,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <section class="overflow-hidden banner bg-tertiary position-relative">
         <div class="container">
@@ -180,7 +180,7 @@
         </div>
     </section>
 
-    <section class="section">
+    {{-- <section class="section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
@@ -242,12 +242,12 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 
 
 
-    <footer class="section-sm bg-tertiary">
+    {{-- <footer class="section-sm bg-tertiary">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="mb-4 col-lg-2 col-md-4 col-6">
@@ -298,7 +298,7 @@
             </div>
 
         </div>
-    </footer>
+    </footer> --}}
 
     <!-- # JS Plugins -->
     <script src="{{ asset('/front/plugins/jquery/jquery.min.js') }}"></script>
