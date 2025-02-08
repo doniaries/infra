@@ -38,6 +38,22 @@ class BtsResource extends Resource
                     Section::make('Informasi BTS')
                         ->columnSpan(1)
                         ->schema([
+
+                            Forms\Components\TextInput::make('titik_koordinat')
+                                ->label('Titik Koordinat')
+                                // ->disabled()
+                                ->required(),
+
+
+                            Actions::make([
+                                Action::make('openMap')
+                                    ->label('Buka di Google Maps')
+                                    ->icon('heroicon-m-map')
+                                    ->url(fn($get) => "https://www.google.com/maps?q=" . $get('latitude') . ',' . $get('longitude'))
+                                    ->openUrlInNewTab()
+                            ])->columnSpanFull(),
+
+
                             Forms\Components\Select::make('operator_id')
                                 ->relationship('operator', 'nama_operator')
                                 ->required(),
@@ -88,18 +104,8 @@ class BtsResource extends Resource
                             Forms\Components\TextInput::make('alamat')
                                 ->label('Alamat')
                                 ->required(),
-                            Forms\Components\TextInput::make('titik_koordinat')
-                                ->label('Titik Koordinat')
-                                // ->disabled()
-                                ->required(),
 
-                            Actions::make([
-                                Action::make('openMap')
-                                    ->label('Buka di Google Maps')
-                                    ->icon('heroicon-m-map')
-                                    ->url(fn($get) => "https://www.google.com/maps?q=" . $get('latitude') . ',' . $get('longitude'))
-                                    ->openUrlInNewTab()
-                            ])->columnSpanFull(),
+
                             Forms\Components\Select::make('teknologi')
                                 ->options([
                                     '2G' => '2G',
