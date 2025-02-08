@@ -49,10 +49,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="m-auto mb-2 navbar-nav mb-lg-0">
                         <li class="nav-item"> <a class="nav-link" href="{{ asset('/') }}">Home</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="about.html">About Us</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="list-laporan">Daftar Laporan</a></li>
+
 
                     </ul>
                     <a href="{{ route('public.laporform') }}" class="btn btn-outline-primary">Buat Laporan</a>
+
+                    <a href="{{ route('login') }}" class="btn btn-outline-secondary">Login</a>
                 </div>
             </div>
         </nav>
