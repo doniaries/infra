@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Select as ComponentsSelect;
 use App\Filament\Resources\LaporResource\RelationManagers;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
+use Filament\Tables\Enums\ActionsPosition;
 
 
 class LaporResource extends Resource
@@ -114,20 +115,42 @@ class LaporResource extends Resource
                         Forms\Components\Textarea::make('keterangan_petugas')
                             ->hidden(fn($record) => !$record || !$record->exists)
                             ->label('Keterangan Petugas')
-                            ->placeholder('Tuliskan Keterangan Petugas'),
+                            ->placeholder('Tuliskan Keterangan Petugas')
+                            ->afterStateUpdated(function ($record) {
+                                if ($record) {
+                                    $record->update([
+                                        'status_laporan' => 'Sedang Diproses'
+                                    ]);
+                                }
+                            }),
                     ]),
-                Section::make()->columns(3)
+
+                Section::make()->columns(2)
                     ->schema([
                         Forms\Components\Select::make('status_laporan')
-                            ->hidden(fn($record) => !$record || !$record->exists)
-                            ->hint('Petugas Merubah Status Laporan')
-                            ->hintColor('danger')
-                            ->options([
-                                'Belum Diproses' => 'Belum Diproses',
-                                'Sedang Diproses' => 'Sedang Diproses',
-                                'Selesai Diproses' => 'Selesai Diproses',
-                            ])
+                            ->hidden(true)
                             ->default('Belum Diproses'),
+
+                        Forms\Components\Actions::make([
+                            Forms\Components\Actions\Action::make('selesai')
+                                ->label('Selesaikan Laporan')
+                                ->icon('heroicon-o-check-circle')
+                                ->color('success')
+                                ->visible(fn($record) => $record && $record->status_laporan === 'Sedang Diproses')
+                                ->requiresConfirmation()
+                                ->modalHeading('Selesaikan Laporan')
+                                ->modalDescription('Apakah Anda yakin ingin menyelesaikan laporan ini?')
+                                ->action(function ($record) {
+                                    $record->update([
+                                        'status_laporan' => 'Selesai Diproses'
+                                    ]);
+
+                                    Notification::make()
+                                        ->title('Laporan telah diselesaikan')
+                                        ->success()
+                                        ->send();
+                                }),
+                        ]),
                     ]),
             ]);
     }
@@ -200,19 +223,48 @@ class LaporResource extends Resource
 
             ])
             ->actions([
+                //     Tables\Actions\Action::make('proses_laporan')
+                //         ->label('Proses Laporan')
+                //         ->icon('heroicon-o-play')
+                //         ->color('warning')
+                //         ->visible(fn(Lapor $record) => $record->status_laporan === 'Belum Diproses')
+                //         ->action(function (Lapor $record) {
+                //             $record->update([
+                //                 'status_laporan' => 'Sedang Diproses',
+                //             ]);
+
+                //             Notification::make()
+                //                 ->title('Laporan sedang diproses')
+                //                 ->success()
+                //                 ->send();
+                //         }),
+
+                //     Tables\Actions\Action::make('tutup_laporan')
+                //         ->label('Tutup Laporan')
+                //         ->icon('heroicon-o-check')
+                //         ->color('success')
+                //         ->visible(fn(Lapor $record) => $record->status_laporan === 'Sedang Diproses')
+                //         ->form([
+                //             Forms\Components\Textarea::make('keterangan_petugas')
+                //                 ->label('Keterangan Penutupan')
+                //                 ->required(),
+                //         ])
+                //         ->action(function (Lapor $record, array $data) {
+                //             $record->update([
+                //                 'status_laporan' => 'Selesai Diproses',
+                //                 'keterangan_petugas' => $data['keterangan_petugas']
+                //             ]);
+
+                //             Notification::make()
+                //                 ->title('Laporan telah ditutup')
+                //                 ->success()
+                //                 ->send();
+                //         }),
+
                 Tables\Actions\EditAction::make()
                     ->iconButton()
-                    ->slideOver()
-                    ->icon('heroicon-s-pencil')
-                    ->tooltip('Edit Laporan')
-                    ->successNotification(
-                        Notification::make()
-                            ->success()
-                            ->title('Status laporan diperbarui')
-                            ->body('Status laporan telah diubah')
-                            ->persistent()
-                    )
-            ])
+                // ->slideOver()
+            ], position: ActionsPosition::BeforeColumns)
 
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -234,18 +286,7 @@ class LaporResource extends Resource
             // 'edit' => Pages\EditLapor::route('/{record}/edit'),
         ];
     }
-    // public static function getPermissionPrefixes(): array
-    // {
-    //     return [
-    //         'view',
-    //         'view_any',
-    //         'create',
-    //         'update',
-    //         'delete',
-    //         'delete_any',
-    //         'publish'
-    //     ];
-    // }
+
     public function create()
     {
         // Logika untuk membuat laporan
