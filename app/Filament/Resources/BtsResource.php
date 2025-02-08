@@ -29,31 +29,28 @@ class BtsResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
 
     public static function form(Form $form): Form
-    {
-        return $form->schema([
-            Forms\Components\Grid::make()
-                ->columns(2)
-                ->schema([
-                    // Kolom Kiri - Form Isian
-                    Section::make('Informasi BTS')
-                        ->columnSpan(1)
-                        ->schema([
+{
+    return $form->schema([
+        Forms\Components\Grid::make()
+            ->columns(2)
+            ->schema([
+                // Left Column - Map
+                Section::make('Peta Lokasi')
+                    ->columnSpan(1)
+                    ->schema([
+                        Forms\Components\TextInput::make('titik_koordinat')
+                            ->label('Titik Koordinat')
+                            ->required(),
 
-                            Forms\Components\TextInput::make('titik_koordinat')
-                                ->label('Titik Koordinat')
-                                // ->disabled()
-                                ->required(),
+                        Actions::make([
+                            Action::make('openMap')
+                                ->label('Buka di Google Maps')
+                                ->icon('heroicon-m-map')
+                                ->url(fn($get) => "https://www.google.com/maps?q=" . $get('latitude') . ',' . $get('longitude'))
+                                ->openUrlInNewTab()
+                        ])->columnSpanFull(),
 
-
-                            Actions::make([
-                                Action::make('openMap')
-                                    ->label('Buka di Google Maps')
-                                    ->icon('heroicon-m-map')
-                                    ->url(fn($get) => "https://www.google.com/maps?q=" . $get('latitude') . ',' . $get('longitude'))
-                                    ->openUrlInNewTab()
-                            ])->columnSpanFull(),
-
-                            Map::make('location')
+                        Map::make('location')
                             ->label('Peta')
                             ->helperText(new HtmlString(' <strong> Klik lokasi pada peta.</strong>'))
                             ->columnSpanFull()
@@ -80,91 +77,61 @@ class BtsResource extends Resource
                                 'min-height: 50vh',
                                 'border-radius: 10px'
                             ])
-                            ->liveLocation(true, false, 100000) //agar peta bisa ambil koordinat
+                            ->liveLocation(true, false, 100000)
                             ->showMarker(true)
                             ->markerColor("#22c55eff")
-                            ->markerHtml('<div class="custom-marker">...</div>')
-                            ->markerIconUrl('/images/marker.png')
-                            ->markerIconSize([32, 32])
-                            ->markerIconClassName('my-marker-class')
-                            ->markerIconAnchor([16, 32])
                             ->showFullscreenControl()
                             ->showZoomControl()
                             ->draggable(true)
                             ->tilesUrl("https://tile.openstreetmap.de/{z}/{x}/{y}.png")
                             ->zoom(14)
                             ->detectRetina()
-                            ->showMyLocationButton(true)
-                            ->geoMan(false)
-                            ->geoManEditable(false)
-                            ->geoManPosition('topleft')
-                            ->drawCircleMarker()
-                            ->rotateMode()
-                            ->clickable(true) //click to move marker
-                            ->drawMarker()
-                            ->drawPolygon()
-                            ->drawPolyline()
-                            ->drawCircle()
-                            ->dragMode(true)
-                            ->cutPolygon()
-                            ->editPolygon()
-                            ->deleteLayer()
-                            ->setColor('#3388ff')
-                            ->setFilledColor('#cad9ec'),
+                            ->showMyLocationButton(true),
 
-                        Forms\Components\TextInput::make('latitude')
-                            ->label('Latitude')
-                            // ->required()
-                            ->numeric()
-                            ->live()
-                            ->afterStateUpdated(function ($state, Set $set, $get) {
-                                if ($state) {
-                                    $longitude = $get('longitude');
-                                    if ($longitude) {
-                                        // Format angka dengan 6 digit desimal
-                                        $lat = number_format(floatval($state), 6, '.', '');
-                                        $lng = number_format(floatval($longitude), 6, '.', '');
+                        Forms\Components\Grid::make()
+                            ->columns(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('latitude')
+                                    ->label('Latitude')
+                                    ->numeric()
+                                    ->live()
+                                    ->afterStateUpdated(function ($state, Set $set, $get) {
+                                        if ($state && $get('longitude')) {
+                                            $lat = number_format(floatval($state), 6, '.', '');
+                                            $lng = number_format(floatval($get('longitude')), 6, '.', '');
 
-                                        $set('location', [
-                                            'lat' => floatval($lat),
-                                            'lng' => floatval($lng)
-                                        ]);
-                                        $set('lokasi', $lat . ', ' . $lng);
-                                    }
-                                }
-                            }),
+                                            $set('location', [
+                                                'lat' => floatval($lat),
+                                                'lng' => floatval($lng)
+                                            ]);
+                                            $set('titik_koordinat', $lat . ', ' . $lng);
+                                        }
+                                    }),
 
+                                Forms\Components\TextInput::make('longitude')
+                                    ->label('Longitude')
+                                    ->numeric()
+                                    ->live()
+                                    ->afterStateUpdated(function ($state, Set $set, $get) {
+                                        if ($state && $get('latitude')) {
+                                            $lat = number_format(floatval($get('latitude')), 6, '.', '');
+                                            $lng = number_format(floatval($state), 6, '.', '');
 
-                        Forms\Components\TextInput::make('longitude')
-                            ->label('Longitude')
-                            // ->required()
-                            ->numeric()
-                            ->live()
-                            ->afterStateUpdated(function ($state, Set $set, $get) {
-                                if ($state) {
-                                    $latitude = $get('latitude');
-                                    if ($latitude) {
-                                        // Format angka dengan 6 digit desimal
-                                        $lat = number_format(floatval($latitude), 6, '.', '');
-                                        $lng = number_format(floatval($state), 6, '.', '');
+                                            $set('location', [
+                                                'lat' => floatval($lat),
+                                                'lng' => floatval($lng)
+                                            ]);
+                                            $set('titik_koordinat', $lat . ', ' . $lng);
+                                        }
+                                    }),
+                            ]),
+                    ]),
 
-                                        $set('location', [
-                                            'lat' => floatval($lat),
-                                            'lng' => floatval($lng)
-                                        ]);
-                                        $set('lokasi', $lat . ', ' . $lng);
-                                    }
-                                }
-                            }),
-//------------------///
-
-
-
-                    // Kolom Kanan - Peta
-                    Section::make('Lokasi BTS')
-                        ->columnSpan(1)
-                        ->schema([
-                            Forms\Components\Select::make('operator_id')
+                // Right Column - Information
+                Section::make('Informasi BTS')
+                    ->columnSpan(1)
+                    ->schema([
+                        Forms\Components\Select::make('operator_id')
                             ->relationship('operator', 'nama_operator')
                             ->required(),
 
@@ -174,12 +141,8 @@ class BtsResource extends Resource
                             ->live(),
 
                         Forms\Components\Select::make('nagari_id')
-                            ->relationship(
-                                'nagari',
-                                'nama',
-                                fn(Builder $query, callable $get) =>
-                                $query->when(
-                                    $get('kecamatan_id'),
+                            ->relationship('nagari', 'nama', fn(Builder $query, callable $get) =>
+                                $query->when($get('kecamatan_id'),
                                     fn($query, $kecamatan_id) =>
                                     $query->where('kecamatan_id', $kecamatan_id)
                                 )
@@ -192,29 +155,23 @@ class BtsResource extends Resource
                             ->afterStateUpdated(fn(callable $set) => $set('jorong_id', null)),
 
                         Forms\Components\Select::make('jorong_id')
-                            ->relationship(
-                                'jorong',
-                                'nama',
-                                fn(Builder $query, callable $get) =>
-                                $query->when(
-                                    $get('nagari_id'),
+                            ->relationship('jorong', 'nama', fn(Builder $query, callable $get) =>
+                                $query->when($get('nagari_id'),
                                     fn($query, $nagari_id) =>
                                     $query->where('nagari_id', $nagari_id)
                                 )
                             )
-                            // ->required()
                             ->searchable()
                             ->preload()
                             ->visible(fn(callable $get) => filled($get('nagari_id'))),
 
-
                         Forms\Components\TextInput::make('pemilik')
                             ->label('Pemilik BTS')
                             ->required(),
+
                         Forms\Components\TextInput::make('alamat')
                             ->label('Alamat')
                             ->required(),
-
 
                         Forms\Components\Select::make('teknologi')
                             ->options([
@@ -224,7 +181,6 @@ class BtsResource extends Resource
                                 '4G+5G' => '4G+5G',
                                 '5G' => '5G',
                             ])
-
                             ->default('4G')
                             ->required(),
 
@@ -241,13 +197,10 @@ class BtsResource extends Resource
                             ->default('2023')
                             ->minValue(2000)
                             ->maxValue(2030),
-
                     ]),
-
-                        ]),
-                ])
-        ]);
-    }
+            ])
+    ]);
+}
 
     public static function table(Table $table): Table
     {
