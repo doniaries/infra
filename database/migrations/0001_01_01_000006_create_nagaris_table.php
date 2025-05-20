@@ -20,7 +20,6 @@ return new class extends Migration
             $table->unique(['kecamatan_id', 'nama']);
             $table->index('kecamatan_id');
             $table->index('nama');
-            $table->index('jumlah_penduduk');
         });
     }
 

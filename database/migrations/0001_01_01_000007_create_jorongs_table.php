@@ -15,15 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('nagari_id')->constrained('nagaris')->onDelete('cascade');
             $table->string('nama');
-            $table->string('nama_kepala_jorong');
-            $table->string('alamat');
-            $table->integer('jumlah_penduduk_jorong');
+            
             $table->timestamps();
 
             $table->unique(['nagari_id', 'nama']);
             $table->index('nagari_id');
             $table->index('nama');
-            $table->index('jumlah_penduduk_jorong');
+            
         });
     }
 

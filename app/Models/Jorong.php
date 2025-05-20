@@ -11,11 +11,9 @@ class Jorong extends Model
     protected $table = "jorongs";
 
     protected $fillable = [
-        'nama',
         'nagari_id',
-        'nama_kepala_jorong',
-        'alamat',
-        'jumlah_penduduk_jorong',
+        'nama',
+
     ];
 
     public function nagari(): BelongsTo
