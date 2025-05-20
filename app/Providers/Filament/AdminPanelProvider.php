@@ -32,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Bank Data Infrastruktur')
             ->login()
             ->spa()
-            ->topNavigation()
+            // ->topNavigation()
             ->colors([
                 'danger' => Color::Red,
                 'gray' => Color::Zinc,
@@ -72,6 +72,15 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-building-office')
                     ->collapsed(),
 
+                NavigationGroup::make()
+                    ->label('Data Infrastruktur')
+                    ->icon('heroicon-o-folder-arrow-down')
+                    ->collapsed(),
+
+                NavigationGroup::make()
+                    ->label('Data Potensi')
+                    ->icon('heroicon-o-document-text')
+                    ->collapsed(),
                 NavigationGroup::make()
                     ->label('Setting')
                     ->icon('heroicon-o-cog-6-tooth')

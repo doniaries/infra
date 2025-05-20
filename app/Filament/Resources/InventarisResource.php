@@ -21,6 +21,11 @@ class InventarisResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-folder-arrow-down';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Data Infrastruktur';
+    }
+
     public static function form(Form $form): Form
     {
         return $form

@@ -16,8 +16,10 @@
         "filament/forms": "^3.2",
         "filament/notifications": "^3.2",
         "filament/tables": "^3.2",
+        "laravel-lang/common": "^6.7",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "spatie/laravel-sitemap": "^7.3",
         "stephenjude/filament-blog": "*",
         "swisnl/filament-backgrounds": "^1.1"
     },

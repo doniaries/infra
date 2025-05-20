@@ -35,6 +35,11 @@ class BtsResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Data Infrastruktur';
+    }
+
     public static function form(Form $form): Form
     {
         return $form->schema([
