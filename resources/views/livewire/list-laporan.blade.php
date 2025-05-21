@@ -33,7 +33,7 @@
         </div>
     </header>
 
-    <div class="container px-4 py-8 mx-auto mt-32"> <!-- Tambah margin top di sini -->
+    <div class="container px-4 py-8 mx-auto pt-120">
         <div class="mx-auto max-w-4xl">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-semibold hero-title">Formulir Laporan</h1>
@@ -45,6 +45,10 @@
     </div>
 
     <style>
+.pt-120 {
+    padding-top: 120px;
+}
+
         /* Base styles */
         body {
             font-family: 'Poppins', sans-serif;
@@ -268,6 +272,8 @@
         body.dark .hero-title {
             color: #60a5fa;
         }
+
+     
     </style>
 
     <script>

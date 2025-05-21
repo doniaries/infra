@@ -10,6 +10,9 @@
         @vite('resources/css/app.css')
 
         <style>
+            .pt-120 {
+    padding-top: 120px;
+}
             /* Base styles */
             body {
                 font-family: 'Poppins', sans-serif;
@@ -328,20 +331,10 @@
         <!-- Animated Background -->
         <div class="animated-bg">
             <div id="stars" class="stars"></div>
-            <div class="clouds">
-                <!-- Clouds will be static, add them directly or via CSS -->
-                <div class="cloud" style="bottom: 20px; left: 10%; transform: scale(0.8);"></div>
-                <div class="cloud" style="bottom: 50px; left: 30%; transform: scale(1);"></div>
-                <div class="cloud" style="bottom: 30px; left: 60%; transform: scale(0.9);"></div>
-                <div class="cloud" style="bottom: 60px; left: 80%; transform: scale(1.1);"></div>
-            </div>
+           
         </div>
 
-        <!-- Landmarks -->
-        <div class="landmark jam-gadang"></div>
-        <div class="landmark rumah-gadang"></div>
-        <div class="landmark surat"></div>
-
+       
         <!-- Header -->
         <header class="header">
             <div class="container px-4 mx-auto">
@@ -367,7 +360,7 @@
             </div>
         </header>
 
-        <div class="flex justify-center items-center py-6 mt-16 min-h-screen">
+        <div class="container px-4 py-8 mx-auto pt-120">
             <div class="p-8 mx-auto space-y-8 w-full max-w-5xl form-container">
                 <form wire:submit="submit">
                     {{ $this->form }}
