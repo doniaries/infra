@@ -1,41 +1,405 @@
 <!DOCTYPE html>
-
-<html lang="en-us">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Sistem Informasi Infrastruktur - Aplikasi berbasis Laravel dengan Filament Admin Panel">
+    <meta name="keywords" content="infrastruktur, sistem informasi, laravel, filament, admin panel">
+    <meta name="author" content="Admin Panel">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Lapor Infrastruktur | Aplikasi Manajemen Infrastruktur">
+    <meta property="og:description"
+        content="Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat. Sistem ini membantu Anda melacak laporan secara real-time.">
+    <meta property="og:image" content="{{ asset('front/images/logo.png') }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="Lapor Infrastruktur | Aplikasi Manajemen Infrastruktur">
+    <meta property="twitter:description"
+        content="Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat. Sistem ini membantu Anda melacak laporan secara real-time.">
+    <meta property="twitter:image" content="{{ asset('front/images/logo.png') }}">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}">
+
     <title>Lapor Infrastruktur</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-    <meta name="description" content="This is meta description">
-    <meta name="author" content="Themefisher">
-    <link rel="shortcut icon" href="{{ asset('/front/images/favicon.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ asset('/front/images/favicon.png') }}" type="image/x-icon">
 
-    <!-- # Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('front/images/favicon.png') }}">
 
-    <!-- # CSS Plugins -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700|instrument-sans:400,500,600"
+        rel="stylesheet" />
+
+    <!-- CSS Plugins -->
     <link rel="stylesheet" href="{{ asset('/front/plugins/slick/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/brands.css') }}">
     <link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/solid.css') }}">
-
-    <!-- # Main Style Sheet -->
     <link rel="stylesheet" href="{{ asset('/front/css/style.css') }}">
 
-    @livewireStyles
-</head>
-
-<body>
-
-    {{-- Fix the body padding-top issue --}}
+    <!-- Styles -->
     <style>
+        /* Base styles */
         body {
-            padding-top: 0 !important;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 0;
+            padding: 0;
         }
 
+        /* Dark mode styles */
+        body.dark {
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        /* Sky background */
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            background-color: #e0f2fe;
+            /* Light blue sky for light mode */
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark .animated-bg {
+            background-color: #0c1222;
+            /* Dark blue night sky for dark mode */
+        }
+
+        /* Stars (visible only in dark mode) */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        body.dark .stars {
+            opacity: 1;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #ffffff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.2;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Background landmarks */
+        .landmark {
+            position: absolute;
+            bottom: 50px;
+            z-index: -2;
+            transition: transform 0.5s ease;
+            cursor: pointer;
+            filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.2));
+        }
+        
+        .landmark:hover {
+            transform: scale(1.05);
+        }
+        
+        .landmark.clicked {
+            transform: translateY(-50px) scale(0.8);
+        }
+        
+        /* Buildings with windows */
+        .buildings {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            z-index: -1;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .building {
+            position: absolute;
+            bottom: 0;
+            background-color: #334155;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark .building {
+            background-color: #1e293b;
+        }
+
+        body.dark .cloud {
+            opacity: 0.2;
+            background-color: #334155;
+        }
+
+        body.dark .cloud:before,
+        body.dark .cloud:after {
+            background-color: #334155;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateX(-100%) scale(0.6);
+            }
+
+            100% {
+                transform: translateX(100vw) scale(0.6);
+            }
+        }
+
+        /* Header styles */
+        .header {
+            background-color: transparent;
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        body.dark .header {
+            background-color: transparent;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2563eb;
+            margin: 0;
+        }
+
+        body.dark .app-title {
+            color: #60a5fa;
+        }
+
+        .app-subtitle {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin: 0;
+        }
+
+        body.dark .app-subtitle {
+            color: #94a3b8;
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            cursor: pointer;
+            width: 48px;
+            height: 24px;
+            border-radius: 12px;
+            background-color: #e2e8f0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle.dark {
+            background-color: #1f2937;
+        }
+
+        .theme-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle.dark::after {
+            transform: translateX(24px);
+            background-color: #f59e0b;
+        }
+
+        /* Main content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 7rem 2rem 2rem;
+        }
+
+        /* Hero section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        body.dark .hero-title {
+            color: #60a5fa;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #64748b;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        body.dark .hero-subtitle {
+            color: #94a3b8;
+        }
+
+        /* Login button with animation */
+        .login-button {
+            display: inline-block;
+            background-color: #2563eb;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        }
+
+        .login-button:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background-color: #1d4ed8;
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            z-index: -1;
+        }
+
+        .login-button:hover:before {
+            height: 100%;
+        }
+
+        .login-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        body.dark .login-button {
+            background-color: #3b82f6;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+        }
+
+        body.dark .login-button:before {
+            background-color: #2563eb;
+        }
+
+        /* Register button */
+        .register-button {
+            display: inline-block;
+            background-color: #10b981;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+            margin-right: 1rem;
+        }
+
+        .register-button:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background-color: #059669;
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            z-index: -1;
+        }
+
+        .register-button:hover:before {
+            height: 100%;
+        }
+
+        .register-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        body.dark .register-button {
+            background-color: #10b981;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+        }
+
+        body.dark .register-button:before {
+            background-color: #059669;
+        }
+
+        /* Table styles */
         .table-responsive {
             margin-top: 2rem;
         }
@@ -54,118 +418,179 @@
         }
 
         .bg-danger { background-color: #dc3545 !important; }
-    .bg-warning { background-color: #ffc107 !important; }
-    .bg-primary { background-color: #0d6efd !important; }
-    .bg-secondary { background-color: #6c757d !important; }
-    .bg-info { background-color: #0dcaf0 !important; }
-    .bg-success { background-color: #198754 !important; }
-
-
+        .bg-warning { background-color: #ffc107 !important; }
+        .bg-primary { background-color: #0d6efd !important; }
+        .bg-secondary { background-color: #6c757d !important; }
+        .bg-info { background-color: #0dcaf0 !important; }
+        .bg-success { background-color: #198754 !important; }
     </style>
-    <!-- navigation -->
-    <header class="navigation bg-tertiary">
-        <nav class="py-3 text-center navbar navbar-expand-xl navbar-light">
-            <div class="container">
-                <a class="navbar-brand" href="{{ asset('/') }}">
-                    <img loading="prelaod" decoding="async" class="img-fluid" width="160"
-                        src="{{ asset('/front/images/logo.png') }}" alt="Wallet">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="m-auto mb-2 navbar-nav mb-lg-0">
-                        <li class="nav-item"> <a class="nav-link" href="{{ asset('/') }}">Home</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="list-laporan">Daftar Laporan</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="{{ route('list.bts') }}">Data BTS</a></li>
 
+    @livewireStyles
+</head>
 
-                    </ul>
-                    <a href="{{ route('public.laporform') }}" class="btn btn-outline-primary">Buat Laporan</a>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="stars" id="stars"></div>
+    </div>
 
-                    <a href="{{ route('login') }}" class="btn btn-outline-secondary">Login</a>
-                </div>
+    <!-- Buildings Silhouette -->
+    <div class="buildings">
+        <div class="building building-1">
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+        </div>
+        <div class="building building-2">
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+        </div>
+        <div class="building building-3">
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+        </div>
+        <div class="building building-4">
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+        </div>
+        <div class="building building-5">
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+        </div>
+    </div>
+
+    <!-- Landmarks -->
+    <div class="landmark jam-gadang"></div>
+    <div class="landmark rumah-gadang"></div>
+    <div class="landmark surat"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="logo">
+            <div>
+                <h1 class="app-title">Lapor Infrastruktur</h1>
+                <p class="app-subtitle">Sistem Informasi Infrastruktur</p>
             </div>
-        </nav>
+        </div>
+        <div class="theme-toggle" id="theme-toggle"></div>
     </header>
 
-    <section class="overflow-hidden banner bg-tertiary position-relative">
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="mb-5 col-lg-6 mb-lg-0">
-                    <div class="block text-center text-lg-start pe-0 pe-xl-5">
-                        <h2 class="mb-4 text-capitalize">Ada Gangguan Jaringan Atau Ada Konsultasi Teknis!</h2>
-                        <h3 class="mb-5">Sampaikan kepada kami</h3>
-                        <a href="{{ route('public.laporform') }}" class="btn btn-outline-primary">Buat Laporan</a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="text-center ps-lg-5">
-                        <img loading="lazy" decoding="async" src="{{ asset('front/images/about-us.png') }}"
-                            alt="banner image" class="w-100">
-                    </div>
-                </div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="hero">
+            <h2 class="hero-title">Ada Gangguan Jaringan Atau Ada Konsultasi Teknis!</h2>
+            <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat. Sistem ini membantu Anda melacak laporan secara real-time.</p>
+            <div>
+                <a href="{{ route('public.laporform') }}" class="register-button">Buat Laporan</a>
+                <a href="{{ route('login') }}" class="login-button">Login</a>
             </div>
+        </section>
+
+        <!-- Navigation Links -->
+        <div class="mb-5 text-center">
+            <a href="{{ asset('/') }}" class="mx-2 btn btn-outline-primary">Home</a>
+            <a href="list-laporan" class="mx-2 btn btn-outline-primary">Daftar Laporan</a>
+            <a href="{{ route('list.bts') }}" class="mx-2 btn btn-outline-primary">Data BTS</a>
         </div>
-        <div class="has-shapes">
-            <svg class="shape shape-left text-light" viewBox="0 0 192 752" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M-30.883 0C-41.3436 36.4248 -22.7145 75.8085 4.29154 102.398C31.2976 128.987 65.8677 146.199 97.6457 166.87C129.424 187.542 160.139 213.902 172.162 249.847C193.542 313.799 149.886 378.897 129.069 443.036C97.5623 540.079 122.109 653.229 191 728.495"
-                    stroke="currentColor" stroke-miterlimit="10" />
-                <path
-                    d="M-55.5959 7.52271C-66.0565 43.9475 -47.4274 83.3312 -20.4214 109.92C6.58466 136.51 41.1549 153.722 72.9328 174.393C104.711 195.064 135.426 221.425 147.449 257.37C168.829 321.322 125.174 386.42 104.356 450.559C72.8494 547.601 97.3965 660.752 166.287 736.018"
-                    stroke="currentColor" stroke-miterlimit="10" />
-                <path
-                    d="M-80.3302 15.0449C-90.7909 51.4697 -72.1617 90.8535 -45.1557 117.443C-18.1497 144.032 16.4205 161.244 48.1984 181.915C79.9763 202.587 110.691 228.947 122.715 264.892C144.095 328.844 100.439 393.942 79.622 458.081C48.115 555.123 72.6622 668.274 141.552 743.54"
-                    stroke="currentColor" stroke-miterlimit="10" />
-                <path
-                    d="M-105.045 22.5676C-115.506 58.9924 -96.8766 98.3762 -69.8706 124.965C-42.8646 151.555 -8.29436 168.767 23.4835 189.438C55.2615 210.109 85.9766 236.469 98.0001 272.415C119.38 336.367 75.7243 401.464 54.9072 465.604C23.4002 562.646 47.9473 675.796 116.838 751.063"
-                    stroke="currentColor" stroke-miterlimit="10" />
-            </svg>
-            <svg class="shape shape-right text-light" viewBox="0 0 731 746" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M12.1794 745.14C1.80036 707.275 -5.75764 666.015 8.73984 629.537C27.748 581.745 80.4729 554.968 131.538 548.843C182.604 542.703 234.032 552.841 285.323 556.748C336.615 560.64 391.543 557.276 433.828 527.964C492.452 487.323 511.701 408.123 564.607 360.255C608.718 320.353 675.307 307.183 731.29 327.323"
-                    stroke="currentColor" stroke-miterlimit="10" />
-                <path
-                    d="M51.0253 745.14C41.2045 709.326 34.0538 670.284 47.7668 635.783C65.7491 590.571 115.623 565.242 163.928 559.449C212.248 553.641 260.884 563.235 309.4 566.931C357.916 570.627 409.887 567.429 449.879 539.701C505.35 501.247 523.543 426.331 573.598 381.059C615.326 343.314 678.324 330.853 731.275 349.906"
-                    stroke="currentColor" stroke-miterlimit="10" />
-                <path
-                    d="M89.8715 745.14C80.6239 711.363 73.8654 674.568 86.8091 642.028C103.766 599.396 150.788 575.515 196.347 570.054C241.906 564.578 287.767 573.629 333.523 577.099C379.278 580.584 428.277 577.567 465.976 551.423C518.279 515.172 535.431 444.525 582.62 401.832C621.964 366.229 681.356 354.493 731.291 372.46"
-                    stroke="currentColor" stroke-miterlimit="10" />
-                <path
-                    d="M128.718 745.14C120.029 713.414 113.678 678.838 125.837 648.274C141.768 608.221 185.939 585.788 228.737 580.659C271.536 575.515 314.621 584.008 357.6 587.282C400.58 590.556 446.607 587.719 482.028 563.16C531.163 529.111 547.275 462.733 591.612 422.635C628.572 389.19 684.375 378.162 731.276 395.043"
-                    stroke="currentColor" stroke-miterlimit="10" />
-                <path
-                    d="M167.564 745.14C159.432 715.451 153.504 683.107 164.863 654.519C179.753 617.046 221.088 596.062 261.126 591.265C301.164 586.452 341.473 594.402 381.677 597.465C421.88 600.527 464.95 597.872 498.094 574.896C544.061 543.035 559.146 480.942 600.617 443.423C635.194 412.135 687.406 401.817 731.276 417.612"
-                    stroke="currentColor" stroke-miterlimit="10" />
-                <path
-                    d="M817.266 289.466C813.108 259.989 787.151 237.697 759.261 227.271C731.372 216.846 701.077 215.553 671.666 210.904C642.254 206.24 611.795 197.156 591.664 175.224C555.853 136.189 566.345 75.5336 560.763 22.8649C552.302 -56.8256 498.487 -130.133 425 -162.081"
-                    stroke="currentColor" stroke-miterlimit="10" />
-                <path
-                    d="M832.584 276.159C828.427 246.683 802.469 224.391 774.58 213.965C746.69 203.539 716.395 202.246 686.984 197.598C657.573 192.934 627.114 183.85 606.982 161.918C571.172 122.883 581.663 62.2275 576.082 9.55873C567.62 -70.1318 513.806 -143.439 440.318 -175.387"
-                    stroke="currentColor" stroke-miterlimit="10" />
-                <path
-                    d="M847.904 262.853C843.747 233.376 817.789 211.084 789.9 200.659C762.011 190.233 731.716 188.94 702.304 184.292C672.893 179.627 642.434 170.544 622.303 148.612C586.492 109.577 596.983 48.9211 591.402 -3.74766C582.94 -83.4382 529.126 -156.746 455.638 -188.694"
-                    stroke="currentColor" stroke-miterlimit="10" />
-                <path
-                    d="M863.24 249.547C859.083 220.07 833.125 197.778 805.236 187.353C777.347 176.927 747.051 175.634 717.64 170.986C688.229 166.321 657.77 157.237 637.639 135.306C601.828 96.2707 612.319 35.6149 606.738 -17.0538C598.276 -96.7443 544.462 -170.052 470.974 -202"
-                    stroke="currentColor" stroke-miterlimit="10" />
-            </svg>
-        </div>
-    </section>
+    </main>
 
-
-
-
-    <!-- # JS Plugins -->
+    <!-- Scripts -->
     <script src="{{ asset('/front/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('/front/plugins/bootstrap/bootstrap.min.js') }}"></script>
-
-    <!-- Main Script -->
     <script src="{{ asset('/front/js/script.js') }}"></script>
+    
+    <script>
+        // Create stars
+        function createStars() {
+            const stars = document.getElementById('stars');
+            const count = 100;
+            
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 3}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                stars.appendChild(star);
+            }
+        }
+        
+        // Theme toggle
+        function setupThemeToggle() {
+            const toggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const theme = localStorage.getItem('theme');
+            
+            if (theme === 'dark') {
+                body.classList.add('dark');
+                toggle.classList.add('dark');
+            }
+            
+            toggle.addEventListener('click', () => {
+                body.classList.toggle('dark');
+                toggle.classList.toggle('dark');
+                
+                const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
+                localStorage.setItem('theme', currentTheme);
+            });
+        }
+        
+        // Interactive landmarks
+        function setupLandmarks() {
+            const landmarks = document.querySelectorAll('.landmark');
+            
+            landmarks.forEach(landmark => {
+                landmark.addEventListener('click', () => {
+                    landmark.classList.toggle('clicked');
+                    setTimeout(() => {
+                        landmark.classList.remove('clicked');
+                    }, 1000);
+                });
+            });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            setupThemeToggle();
+            setupLandmarks();
+        });
+    </script>
+    
     @livewireScripts
 </body>
 

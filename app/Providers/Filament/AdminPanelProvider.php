@@ -28,9 +28,11 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->sidebarCollapsibleOnDesktop()
             ->id('admin')
+            ->breadcrumbs(false)
             ->path('admin')
             ->brandName('Bank Data Infrastruktur')
             ->login()
+            ->registration()
             ->spa()
             // ->topNavigation()
             ->colors([

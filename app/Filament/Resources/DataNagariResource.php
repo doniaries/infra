@@ -23,7 +23,7 @@ class DataNagariResource extends Resource
 
   public static function getNavigationGroup(): ?string
   {
-    return 'Data Wilayah';
+    return 'Data Potensi';
   }
 
   public static function form(Form $form): Form
