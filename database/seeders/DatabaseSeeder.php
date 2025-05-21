@@ -15,22 +15,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'superadmin@gmail.com',
-            'password' => bcrypt('password'),
-            'is_active' => true,
-
-        ]);
-
-
         $this->call([
             PeralatanSeeder::class,
             OperatorSeeder::class,
             KecamatanSeeder::class,
-            // ShieldSeeder::class,
-            // RoleSeeder::class,
-            // UserSeeder::class,
+            ShieldSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class,
 
         ]);
     }

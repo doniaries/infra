@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('peralatans', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_peralatan');
             $table->string('nama')->unique()->index();
+            $table->string('jenis_peralatan');
+            $table->string('tahun_pengadaan');
             $table->timestamps();
         });
     }

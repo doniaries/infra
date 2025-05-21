@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             $superAdmin = User::create([
                 'name' => 'DON BORLAND',
                 'email' => 'superadmin@gmail.com',
-                'password' => bcrypt('password'),
+                'password' => bcrypt('@Iamsuperadmin'),
                 // 'bidang_id' => $bidangTI->id,
                 // 'jabatan_id' => $jabatanStaff->id,
                 // 'is_active' => true,

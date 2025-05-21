@@ -12,7 +12,6 @@ class Inventaris extends Model
         'peralatan_id',
         'jenis_peralatan',
         'jumlah',
-        'tahun_pengadaan',
         'status',
     ];
 

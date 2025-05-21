@@ -11,5 +11,8 @@ class Peralatan extends Model
     protected $fillable = [
         'nama',
         'jenis_peralatan',
+        'tahun_pengadaan',
     ];
+
+    
 }

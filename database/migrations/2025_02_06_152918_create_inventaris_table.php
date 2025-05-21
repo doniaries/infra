@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('peralatan_id')->constrained('peralatans')->cascadeOnDelete();
             $table->string('jenis_peralatan');
             $table->string('jumlah');
-            $table->string('tahun_pengadaan');
             $table->string('status');
             $table->timestamps();
 

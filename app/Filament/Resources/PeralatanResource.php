@@ -48,6 +48,10 @@ class PeralatanResource extends Resource
                     ->required()
                     ->maxLength(255),
 
+                Forms\Components\TextInput::make('tahun_pengadaan')
+                    ->required()
+                    ->maxLength(255),
+
 
             ]);
     }
@@ -59,6 +63,8 @@ class PeralatanResource extends Resource
                 Tables\Columns\TextColumn::make('nama')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('jenis_peralatan')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('tahun_pengadaan')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

@@ -33,7 +33,8 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Bank Data Infrastruktur')
             ->login()
             ->registration()
-            ->spa()
+            // Menonaktifkan SPA mode untuk mengatasi masalah performa dan halaman expired
+            // ->spa()
             // ->topNavigation()
             ->colors([
                 'danger' => Color::Red,

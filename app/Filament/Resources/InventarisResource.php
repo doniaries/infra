@@ -52,9 +52,7 @@ class InventarisResource extends Resource
                 Forms\Components\TextInput::make('jumlah')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('tahun_pengadaan')
-                    ->required()
-                    ->maxLength(255),
+
                 Forms\Components\TextInput::make('status')
                     ->required()
                     ->maxLength(255),
@@ -72,8 +70,7 @@ class InventarisResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('jumlah')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('tahun_pengadaan')
-                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('status')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
