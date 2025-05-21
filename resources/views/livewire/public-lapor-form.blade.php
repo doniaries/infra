@@ -10,6 +10,20 @@
         @vite('resources/css/app.css')
 
         <style>
+            /* Base styles */
+            body {
+                font-family: 'Poppins', sans-serif;
+                transition: background-color 0.3s ease, color 0.3s ease;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Dark mode styles */
+            body.dark {
+                background-color: #0f172a;
+                color: #f8fafc;
+            }
+
             /* Custom styling */
             .filament-form-component {
                 max-width: 100% !important;
@@ -20,6 +34,10 @@
                 background-color: #f8fafc !important; /* Warna latar belakang field yang lembut */
                 border-radius: 0.5rem;
                 padding: 0.5rem;
+            }
+
+            body.dark .filament-forms-field-wrapper {
+                background-color: #1e293b !important;
             }
 
             .filament-forms-text-input-component {
@@ -38,6 +56,15 @@
                     0 2px 4px -1px rgba(0, 0, 0, 0.06),
                     0 0 0 1px rgba(0, 0, 0, 0.05);
                 border-radius: 1rem;
+                transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            body.dark .form-container {
+                background-color: #1e293b;
+                box-shadow:
+                    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+                    0 2px 4px -1px rgba(0, 0, 0, 0.1),
+                    0 0 0 1px rgba(0, 0, 0, 0.1);
             }
 
             /* Styling untuk section form */
@@ -46,72 +73,310 @@
                 border: 1px solid #e2e8f0;
                 border-radius: 0.75rem;
                 box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+                transition: background-color 0.3s ease, border-color 0.3s ease;
             }
 
-            /* Header styling */
+            body.dark .filament-forms-section-component {
+                background-color: #0f172a !important;
+                border-color: #334155;
+            }
+
+            /* Sky background */
+            .animated-bg {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                z-index: -1;
+                background-color: #e0f2fe;
+                /* Light blue sky for light mode */
+                transition: background-color 0.3s ease;
+            }
+
+            body.dark .animated-bg {
+                background-color: #0c1222;
+                /* Dark blue night sky for dark mode */
+            }
+
+            /* Stars (visible only in dark mode) */
+            .stars {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            body.dark .stars {
+                opacity: 1;
+            }
+
+            .star {
+                position: absolute;
+                background-color: #ffffff;
+                border-radius: 50%;
+                animation: twinkle 2s infinite alternate;
+            }
+
+            @keyframes twinkle {
+                0% {
+                    opacity: 0.2;
+                }
+
+                100% {
+                    opacity: 1;
+                }
+            }
+
+            
+
+            /* Hapus @keyframes float */
+            /* @keyframes float {
+                0% {
+                    transform: translateX(-200px);
+                }
+                100% {
+                    transform: translateX(calc(100vw + 200px));
+                }
+            } */
+
+            /* Header styles */
             .header {
-                background-color: #ebf5ff; /* Light blue background */
+                background-color: rgba(255, 255, 255, 0.8);
+                backdrop-filter: blur(10px);
+                padding: 1rem 2rem;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
                 box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-                padding: 1rem 0;
+            }
+
+            body.dark .header {
+                background-color: rgba(15, 23, 42, 0.8);
             }
 
             .logo-container {
                 display: flex;
                 align-items: center;
-                gap: 1rem;
+                gap: 1.5rem;
             }
 
             .logo {
-                height: 4rem;
+                height: 50px;
                 width: auto;
+                transition: transform 0.3s ease;
+            }
+
+            .logo:hover {
+                transform: scale(1.05);
             }
 
             .app-title {
-                font-size: 1.25rem;
-                font-weight: 700;
-                color: #2563eb; /* Blue text color */
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: #2563eb;
                 margin: 0;
+            }
+
+            body.dark .app-title {
+                color: #60a5fa;
             }
 
             .app-subtitle {
                 font-size: 0.875rem;
-                color: #6b7280;
+                color: #64748b;
                 margin: 0;
+            }
+
+            body.dark .app-subtitle {
+                color: #94a3b8;
+            }
+
+            /* Navigation links */
+            .nav-link {
+                padding: 0.5rem 0.75rem;
+                color: #2563eb;
+                transition: all 0.2s;
+            }
+
+            .nav-link:hover {
+                color: #1e40af;
+                text-decoration: underline;
+            }
+
+            .nav-link.active {
+                font-weight: 500;
+                color: #1e40af;
+                border-bottom: 2px solid #2563eb;
+            }
+
+            body.dark .nav-link {
+                color: #60a5fa;
+            }
+
+            body.dark .nav-link:hover {
+                color: #93c5fd;
+            }
+
+            body.dark .nav-link.active {
+                color: #93c5fd;
+                border-bottom: 2px solid #60a5fa;
+            }
+
+            .nav-button {
+                padding: 0.5rem 1rem;
+                background-color: #2563eb;
+                color: white;
+                border-radius: 0.5rem;
+                transition: background-color 0.2s;
+            }
+
+            .nav-button:hover {
+                background-color: #1d4ed8;
+            }
+
+            body.dark .nav-button {
+                background-color: #3b82f6;
+            }
+
+            body.dark .nav-button:hover {
+                background-color: #2563eb;
+            }
+
+            /* Theme toggle */
+            .theme-toggle {
+                cursor: pointer;
+                width: 48px;
+                height: 24px;
+                border-radius: 12px;
+                background-color: #e2e8f0;
+                position: relative;
+                transition: all 0.3s ease;
+            }
+
+            .theme-toggle.dark {
+                background-color: #1f2937;
+            }
+
+            .theme-toggle::after {
+                content: '';
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: white;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .theme-toggle.dark::after {
+                transform: translateX(24px);
+                background-color: #f59e0b;
+            }
+
+            /* Form buttons */
+            .form-button {
+                transition: all 0.3s ease;
+            }
+
+            .form-button-back {
+                background-color: #e2e8f0;
+                color: #475569;
+            }
+
+            .form-button-back:hover {
+                background-color: #cbd5e1;
+            }
+
+            body.dark .form-button-back {
+                background-color: #334155;
+                color: #e2e8f0;
+            }
+
+            body.dark .form-button-back:hover {
+                background-color: #475569;
+            }
+
+            .form-button-submit {
+                background-color: #2563eb;
+                color: white;
+            }
+
+            .form-button-submit:hover {
+                background-color: #1d4ed8;
+            }
+
+            body.dark .form-button-submit {
+                background-color: #3b82f6;
+            }
+
+            body.dark .form-button-submit:hover {
+                background-color: #2563eb;
             }
         </style>
     </head>
     <body class="bg-gray-50"> <!-- Ubah background body -->
+        <!-- Animated Background -->
+        <div class="animated-bg">
+            <div id="stars" class="stars"></div>
+            <div class="clouds">
+                <!-- Clouds will be static, add them directly or via CSS -->
+                <div class="cloud" style="bottom: 20px; left: 10%; transform: scale(0.8);"></div>
+                <div class="cloud" style="bottom: 50px; left: 30%; transform: scale(1);"></div>
+                <div class="cloud" style="bottom: 30px; left: 60%; transform: scale(0.9);"></div>
+                <div class="cloud" style="bottom: 60px; left: 80%; transform: scale(1.1);"></div>
+            </div>
+        </div>
+
+        <!-- Landmarks -->
+        <div class="landmark jam-gadang"></div>
+        <div class="landmark rumah-gadang"></div>
+        <div class="landmark surat"></div>
+
         <!-- Header -->
         <header class="header">
             <div class="container px-4 mx-auto">
                 <div class="flex justify-between items-center">
-                    <div class="logo-container">
+                    <!-- Logo dan Nama Aplikasi yang bisa diklik -->
+                    <a href="{{ url('/') }}" class="transition-opacity logo-container hover:opacity-90">
                         <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="logo">
                         <div>
                             <h1 class="app-title">Lapor Infrastruktur</h1>
                             <p class="app-subtitle">Sistem Informasi Infrastruktur</p>
                         </div>
-                    </div>
-                    <a href="{{ url('/') }}" class="flex gap-2 items-center px-4 py-2 text-gray-800 bg-gray-100 rounded-lg hover:bg-gray-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                        </svg>
-                        Kembali ke Home
                     </a>
+                    
+                    <!-- Menu Navigasi dan Theme Toggle -->
+                    <div class="flex items-center space-x-4">
+                        <a href="{{ url('/') }}" class="nav-link">Home</a>
+                        <a href="{{ url('/list-laporan') }}" class="nav-link">Daftar Laporan</a>
+                        <a href="{{ url('/list-bts') }}" class="nav-link">Data BTS</a>
+                        <a href="{{ route('public.laporform') }}" class="nav-link active">Buat Laporan</a>
+                        <div class="theme-toggle" id="theme-toggle"></div>
+                    </div>
                 </div>
             </div>
         </header>
 
-        <div class="flex justify-center items-center py-6 min-h-screen">
+        <div class="flex justify-center items-center py-6 mt-16 min-h-screen">
             <div class="p-8 mx-auto space-y-8 w-full max-w-5xl form-container">
                 <form wire:submit="submit">
                     {{ $this->form }}
 
                     <div class="flex gap-4 mt-6">
-                        <a href="{{ url('/') }}" class="px-4 py-3 w-full text-center text-gray-700 bg-gray-200 rounded-lg shadow-lg transition-colors duration-200 hover:bg-gray-300 hover:shadow-xl">
+                        <a href="{{ url('/') }}" class="px-4 py-3 w-full text-center rounded-lg shadow-lg transition-colors duration-200 form-button form-button-back">
                             Kembali
                         </a>
-                        <button type="submit" class="px-4 py-3 w-full text-white rounded-lg shadow-lg transition-colors duration-200 bg-primary-600 hover:bg-primary-500 hover:shadow-xl">
+                        <button type="submit" class="px-4 py-3 w-full rounded-lg shadow-lg transition-colors duration-200 form-button form-button-submit">
                             Kirim Laporan
                         </button>
                     </div>
@@ -127,9 +392,104 @@
             </div>
         </div>
 
+        <script>
+            // Create stars
+            function createStars() {
+                const stars = document.getElementById('stars');
+                const count = 100;
+                
+                for (let i = 0; i < count; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.width = `${Math.random() * 3}px`;
+                    star.style.height = star.style.width;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 2}s`;
+                    stars.appendChild(star);
+                }
+            }
+            
+            // Create buildings
+            /* function createBuildings() {
+                const buildings = document.querySelector('.buildings');
+                const count = 10;
+                const width = window.innerWidth;
+                
+                for (let i = 0; i < count; i++) {
+                    const building = document.createElement('div');
+                    building.className = 'building';
+                    const buildingWidth = 60 + Math.random() * 80;
+                    const buildingHeight = 100 + Math.random() * 100;
+                    building.style.width = `${buildingWidth}px`;
+                    building.style.height = `${buildingHeight}px`;
+                    building.style.left = `${(width / count) * i + Math.random() * 20}px`;
+                    
+                    // Add windows
+                    const windowCount = Math.floor((buildingHeight / 20) * (buildingWidth / 20));
+                    for (let j = 0; j < windowCount; j++) {
+                        if (Math.random() > 0.7) { // 30% chance to add a window
+                            const windowEl = document.createElement('div');
+                            windowEl.className = 'building-window';
+                            windowEl.style.width = '6px';
+                            windowEl.style.height = '6px';
+                            windowEl.style.position = 'absolute';
+                            windowEl.style.backgroundColor = '#f8fafc';
+                            windowEl.style.top = `${10 + Math.floor(j / (buildingWidth / 20)) * 20}px`;
+                            windowEl.style.left = `${10 + (j % Math.floor(buildingWidth / 20)) * 20}px`;
+                            building.appendChild(windowEl);
+                        }
+                    }
+                    
+                    buildings.appendChild(building);
+                }
+            } */
+
+            // Theme toggle
+            function setupThemeToggle() {
+                const toggle = document.getElementById('theme-toggle');
+                const body = document.body;
+                const theme = localStorage.getItem('theme');
+                
+                if (theme === 'dark') {
+                    body.classList.add('dark');
+                    toggle.classList.add('dark');
+                }
+                
+                toggle.addEventListener('click', () => {
+                    body.classList.toggle('dark');
+                    toggle.classList.toggle('dark');
+                    
+                    const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
+                    localStorage.setItem('theme', currentTheme);
+                });
+            }
+            
+            // Interactive landmarks
+            function setupLandmarks() {
+                const landmarks = document.querySelectorAll('.landmark');
+                
+                landmarks.forEach(landmark => {
+                    landmark.addEventListener('click', () => {
+                        landmark.classList.toggle('clicked');
+                        setTimeout(() => {
+                            landmark.classList.remove('clicked');
+                        }, 1000);
+                    });
+                });
+            }
+            
+            // Initialize
+            document.addEventListener('DOMContentLoaded', () => {
+                createStars();
+                // createBuildings(); // Hapus pemanggilan createBuildings
+                setupThemeToggle();
+                setupLandmarks();
+            });
+        </script>
+
         @filamentScripts
         @vite('resources/js/app.js')
-        @livewireScripts
     </body>
     </html>
 </div>
