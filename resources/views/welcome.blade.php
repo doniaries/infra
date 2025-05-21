@@ -524,6 +524,126 @@
             <a href="list-laporan" class="mx-2 btn btn-outline-primary">Daftar Laporan</a>
             <a href="{{ route('list.bts') }}" class="mx-2 btn btn-outline-primary">Data BTS</a>
         </div>
+
+        <!-- Info Cards Section -->
+        <div class="mt-5 row">
+            <!-- Aplikasi Info Card -->
+            <div class="mb-4 col-md-4">
+                <div class="shadow-sm card h-100">
+                    <div class="text-center card-body">
+                        <img src="{{ asset('/front/images/illustration-1.png') }}" alt="Helpdesk Infrastruktur" class="mb-3 img-fluid" style="max-height: 150px;">
+                        <h3 class="card-title text-primary">Tentang Aplikasi</h3>
+                        <p class="card-text">Sistem Informasi Infrastruktur adalah aplikasi yang memudahkan pelaporan dan pengelolaan gangguan jaringan serta konsultasi teknis di Kabupaten Sijunjung.</p>
+                        <p class="card-text">Aplikasi ini membantu mempercepat penanganan masalah infrastruktur teknologi informasi dengan sistem pelaporan yang terintegrasi.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dinas Info Card -->
+            <div class="mb-4 col-md-4">
+                <div class="shadow-sm card h-100">
+                    <div class="text-center card-body">
+                        <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Dinas" class="mb-3 img-fluid" style="max-height: 150px;">
+                        <h3 class="card-title text-primary">Dinas Komunikasi dan Informatika</h3>
+                        <p class="card-text">Dinas Kominfo Kabupaten Sijunjung bertanggung jawab dalam pengembangan dan pemeliharaan infrastruktur teknologi informasi di seluruh wilayah kabupaten.</p>
+                        <p class="card-text">Alamat: Jl. Prof. M. Yamin, SH, Muaro Sijunjung<br>Telp: (0754) 20202<br>Email: diskominfo@sijunjung.go.id</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Helpdesk Info Card -->
+            <div class="mb-4 col-md-4">
+                <div class="shadow-sm card h-100">
+                    <div class="text-center card-body">
+                        <img src="{{ asset('/front/images/illustration-2.png') }}" alt="Helpdesk Support" class="mb-3 img-fluid" style="max-height: 150px;">
+                        <h3 class="card-title text-primary">Helpdesk Infrastruktur</h3>
+                        <p class="card-text">Tim helpdesk kami siap membantu Anda dengan masalah infrastruktur jaringan, perangkat keras, dan konsultasi teknis lainnya.</p>
+                        <p class="card-text">Jam Operasional: Senin-Jumat, 08.00-16.00 WIB<br>Hotline: 0812-3456-7890<br>WhatsApp: 0812-3456-7890</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional CSS for Cards -->
+        <style>
+            .card {
+                border-radius: 10px;
+                border: 2px;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                overflow: hidden;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            }
+            
+            body.dark .card {
+                background-color: #1e293b;
+                color: #e2e8f0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            }
+            
+            body.dark .card:hover {
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            }
+            
+            body.dark .card-title {
+                color: #60a5fa !important;
+            }
+            
+            .card-title {
+                font-weight: 600;
+                margin-bottom: 1rem;
+            }
+            
+            .card-text {
+                color: #64748b;
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+            
+            body.dark .card-text {
+                color: #94a3b8;
+            }
+            
+            /* Bayangan untuk tombol navigasi */
+            .btn-outline-primary {
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+            }
+            
+            .btn-outline-primary:hover {
+                box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+                transform: translateY(-2px);
+            }
+            
+            body.dark .btn-outline-primary {
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            
+            body.dark .btn-outline-primary:hover {
+                box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+            }
+            
+            /* Bayangan untuk tombol utama */
+            .register-button, .login-button {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            
+            .register-button:hover, .login-button:hover {
+                box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            }
+            
+            body.dark .register-button, body.dark .login-button {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            }
+            
+            body.dark .register-button:hover, body.dark .login-button:hover {
+                box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+            }
+        </style>
     </main>
 
     <!-- Scripts -->

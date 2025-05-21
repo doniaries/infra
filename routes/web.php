@@ -3,7 +3,10 @@
 use App\Livewire\ListBts;
 use App\Livewire\ListLaporan;
 use App\Livewire\PublicLaporForm;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 
 
 
@@ -23,6 +26,10 @@ Route::fallback(function () {
 Route::get('/login', function () {
     return redirect('/admin/login');
 })->name('login');
+
+Route::fallback(function () {
+    return redirect('/')->with('error', 'Halaman tidak ditemukan.');
+});
 
 
 Route::get('/list-laporan', ListLaporan::class)->name('list.laporan');

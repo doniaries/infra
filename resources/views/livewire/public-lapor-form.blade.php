@@ -403,40 +403,7 @@
                 }
             }
             
-            // Create buildings
-            /* function createBuildings() {
-                const buildings = document.querySelector('.buildings');
-                const count = 10;
-                const width = window.innerWidth;
-                
-                for (let i = 0; i < count; i++) {
-                    const building = document.createElement('div');
-                    building.className = 'building';
-                    const buildingWidth = 60 + Math.random() * 80;
-                    const buildingHeight = 100 + Math.random() * 100;
-                    building.style.width = `${buildingWidth}px`;
-                    building.style.height = `${buildingHeight}px`;
-                    building.style.left = `${(width / count) * i + Math.random() * 20}px`;
-                    
-                    // Add windows
-                    const windowCount = Math.floor((buildingHeight / 20) * (buildingWidth / 20));
-                    for (let j = 0; j < windowCount; j++) {
-                        if (Math.random() > 0.7) { // 30% chance to add a window
-                            const windowEl = document.createElement('div');
-                            windowEl.className = 'building-window';
-                            windowEl.style.width = '6px';
-                            windowEl.style.height = '6px';
-                            windowEl.style.position = 'absolute';
-                            windowEl.style.backgroundColor = '#f8fafc';
-                            windowEl.style.top = `${10 + Math.floor(j / (buildingWidth / 20)) * 20}px`;
-                            windowEl.style.left = `${10 + (j % Math.floor(buildingWidth / 20)) * 20}px`;
-                            building.appendChild(windowEl);
-                        }
-                    }
-                    
-                    buildings.appendChild(building);
-                }
-            } */
+            
 
             // Theme toggle
             function setupThemeToggle() {
@@ -458,27 +425,7 @@
                 });
             }
             
-            // Interactive landmarks
-            function setupLandmarks() {
-                const landmarks = document.querySelectorAll('.landmark');
-                
-                landmarks.forEach(landmark => {
-                    landmark.addEventListener('click', () => {
-                        landmark.classList.toggle('clicked');
-                        setTimeout(() => {
-                            landmark.classList.remove('clicked');
-                        }, 1000);
-                    });
-                });
-            }
-            
-            // Initialize
-            document.addEventListener('DOMContentLoaded', () => {
-                createStars();
-                // createBuildings(); // Hapus pemanggilan createBuildings
-                setupThemeToggle();
-                setupLandmarks();
-            });
+          
         </script>
 
         @filamentScripts
