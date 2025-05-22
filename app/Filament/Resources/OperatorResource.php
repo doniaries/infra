@@ -18,7 +18,9 @@ class OperatorResource extends Resource
     protected static ?string $model = Operator::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $modelLabel = 'Provider';
+    protected static ?string $navigationLabel = 'Provider';
+    protected static ?string $pluralModelLabel = 'Provider';
 
     public static function getNavigationGroup(): ?string
     {
