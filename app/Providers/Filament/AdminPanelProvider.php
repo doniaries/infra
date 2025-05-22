@@ -33,8 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Bank Data Infrastruktur')
             ->login()
             ->registration()
-            // Menonaktifkan SPA mode untuk mengatasi masalah performa dan halaman expired
-            // ->spa()
+            ->spa()
             // ->topNavigation()
             ->colors([
                 'danger' => Color::Red,
@@ -107,7 +106,7 @@ class AdminPanelProvider extends PanelProvider
 
             ])->plugins([
                 FilamentBackgroundsPlugin::make(),
-                // \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
             ]);
     }
 }

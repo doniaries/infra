@@ -19,10 +19,9 @@ class DatabaseSeeder extends Seeder
             PeralatanSeeder::class,
             OperatorSeeder::class,
             KecamatanSeeder::class,
-            ShieldSeeder::class,
-            RoleSeeder::class,
-            UserSeeder::class,
-
+            ShieldSeeder::class, // Harus dijalankan sebelum RoleSeeder untuk membuat permission
+            RoleSeeder::class,   // Menggunakan permission yang dibuat oleh ShieldSeeder
+            UserSeeder::class,   // Membuat user dengan role yang telah dibuat
         ]);
     }
 }
