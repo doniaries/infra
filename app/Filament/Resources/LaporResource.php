@@ -60,7 +60,7 @@ class LaporResource extends Resource
                             ->label('No Tiket')
                             ->disabled()
                             ->dehydrated(false)
-                            ->hint('Harap Dicatat Untuk Cek Status Laporan!')
+                            ->hint('No tiket Harap Dicatat Untuk Cek Status Laporan!')
                             ->hintIcon('heroicon-m-exclamation-circle')
                             ->hintColor('danger')
                             // ->helperText('Harap Dicatat Untuk Cek Status Laporan!')
