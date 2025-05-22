@@ -9,6 +9,7 @@ use Filament\Tables;
 use App\Models\Lapor;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Tables\Actions\Action;
 use Illuminate\Support\Str;
 use App\Enums\StatusLaporan;
 use Forms\Components\Select;
@@ -21,7 +22,7 @@ use Illuminate\Support\HtmlString;
 use Filament\Tables\Columns\Column;
 use Filament\Forms\Components\Section;
 use Filament\Notifications\Notification;
-use Filament\Notifications\Actions\Action;
+// use Filament\Notifications\Actions\Action;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\LaporResource\Pages;
@@ -171,6 +172,16 @@ class LaporResource extends Resource
     {
 
         return $table
+            ->headerActions([
+                Action::make('refresh')
+                    ->label('Refresh Data')
+                    ->icon('heroicon-o-arrow-path')
+                    ->action(function () {
+                        // This will refresh the current page, effectively reloading the table data.
+                        // Using static::getUrl('index') as a fallback if Referer is not available.
+                        return redirect(request()->header('Referer') ?? static::getUrl('index'));
+                    }),
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('status_laporan')
                     ->badge()

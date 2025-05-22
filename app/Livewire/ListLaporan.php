@@ -84,7 +84,12 @@ class ListLaporan extends Component implements HasTable, HasForms
                             ->label('No Tiket')
                             ->hint('Harap Dicatat Untuk Cek Status Laporan!')
                             ->hintColor('danger')
-                            ->default(fn() => Str::random(5))
+                            ->default(function () {
+                                do {
+                                    $noTiket = strtoupper(Carbon::now()->format('ymd').Str::random(3));
+                                } while (Lapor::where('no_tiket', $noTiket)->exists());
+                                return $noTiket;
+                            })
                             ->readOnly(),
 
                         TextInput::make('nama_pelapor')
@@ -119,10 +124,19 @@ class ListLaporan extends Component implements HasTable, HasForms
                             ->maxSize(5120)
                             ->acceptedFileTypes(['application/pdf', 'image/*']),
                     ])
+                    ->mutateFormDataUsing(function (array $data): array {
+                        do {
+                            $noTiket = strtoupper(Carbon::now()->format('ymd') . Str::random(3));
+                        } while (Lapor::where('no_tiket', $noTiket)->exists());
+                        $data['no_tiket'] = $noTiket;
+                        $data['status_laporan'] = 'Belum Diproses';
+                        $data['keterangan_petugas'] = 'Belum ada keterangan';
+                        return $data;
+                    })
                     ->successNotification(
                         Notification::make()
                             ->title('Laporan Berhasil Dibuat')
-                            ->body('Laporan baru telah diterima ke sistem')
+                            ->body(fn (Lapor $record) => "Laporan baru dengan nomor tiket {$record->no_tiket} telah diterima ke sistem")
                             ->icon('heroicon-o-check-circle')
                             ->iconColor('success')
                             ->duration(5000)
@@ -130,9 +144,15 @@ class ListLaporan extends Component implements HasTable, HasForms
                             ->actions([
                                 \Filament\Notifications\Actions\Action::make('view')
                                     ->label('Lihat Laporan')
-                                    ->url(fn(Lapor $record): string => route('list.laporan'))
+                                    ->url(fn(Lapor $record): string => route('list.laporan')) // Assuming 'list.laporan' is the correct route name
                                     ->button()
                             ])
+                    )
+                    ->failureNotification(
+                        Notification::make()
+                            ->danger()
+                            ->title('Gagal Membuat Laporan')
+                            ->body('Terjadi kesalahan saat membuat laporan. Nomor tiket mungkin sudah ada atau ada kesalahan lain.')
                     )
             ])
             ->emptyStateHeading('Belum Ada Laporan')

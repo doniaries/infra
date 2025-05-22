@@ -47,13 +47,17 @@ class PublicLaporForm extends Component implements HasForms
                             ->readOnly()
                             ->required(),
 
-
                         TextInput::make('no_tiket')
                             ->prefixIcon('heroicon-o-ticket')
                             ->label('No Tiket')
                             ->hint('Harap Dicatat Untuk Cek Status Laporan!')
                             ->hintColor('danger')
-                            ->default(fn() => Str::random(5))
+                            ->default(function () {
+                                do {
+                                    $noTiket = strtoupper(Carbon::now()->format('ymd') . Str::random(3));
+                                } while (Lapor::where('no_tiket', $noTiket)->exists());
+                                return $noTiket;
+                            })
                             ->readOnly(),
 
 
@@ -99,28 +103,50 @@ class PublicLaporForm extends Component implements HasForms
     {
         $data = $this->form->getState();
 
-        $lapor = Lapor::create([
-            ...$data,
-            'status_laporan' => 'Belum Diproses',
-            'keterangan_petugas' => 'Belum ada keterangan',
-        ]);
+        // Ensure no_tiket is unique before creating the record
+        do {
+            $noTiket = strtoupper(Carbon::now()->format('ymd') . Str::random(3));
+        } while (Lapor::where('no_tiket', $noTiket)->exists());
 
-        // Kirim notifikasi dengan action untuk melihat list laporan
-        Notification::make()
-            ->success()
-            ->title('Laporan Berhasil Dikirim')
-            ->body("Nomor tiket Anda: {$lapor->no_tiket}")
-            ->persistent()
-            ->actions([
-                Action::make('lihat')
-                    ->label('Lihat Daftar Laporan')
-                    ->url(route('list.laporan'))
-                    ->button()
-            ])
-            ->send();
+        $data['no_tiket'] = $noTiket; // Add the generated ticket number to the data
 
-        $this->form->fill();
-        $this->dispatch('redirect')->to(route('list.laporan'));
+        try {
+            $lapor = Lapor::create([
+                ...$data,
+                'status_laporan' => 'Belum Diproses',
+                'keterangan_petugas' => 'Belum ada keterangan',
+            ]);
+
+            Notification::make()
+                ->success()
+                ->title('Laporan Berhasil Dikirim')
+                ->body("Nomor tiket Anda: {$lapor->no_tiket}")
+                ->duration(5000)
+                ->send();
+
+            $this->form->fill(); // Reset form after successful submission
+            $this->dispatch('redirect', url: route('list.laporan'));
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->errorInfo[1] == 1062) { // Check for duplicate entry error code
+                Notification::make()
+                    ->danger()
+                    ->title('Gagal Mengirim Laporan')
+                    ->body('Nomor tiket sudah ada atau terjadi kesalahan. Silakan coba lagi.')
+                    ->send();
+            } else {
+                Notification::make()
+                    ->danger()
+                    ->title('Gagal Mengirim Laporan')
+                    ->body('Terjadi kesalahan pada sistem. Silakan coba lagi nanti.')
+                    ->send();
+            }
+        } catch (\Exception $e) {
+            Notification::make()
+                ->danger()
+                ->title('Gagal Mengirim Laporan')
+                ->body('Terjadi kesalahan yang tidak diketahui. Silakan coba lagi.')
+                ->send();
+        }
     }
 
     public function render(): View
