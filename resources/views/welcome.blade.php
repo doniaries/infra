@@ -498,11 +498,14 @@
     <!-- Header -->
     <header class="header">
         <div class="logo-container">
-            <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="logo">
-            <div>
-                <h1 class="app-title">Lapor Infrastruktur</h1>
-                <p class="app-subtitle">Sistem Informasi Infrastruktur</p>
-            </div>
+            <!-- Logo dan Nama Aplikasi yang bisa diklik -->
+            <a href="{{ url('/') }}" class="transition-opacity logo-container hover:opacity-90">
+                <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="logo">
+                <div>
+                    <h1 class="app-title">Lapor Infrastruktur</h1>
+                    <p class="app-subtitle">Sistem Informasi Infrastruktur</p>
+                </div>
+            </a>
         </div>
         <div class="theme-toggle" id="theme-toggle"></div>
     </header>

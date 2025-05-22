@@ -6,9 +6,7 @@
         
     </div>
 
-    
-
-    <!-- Header -->
+        <!-- Header -->
     <header class="header">
         <div class="container px-4 mx-auto">
             <div class="flex justify-between items-center">

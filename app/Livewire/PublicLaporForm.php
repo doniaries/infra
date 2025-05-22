@@ -19,7 +19,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
-use Filament\Forms\Components\Actions\Action;
+use Filament\Notifications\Actions\Action;
 
 class PublicLaporForm extends Component implements HasForms
 {
