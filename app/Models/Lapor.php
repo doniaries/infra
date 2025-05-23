@@ -28,6 +28,7 @@ class Lapor extends Model
         'jenis_laporan',
         'uraian_laporan',
         'file_laporan',
+        'foto_laporan',
         'status_laporan',
         'keterangan_petugas',
     ];

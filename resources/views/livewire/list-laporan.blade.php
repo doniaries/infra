@@ -270,6 +270,15 @@
             color: #60a5fa;
         }
 
+         /* Mobile responsive spacing */
+         @media (max-width: 640px) {
+                .container.px-4.py-8.mx-auto.pt-120 {
+                    margin-top: 140px !important;
+                }
+                .filament-notifications, .toast, .alert {
+                    margin-top: 140px !important;
+                }
+            }
      
     </style>
 

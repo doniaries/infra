@@ -78,20 +78,28 @@ class PublicLaporForm extends Component implements HasForms
                             ->options([
                                 'Laporan Gangguan' => 'Laporan Gangguan',
                                 'Koordinasi Teknis' => 'Koordinasi Teknis',
+                                'Kenaikan Bandwidth' => 'Kenaikan Bandwidth',
                             ])
                             ->default('Laporan Gangguan')
-                            ->required(),
+                            ->required()
+                            ->live(),
 
                         Textarea::make('uraian_laporan')
                             ->label('Uraian Laporan')
                             ->required()
                             ->rows(5),
-
+                        FileUpload::make('foto_laporan')
+                            ->label('Foto Laporan')
+                            ->directory('public/foto_laporan')
+                            ->maxSize(5120)
+                            ->acceptedFileTypes(['application/pdf', 'image/*'])
+                            ->visible(fn(callable $get) => $get('jenis_laporan') === 'Laporan Gangguan'),
                         FileUpload::make('file_laporan')
                             ->label('Lampiran')
                             ->directory('public/laporan')
                             ->maxSize(5120)
-                            ->acceptedFileTypes(['application/pdf', 'image/*']),
+                            ->acceptedFileTypes(['application/pdf', 'image/*'])
+                            ->visible(fn(callable $get) => $get('jenis_laporan') === 'Kenaikan Bandwidth'),
 
                     ])
                     ->columns(2)
