@@ -932,9 +932,9 @@
     </main>
 
     <!-- Scripts -->
-    <script src="{{ asset('/front/plugins/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('/front/plugins/bootstrap/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('/front/js/script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-3gJwYp6v5Qw1QkQw8Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.bundle.min.js" integrity="sha512-VoPF5QyQp6Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/front/js/script.js"></script>
     
     <!-- Custom Scripts -->
     <script>
