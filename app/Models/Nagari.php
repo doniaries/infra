@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use Illuminate\Support\Facades\Cache;
+
 class Nagari extends Model
 {
     protected $table = "nagaris";
@@ -38,5 +40,13 @@ class Nagari extends Model
     public function getNamaAttribute($value)
     {
         return strtoupper($value);
+    }
+
+    // Static cache for frequently accessed Nagari by ID
+    public static function getCachedById($id)
+    {
+        return Cache::rememberForever('nagari_' . $id, function () use ($id) {
+            return self::find($id);
+        });
     }
 }

@@ -67,7 +67,7 @@ class NagariResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('kecamatan.nama', 'asc')
             ->filters([
                 //
             ])

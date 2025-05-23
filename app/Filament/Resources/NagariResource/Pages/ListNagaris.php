@@ -13,10 +13,10 @@ class ListNagaris extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
             \EightyNine\ExcelImport\ExcelImportAction::make()
                 ->slideOver()
                 ->color("success"),
+            Actions\CreateAction::make(),
         ];
     }
 }

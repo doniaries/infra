@@ -6,6 +6,8 @@ use App\Models\Nagari;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+use Illuminate\Support\Facades\Cache;
+
 class Jorong extends Model
 {
     protected $table = "jorongs";
@@ -31,5 +33,13 @@ class Jorong extends Model
     public function getNamaAttribute($value)
     {
         return strtoupper($value);
+    }
+
+    // Static cache for frequently accessed Jorong by ID
+    public static function getCachedById($id)
+    {
+        return Cache::rememberForever('jorong_' . $id, function () use ($id) {
+            return self::find($id);
+        });
     }
 }

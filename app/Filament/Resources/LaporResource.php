@@ -99,6 +99,7 @@ class LaporResource extends Resource
                             ->options([
                                 'Laporan Gangguan' => 'Laporan Gangguan',
                                 'Koordinasi Teknis' => 'Koordinasi Teknis',
+                                'Kenaikan Bandwidth' => 'Kenaikan Bandwidth',
                             ])
                             ->default('Laporan Gangguan'),
                         Forms\Components\Textarea::make('uraian_laporan')

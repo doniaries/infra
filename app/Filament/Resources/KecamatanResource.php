@@ -45,6 +45,7 @@ class KecamatanResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
                     ->label('Nama Kecamatan')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -55,7 +56,7 @@ class KecamatanResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('nama', 'asc')
             ->striped()
             ->filters([
                 //
