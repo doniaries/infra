@@ -425,6 +425,11 @@
                 });
             }
             
+            // Initialize functions
+            document.addEventListener('DOMContentLoaded', function() {
+                createStars();
+                setupThemeToggle();
+            });
           
         </script>
 
