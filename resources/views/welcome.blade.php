@@ -114,66 +114,7 @@
             }
         }
 
-        /* Background landmarks */
-        .landmark {
-            position: absolute;
-            bottom: 50px;
-            z-index: -2;
-            transition: transform 0.5s ease;
-            cursor: pointer;
-            filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.2));
-        }
         
-        .landmark:hover {
-            transform: scale(1.05);
-        }
-        
-        .landmark.clicked {
-            transform: translateY(-50px) scale(0.8);
-        }
-        
-        /* Buildings with windows */
-        .buildings {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 200px;
-            z-index: -1;
-            opacity: 0.9;
-            transition: opacity 0.3s ease;
-        }
-
-        .building {
-            position: absolute;
-            bottom: 0;
-            background-color: #334155;
-            transition: background-color 0.3s ease;
-        }
-
-        body.dark .building {
-            background-color: #1e293b;
-        }
-
-        body.dark .cloud {
-            opacity: 0.2;
-            background-color: #334155;
-        }
-
-        body.dark .cloud:before,
-        body.dark .cloud:after {
-            background-color: #334155;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateX(-100%) scale(0.6);
-            }
-
-            100% {
-                transform: translateX(100vw) scale(0.6);
-            }
-        }
 
         /* Header styles */
         .header {
@@ -589,6 +530,59 @@
             background-color: #059669;
         }
 
+        /* button warna */
+
+        /* Tambahan efek khusus */
+.btn-laporan {
+    background-color: #f59e0b;
+    box-shadow: 0 4px 6px rgba(245, 158, 11, 0.2);
+}
+.btn-laporan:before {
+    background-color: #d97706;
+}
+.btn-laporan:hover {
+    box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
+}
+
+.btn-bts {
+    background-color: #6366f1;
+    box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2);
+}
+.btn-bts:before {
+    background-color: #4f46e5;
+}
+.btn-bts:hover {
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+}
+
+
+body.dark .btn-laporan {
+    background-color: #f59e0b;
+    box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
+}
+
+body.dark .btn-laporan:before {
+    background-color: #d97706;
+}
+
+body.dark .btn-laporan:hover {
+    box-shadow: 0 10px 20px rgba(245, 158, 11, 0.4);
+}
+
+body.dark .btn-bts {
+    background-color: #6366f1;
+    box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
+}
+
+body.dark .btn-bts:before {
+    background-color: #4f46e5;
+}
+
+body.dark .btn-bts:hover {
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+}
+
+
         /* Table styles */
         .table-responsive {
             margin-top: 2rem;
@@ -727,6 +721,7 @@
             </a>
         </div>
         <div class="d-flex align-items-center">
+            <a href="{{ route('login') }}" class="login-button me-3 d-none d-md-inline-block" title="Hanya untuk member area">Login</a>
             <div class="theme-toggle me-3" id="theme-toggle"></div>
             <div class="mobile-menu-toggle" id="mobileMenuToggle">
                 <span></span>
@@ -771,17 +766,19 @@
             <h2 class="hero-title">Ada Gangguan Jaringan Atau Ada Konsultasi Teknis!</h2>
             <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat. Sistem ini membantu Anda melacak laporan secara real-time.</p>
             <div class="hero-buttons">
-                <a href="{{ route('public.laporform') }}" class="register-button">Buat Laporan</a>
-                <a href="{{ route('login') }}" class="login-button">Login</a>
+                <a href="{{ url('list-laporan') }}" class="register-button btn-laporan">Daftar Laporan</a>
+                <a href="{{ route('list.bts') }}" class="register-button btn-bts">Data BTS</a>
+                <a href="{{ route('list.bts') }}" class="register-button">Data BTS</a>
             </div>
         </section>
 
-        <!-- Navigation Links (Desktop) -->
+        {{-- <!-- Navigation Links (Desktop) -->
         <div class="mb-5 text-center desktop-nav">
-            <a href="{{ asset('/') }}" class="mx-2 btn btn-outline-primary">Home</a>
+            {{-- <a href="{{ asset('/') }}" class="mx-2 btn btn-outline-primary">Home</a> --}}
+            {{-- <a href="{{ route('public.laporform') }}" class="register-button">Buat Laporan</a>
             <a href="list-laporan" class="mx-2 btn btn-outline-primary">Daftar Laporan</a>
-            <a href="{{ route('list.bts') }}" class="mx-2 btn btn-outline-primary">Data BTS</a>
-        </div>
+            <a href="{{ route('list.bts') }}" class="mx-2 btn btn-outline-primary">Data BTS</a> --}}
+        {{-- </div> --}}
 
         <!-- Info Cards Section -->
         <div class="mt-5 row">
