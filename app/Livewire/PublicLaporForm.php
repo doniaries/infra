@@ -121,7 +121,7 @@ class PublicLaporForm extends Component implements HasForms
                 ->success()
                 ->title('Laporan Berhasil Dikirim')
                 ->body("Nomor tiket Anda: {$lapor->no_tiket}")
-                ->duration(5000)
+                ->duration(3000)
                 ->send();
 
             $this->form->fill(); // Reset form after successful submission
@@ -132,12 +132,14 @@ class PublicLaporForm extends Component implements HasForms
                     ->danger()
                     ->title('Gagal Mengirim Laporan')
                     ->body('Nomor tiket sudah ada atau terjadi kesalahan. Silakan coba lagi.')
+                    ->duration(3000)
                     ->send();
             } else {
                 Notification::make()
                     ->danger()
                     ->title('Gagal Mengirim Laporan')
                     ->body('Terjadi kesalahan pada sistem. Silakan coba lagi nanti.')
+                    ->duration(3000)
                     ->send();
             }
         } catch (\Exception $e) {
@@ -145,6 +147,7 @@ class PublicLaporForm extends Component implements HasForms
                 ->danger()
                 ->title('Gagal Mengirim Laporan')
                 ->body('Terjadi kesalahan yang tidak diketahui. Silakan coba lagi.')
+                ->duration(3000)
                 ->send();
         }
     }
