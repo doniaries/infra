@@ -86,7 +86,7 @@ class ListLaporan extends Component implements HasTable, HasForms
                             ->hintColor('danger')
                             ->default(function () {
                                 do {
-                                    $noTiket = strtoupper(Carbon::now()->format('ymd').Str::random(3));
+                                    $noTiket = strtoupper(Carbon::now()->format('ymd') . Str::random(3));
                                 } while (Lapor::where('no_tiket', $noTiket)->exists());
                                 return $noTiket;
                             })
@@ -136,7 +136,7 @@ class ListLaporan extends Component implements HasTable, HasForms
                     ->successNotification(
                         Notification::make()
                             ->title('Laporan Berhasil Dibuat')
-                            ->body(fn (Lapor $record) => "Laporan baru dengan nomor tiket {$record->no_tiket} telah diterima ke sistem")
+                            ->body(fn(Lapor $record) => "Laporan baru dengan nomor tiket {$record->no_tiket} telah diterima ke sistem")
                             ->icon('heroicon-o-check-circle')
                             ->iconColor('success')
                             ->duration(5000)

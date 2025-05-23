@@ -29,7 +29,7 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}">
 
-    <title>Lapor Infrastruktur</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('front/images/favicon.png') }}">
@@ -721,7 +721,7 @@
             <a href="{{ url('/') }}" class="transition-opacity logo-container hover:opacity-90">
                 <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="logo">
                 <div>
-                    <h1 class="app-title">Lapor Infrastruktur</h1>
+                    <h1 class="app-title">{{ config('app.name') }}</h1>
                     <p class="app-subtitle">Sistem Informasi Infrastruktur</p>
                 </div>
             </a>
@@ -932,9 +932,10 @@
     </main>
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-3gJwYp6v5Qw1QkQw8Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.bundle.min.js" integrity="sha512-VoPF5QyQp6Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw5Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="/front/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.bundle.min.js" integrity="sha512-X/YkDZyjTf4wyc2Vy16YGCPHwAY8rZJY+POgokZjQB2mhIRFJCckEGc6YyX9eNsPfn0PzThEuNs+uaomE5CO6A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/front/js/script.js"></script>
     
     <!-- Custom Scripts -->
     <script>

@@ -338,22 +338,21 @@
         <!-- Header -->
         <header class="header">
             <div class="container px-4 mx-auto">
-                <div class="flex justify-between items-center">
+                <div class="flex flex-wrap justify-between items-center gap-2">
                     <!-- Logo dan Nama Aplikasi yang bisa diklik -->
-                    <a href="{{ url('/') }}" class="transition-opacity logo-container hover:opacity-90">
+                    <a href="{{ url('/') }}" class="transition-opacity logo-container hover:opacity-90 min-w-fit">
                         <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="logo">
                         <div>
                             <h1 class="app-title">Lapor Infrastruktur</h1>
                             <p class="app-subtitle">Sistem Informasi Infrastruktur</p>
                         </div>
                     </a>
-                    
                     <!-- Menu Navigasi dan Theme Toggle -->
-                    <div class="flex items-center space-x-4">
+                    <div class="flex flex-wrap items-center gap-2 md:gap-4 mt-2 md:mt-0">
                         <a href="{{ url('/') }}" class="nav-link">Home</a>
                         <a href="{{ url('/list-laporan') }}" class="nav-link">Daftar Laporan</a>
                         <a href="{{ url('/list-bts') }}" class="nav-link">Data BTS</a>
-                        <a href="{{ route('public.laporform') }}" class="nav-link active">Buat Laporan</a>
+                        <a href="{{ route('public.laporform') }}" class="nav-link active whitespace-nowrap">Buat Laporan</a>
                         <div class="theme-toggle" id="theme-toggle"></div>
                     </div>
                 </div>

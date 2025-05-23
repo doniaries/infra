@@ -30,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->breadcrumbs(false)
             ->path('admin')
-            ->brandName('Bank Data Infrastruktur')
+            ->brandName('Help Desk Infrastruktur TI')
             ->login()
             ->registration()
             ->spa()
