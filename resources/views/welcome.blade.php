@@ -192,6 +192,160 @@
         body.dark .header {
             background-color: transparent;
         }
+        
+        /* Mobile menu styles */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 200;
+        }
+        
+        .mobile-menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #2563eb;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark .mobile-menu-toggle span {
+            background-color: #60a5fa;
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+        
+        /* Mega menu styles */
+        .mega-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            overflow: hidden;
+            transition: height 0.3s ease;
+            z-index: 150;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        body.dark .mega-menu {
+            background-color: rgba(15, 23, 42, 0.95);
+        }
+        
+        .mega-menu.active {
+            height: 100vh;
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+        }
+        
+        .mega-menu-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .mega-menu-section {
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .mega-menu-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+        
+        body.dark .mega-menu-title {
+            color: #60a5fa;
+        }
+        
+        .mega-menu-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .mega-menu-link {
+            padding: 8px 15px;
+            background-color: #f1f5f9;
+            border-radius: 5px;
+            color: #1e40af;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        body.dark .mega-menu-link {
+            background-color: #1e293b;
+            color: #93c5fd;
+        }
+        
+        .mega-menu-link:hover {
+            background-color: #e2e8f0;
+            transform: translateY(-2px);
+        }
+        
+        body.dark .mega-menu-link:hover {
+            background-color: #334155;
+        }
+        
+        /* Prevent scrolling when menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .header {
+                padding: 1rem;
+                background-color: rgba(255, 255, 255, 0.9);
+            }
+            
+            body.dark .header {
+                background-color: rgba(15, 23, 42, 0.9);
+            }
+            
+            .logo {
+                height: 40px;
+            }
+            
+            .app-title {
+                font-size: 1.2rem;
+            }
+            
+            .app-subtitle {
+                font-size: 0.75rem;
+            }
+            
+            .main-content {
+                padding-top: 5rem;
+            }
+        }
 
         .logo-container {
             display: flex;
@@ -299,6 +453,40 @@
             margin-bottom: 2rem;
             line-height: 1.6;
         }
+        
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .register-button, .login-button {
+                margin-right: 0;
+                margin-bottom: 1rem;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .desktop-nav {
+                display: none;
+            }
+        }
 
         body.dark .hero-subtitle {
             color: #94a3b8;
@@ -318,6 +506,7 @@
             overflow: hidden;
             z-index: 1;
             box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+            text-align: center;
         }
 
         .login-button:before {
@@ -366,6 +555,7 @@
             z-index: 1;
             box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
             margin-right: 1rem;
+            text-align: center;
         }
 
         .register-button:before {
@@ -423,6 +613,35 @@
         .bg-secondary { background-color: #6c757d !important; }
         .bg-info { background-color: #0dcaf0 !important; }
         .bg-success { background-color: #198754 !important; }
+        
+        /* Card styles for mobile */
+        @media (max-width: 768px) {
+            .card {
+                margin-bottom: 1.5rem;
+            }
+            
+            .card-body {
+                padding: 1.25rem;
+            }
+            
+            .card-title {
+                font-size: 1.3rem;
+            }
+            
+            .card-text {
+                font-size: 0.9rem;
+            }
+            
+            .row {
+                margin-left: -10px;
+                margin-right: -10px;
+            }
+            
+            .col-md-4 {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        }
     </style>
 
     @livewireStyles
@@ -507,22 +726,58 @@
                 </div>
             </a>
         </div>
-        <div class="theme-toggle" id="theme-toggle"></div>
+        <div class="d-flex align-items-center">
+            <div class="theme-toggle me-3" id="theme-toggle"></div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </header>
+    
+    <!-- Mega Menu -->
+    <div class="mega-menu" id="megaMenu">
+        <div class="mega-menu-content">
+            <button class="mega-menu-close" id="megaMenuClose" aria-label="Tutup Menu">&times;</button>
+            <div class="mega-menu-section">
+                <h3 class="mega-menu-title">Menu Utama</h3>
+                <div class="mega-menu-links">
+                    <a href="{{ asset('/') }}" class="mega-menu-link">Home</a>
+                    <a href="list-laporan" class="mega-menu-link">Daftar Laporan</a>
+                    <a href="{{ route('list.bts') }}" class="mega-menu-link">Data BTS</a>
+                </div>
+            </div>
+            <div class="mega-menu-section">
+                <h3 class="mega-menu-title">Akses Cepat</h3>
+                <div class="mega-menu-links">
+                    <a href="{{ route('public.laporform') }}" class="mega-menu-link">Buat Laporan</a>
+                    <a href="{{ route('login') }}" class="mega-menu-link">Login</a>
+                </div>
+            </div>
+            <div class="mega-menu-section">
+                <h3 class="mega-menu-title">Informasi</h3>
+                <div class="mega-menu-links">
+                    <a href="#tentang" class="mega-menu-link">Tentang Aplikasi</a>
+                    <a href="#kontak" class="mega-menu-link">Kontak Kami</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
         <section class="hero">
             <h2 class="hero-title">Ada Gangguan Jaringan Atau Ada Konsultasi Teknis!</h2>
             <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat. Sistem ini membantu Anda melacak laporan secara real-time.</p>
-            <div>
+            <div class="hero-buttons">
                 <a href="{{ route('public.laporform') }}" class="register-button">Buat Laporan</a>
                 <a href="{{ route('login') }}" class="login-button">Login</a>
             </div>
         </section>
 
-        <!-- Navigation Links -->
-        <div class="mb-5 text-center">
+        <!-- Navigation Links (Desktop) -->
+        <div class="mb-5 text-center desktop-nav">
             <a href="{{ asset('/') }}" class="mx-2 btn btn-outline-primary">Home</a>
             <a href="list-laporan" class="mx-2 btn btn-outline-primary">Daftar Laporan</a>
             <a href="{{ route('list.bts') }}" class="mx-2 btn btn-outline-primary">Data BTS</a>
@@ -569,6 +824,33 @@
 
         <!-- Additional CSS for Cards -->
         <style>
+            .mega-menu-content {
+                background: rgba(20, 30, 48, 0.98);
+                border-radius: 16px;
+                padding: 32px 16px 24px 16px;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+            .mega-menu-close {
+                position: absolute;
+                top: 12px;
+                right: 16px;
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 2rem;
+                cursor: pointer;
+                z-index: 10;
+                transition: color 0.2s;
+            }
+            .mega-menu-close:hover {
+                color: #ff5252;
+            }
             .card {
                 border-radius: 10px;
                 border: 2px;
@@ -653,6 +935,35 @@
     <script src="{{ asset('/front/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('/front/plugins/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('/front/js/script.js') }}"></script>
+    
+    <!-- Custom Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('mobileMenuToggle');
+            const megaMenu = document.getElementById('megaMenu');
+            const megaMenuLinks = megaMenu ? megaMenu.querySelectorAll('a') : [];
+            const megaMenuClose = document.getElementById('megaMenuClose');
+
+            if (menuToggle && megaMenu) {
+                menuToggle.addEventListener('click', function() {
+                    megaMenu.classList.toggle('active');
+                });
+            }
+
+            megaMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    megaMenu.classList.remove('active');
+                });
+            });
+
+            if (megaMenuClose) {
+                megaMenuClose.addEventListener('click', function () {
+                    megaMenu.classList.remove('active');
+                });
+            }
+        });
+    </script>
     
     <script>
         // Create stars
