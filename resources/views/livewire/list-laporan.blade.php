@@ -23,7 +23,7 @@
                     <a href="{{ url('/') }}" class="nav-link">Home</a>
                     <a href="{{ url('/list-laporan') }}" class="nav-link active">Daftar Laporan</a>
                     <a href="{{ url('/list-bts') }}" class="nav-link">Data BTS</a>
-                    {{-- <a href="{{ route('public.laporform') }}" class="whitespace-nowrap nav-button">Buat Laporan</a> --}}
+                    <a href="{{ route('public.laporform') }}" class="whitespace-nowrap nav-button">Buat Laporan</a>
                     <div class="theme-toggle" id="theme-toggle"></div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
     <div class="container px-4 py-8 mx-auto pt-120">
         <div class="mx-auto max-w-4xl">
             <div class="flex justify-between items-center mb-6">
-                <h1 class="text-2xl font-semibold hero-title">Formulir Laporan</h1>
+                <h1 class="text-2xl font-semibold hero-title" >Daftar Laporan</h1>
             </div>
             <div class="overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
                 {{ $this->table }}
@@ -291,21 +291,7 @@
             }
         }
         
-        // Create clouds
-        /* function createClouds() {
-            const cloudsContainer = document.querySelector('.clouds');
-            const count = 5; // Jumlah awan
-            
-            for (let i = 0; i < count; i++) {
-                const cloud = document.createElement('div');
-                cloud.className = 'cloud';
-                cloud.style.bottom = `${Math.random() * 100 + 20}px`; // Posisi vertikal acak
-                cloud.style.animationDuration = `${15 + Math.random() * 10}s`; // Durasi animasi acak
-                cloud.style.animationDelay = `${Math.random() * 5}s`; // Delay animasi acak
-                cloud.style.transform = `scale(${0.5 + Math.random() * 0.5})`; // Ukuran acak
-                cloudsContainer.appendChild(cloud);
-            }
-        } */
+        
         
         // Theme toggle
         function setupThemeToggle() {
@@ -327,20 +313,7 @@
             });
         }
         
-        // Interactive landmarks
-        function setupLandmarks() {
-            const landmarks = document.querySelectorAll('.landmark');
-            
-            landmarks.forEach(landmark => {
-                landmark.addEventListener('click', () => {
-                    landmark.classList.toggle('clicked');
-                    setTimeout(() => {
-                        landmark.classList.remove('clicked');
-                    }, 1000);
-                });
-            });
-        }
-        
+                
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             createStars();

@@ -11,7 +11,7 @@
 
         <style>
             .pt-120 {
-    padding-top: 120px;
+    padding-top: 90px;
 }
             /* Base styles */
             body {
@@ -389,6 +389,16 @@
             .filament-notifications, .toast, .alert {
                 margin-top: 120px !important;
                 z-index: 9999 !important;
+            }
+            
+            /* Mobile responsive spacing */
+            @media (max-width: 640px) {
+                .container.px-4.py-8.mx-auto.pt-120 {
+                    margin-top: 140px !important;
+                }
+                .filament-notifications, .toast, .alert {
+                    margin-top: 140px !important;
+                }
             }
         </style>
 

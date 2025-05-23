@@ -125,7 +125,7 @@ class PublicLaporForm extends Component implements HasForms
                 ->send();
 
             $this->form->fill(); // Reset form after successful submission
-            $this->dispatch('redirect', url: route('list.laporan'));
+            $this->dispatch('redirect', url: url('/list-laporan'));
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->errorInfo[1] == 1062) { // Check for duplicate entry error code
                 Notification::make()
