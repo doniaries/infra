@@ -361,7 +361,7 @@
 
         <div class="container px-4 py-8 mx-auto pt-120" style="margin-top: 120px; margin-left: 32px;">
             <div class="p-8 mx-auto space-y-8 w-full max-w-5xl form-container">
-                <form wire:submit="submit">
+                <form wire:submit.prevent="submit">
                     {{ $this->form }}
 
                     <div class="flex gap-4 mt-6">
@@ -375,10 +375,20 @@
                 </form>
 
                 <script>
+                    // Menangani event redirect untuk Livewire 3
                     document.addEventListener('livewire:initialized', () => {
                         Livewire.on('redirect', (url) => {
                             window.location.href = url;
                         });
+                    });
+                    
+                    // Menangani event redirect untuk Livewire 2 (fallback)
+                    document.addEventListener('DOMContentLoaded', () => {
+                        if (typeof window.Livewire !== 'undefined') {
+                            window.Livewire.on('redirect', url => {
+                                window.location.href = url;
+                            });
+                        }
                     });
                 </script>
             </div>

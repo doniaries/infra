@@ -107,9 +107,21 @@ class PublicLaporForm extends Component implements HasForms
             ->statePath('data');
     }
 
-    public function submit(): void
+    public function submit()
     {
+        // Validasi form terlebih dahulu
         $data = $this->form->getState();
+
+        // Pastikan semua field yang diperlukan sudah diisi
+        if (empty($data['nama_pelapor']) || empty($data['opd_id']) || empty($data['uraian_laporan'])) {
+            Notification::make()
+                ->danger()
+                ->title('Validasi Gagal')
+                ->body('Silakan isi semua field yang diperlukan')
+                ->duration(3000)
+                ->send();
+            return;
+        }
 
         // Ensure no_tiket is unique before creating the record
         do {
@@ -133,7 +145,9 @@ class PublicLaporForm extends Component implements HasForms
                 ->send();
 
             $this->form->fill(); // Reset form after successful submission
-            $this->dispatch('redirect', url: url('/list-laporan'));
+
+            // Redirect ke halaman list-laporan setelah berhasil submit
+            return redirect()->to('/list-laporan');
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->errorInfo[1] == 1062) { // Check for duplicate entry error code
                 Notification::make()

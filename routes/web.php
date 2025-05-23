@@ -18,15 +18,15 @@ Route::get('/', function () {
 
 Route::get('/lapor', PublicLaporForm::class)->name('public.laporform');
 
-// Tangkap semua route yang tidak ditemukan
-Route::fallback(function () {
-    return redirect('/admin/login')->with('error', 'Akses ditolak! Silakan login terlebih dahulu.');
-});
-
 Route::get('/login', function () {
     return redirect('/admin/login');
 })->name('login');
 
+// Daftarkan rute-rute penting sebelum fallback
+Route::get('/list-laporan', ListLaporan::class)->name('list.laporan');
+Route::get('/list-bts', ListBts::class)->name('list.bts');
+
+// Tangkap semua route yang tidak ditemukan (hanya satu fallback)
 Route::fallback(function () {
     return redirect('/')->with('error', 'Halaman tidak ditemukan.');
 });
