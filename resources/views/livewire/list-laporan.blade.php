@@ -23,7 +23,7 @@
                     <a href="{{ url('/') }}" class="nav-link">Home</a>
                     <a href="{{ url('/list-laporan') }}" class="nav-link active">Daftar Laporan</a>
                     <a href="{{ url('/list-bts') }}" class="nav-link">Data BTS</a>
-                    <a href="{{ route('public.laporform') }}" class="whitespace-nowrap nav-button">Buat Laporan</a>
+                    {{-- <a href="{{ route('public.laporform') }}" class="whitespace-nowrap nav-button">Buat Laporan</a> --}}
                     <div class="theme-toggle" id="theme-toggle"></div>
                 </div>
             </div>
