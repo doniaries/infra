@@ -49,7 +49,9 @@ class ListLaporan extends Component implements HasTable, HasForms
                     ->default(Carbon::now())
                     ->timezone('Asia/Jakarta')
                     ->color('info'),
-                Tables\Columns\TextColumn::make('opd.name'),
+                Tables\Columns\TextColumn::make('opd.nama')
+                    ->label('OPD')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('status_laporan')
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
