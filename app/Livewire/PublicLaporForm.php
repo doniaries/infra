@@ -50,7 +50,7 @@ class PublicLaporForm extends Component implements HasForms
                         TextInput::make('no_tiket')
                             ->prefixIcon('heroicon-o-ticket')
                             ->label('No Tiket')
-                            ->hint('Harap Dicatat Untuk Cek Status Laporan!')
+                            ->hint('Nomor Tiket Harap Dicatat Untuk Cek Status Laporan!')
                             ->hintColor('danger')
                             ->default(function () {
                                 do {

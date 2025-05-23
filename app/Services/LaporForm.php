@@ -34,7 +34,7 @@ final class LaporForm
                             ->prefixIconColor('danger')
                             ->prefixIcon('heroicon-o-ticket')
                             ->label('No Tiket')
-                            ->hint('Harap Dicatat Untuk Cek Status Laporan!')
+                            ->hint('Nomor Tiket Harap Dicatat Untuk Cek Status Laporan!')
                             ->hintIcon('heroicon-m-exclamation-circle')
                             ->hintColor('danger')
                             ->default(fn($record) => $record && $record->exists ? $record->no_tiket : Str::random(5))

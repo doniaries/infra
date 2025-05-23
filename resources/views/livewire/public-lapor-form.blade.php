@@ -338,7 +338,7 @@
         <!-- Header -->
         <header class="header">
             <div class="container px-4 mx-auto">
-                <div class="flex flex-wrap justify-between items-center gap-2">
+                <div class="flex flex-wrap gap-2 justify-between items-center">
                     <!-- Logo dan Nama Aplikasi yang bisa diklik -->
                     <a href="{{ url('/') }}" class="transition-opacity logo-container hover:opacity-90 min-w-fit">
                         <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="logo">
@@ -348,18 +348,18 @@
                         </div>
                     </a>
                     <!-- Menu Navigasi dan Theme Toggle -->
-                    <div class="flex flex-wrap items-center gap-2 md:gap-4 mt-2 md:mt-0">
+                    <div class="flex flex-wrap gap-2 items-center mt-2 md:gap-4 md:mt-0">
                         <a href="{{ url('/') }}" class="nav-link">Home</a>
                         <a href="{{ url('/list-laporan') }}" class="nav-link">Daftar Laporan</a>
                         <a href="{{ url('/list-bts') }}" class="nav-link">Data BTS</a>
-                        <a href="{{ route('public.laporform') }}" class="nav-link active whitespace-nowrap">Buat Laporan</a>
+                        <a href="{{ route('public.laporform') }}" class="whitespace-nowrap nav-link active">Buat Laporan</a>
                         <div class="theme-toggle" id="theme-toggle"></div>
                     </div>
                 </div>
             </div>
         </header>
 
-        <div class="container px-4 py-8 mx-auto pt-120">
+        <div class="container px-4 py-8 mx-auto pt-120" style="margin-top: 120px; margin-left: 32px;">
             <div class="p-8 mx-auto space-y-8 w-full max-w-5xl form-container">
                 <form wire:submit="submit">
                     {{ $this->form }}
@@ -383,6 +383,14 @@
                 </script>
             </div>
         </div>
+
+        <style>
+            /* Ensure notifications are visible below the header */
+            .filament-notifications, .toast, .alert {
+                margin-top: 120px !important;
+                z-index: 9999 !important;
+            }
+        </style>
 
         <script>
             // Create stars
