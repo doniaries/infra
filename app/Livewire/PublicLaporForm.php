@@ -67,7 +67,6 @@ class PublicLaporForm extends Component implements HasForms
 
                         TextInput::make('nama_pelapor')
                             ->label('Nama Lengkap')
-                            ->rules(['min_length' => 3])
                             ->required()
                             ->maxLength(255),
 
