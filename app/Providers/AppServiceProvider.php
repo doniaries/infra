@@ -9,6 +9,7 @@ use Filament\Http\Responses\Auth\Contracts\LogoutResponse as LogoutResponseContr
 use Filament\Notifications\Livewire\Notifications;
 use Filament\Support\Enums\Alignment;
 use Filament\Support\Enums\VerticalAlignment;
+use Filament\Notifications\Notification;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,8 +30,16 @@ class AppServiceProvider extends ServiceProvider
             app()->setLocale('id');
         });
 
-        // Configure notifications to be centered horizontally
-        Notifications::alignment(Alignment::Center);
-        Notifications::verticalAlignment(VerticalAlignment::Start);
+        // Konfigurasi notifikasi agar lebih fleksibel
+        // Posisi horizontal: Start (kiri), Center (tengah), End (kanan)
+        Notifications::alignment(Alignment::End);
+        
+        // Posisi vertikal: Start (atas), Center (tengah), End (bawah)
+        Notifications::verticalAlignment(VerticalAlignment::End);
+        
+        // Opsional: Konfigurasi tampilan notifikasi
+        Notification::configureUsing(function (Notification $notification): void {
+            $notification->duration(5000); // Durasi tampilan 5 detik
+        });
     }
 }

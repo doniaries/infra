@@ -47,7 +47,9 @@ class TindakLanjutResource extends Resource
                     ->default('Belum Diproses')
                     ->required(),
 
-                Forms\Components\DateTimePicker::make('tanggal')->required(),
+                Forms\Components\DateTimePicker::make('tanggal')
+                    ->default(now())
+                    ->required(),
             ]);
     }
 
