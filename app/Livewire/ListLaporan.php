@@ -31,6 +31,10 @@ class ListLaporan extends Component implements HasTable, HasForms
     {
         return $table
             ->query(Lapor::query())
+            ->contentGrid([
+                'md' => 1,
+                'xl' => 1,
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('no_tiket')
                     ->badge()
@@ -51,6 +55,10 @@ class ListLaporan extends Component implements HasTable, HasForms
                     ->color('info'),
                 Tables\Columns\TextColumn::make('opd.nama')
                     ->label('Nama OPD')
+                    ->wrap()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('nama_pelapor')
+                    ->wrap()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('uraian_laporan')
                     ->searchable()

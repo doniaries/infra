@@ -23,7 +23,7 @@
                     <a href="{{ url('/') }}" class="nav-link">Home</a>
                     <a href="{{ url('/list-laporan') }}" class="nav-link active">Daftar Laporan</a>
                     <a href="{{ url('/list-bts') }}" class="nav-link">Data BTS</a>
-                    <a href="{{ route('public.laporform') }}" class="whitespace-nowrap nav-button">Buat Laporan</a>
+                    {{-- <a href="{{ route('public.laporform') }}" class="whitespace-nowrap nav-button">Buat Laporan</a> --}}
                     <div class="theme-toggle" id="theme-toggle"></div>
                 </div>
             </div>
@@ -31,9 +31,15 @@
     </header>
 
     <div class="container px-4 py-8 mx-auto pt-120">
-        <div class="mx-auto max-w-4xl">
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-2xl font-semibold hero-title" >Daftar Laporan</h1>
+        <div class="mx-auto max-w-6xl">
+            <div class="flex items-center justify-between mb-4">
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Daftar Laporan</h1>
+                <a href="{{ route('public.laporform') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white rounded-md shadow-sm bg-gradient-to-r from-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-700 transform hover:scale-105 transition-all duration-300 hover:shadow-lg create-report-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 animate-pulse-slow" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Buat Laporan
+                </a>
             </div>
             <div class="overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
                 {{ $this->table }}
@@ -44,6 +50,42 @@
     <style>
 .pt-120 {
     padding-top: 120px;
+}
+
+/* Animasi untuk ikon tombol Buat Laporan */
+@keyframes pulse-slow {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Efek tambahan untuk tombol Buat Laporan */
+.create-report-btn {
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.create-report-btn:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.create-report-btn:hover:after {
+    left: 100%;
 }
 
         /* Base styles */

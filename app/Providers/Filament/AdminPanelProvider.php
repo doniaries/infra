@@ -106,7 +106,8 @@ class AdminPanelProvider extends PanelProvider
 
             ])->plugins([
                 FilamentBackgroundsPlugin::make(),
-                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+                \MarcoGermani87\FilamentCaptcha\FilamentCaptcha::make(),
             ]);
     }
 }

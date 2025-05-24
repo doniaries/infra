@@ -2,24 +2,26 @@
 
 namespace App\Livewire;
 
-use Carbon\Carbon;
-use App\Models\Opd;
+use AbanoubNassem\FilamentGRecaptchaField\Forms\Components\GRecaptcha;
 use App\Models\Lapor;
-use Livewire\Component;
-use Illuminate\Support\Str;
-use Livewire\WithFileUploads;
-use Filament\Forms\Form;
-use Filament\Forms\Components\TextInput;
+use App\Models\Opd;
+use Carbon\Carbon;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
+use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
-use Filament\Notifications\Actions\Action;
+use Illuminate\Support\Str;
+use Livewire\Component;
+use Livewire\WithFileUploads;
+use MarcoGermani87\FilamentCaptcha\Forms\Components\CaptchaField;
 
 class PublicLaporForm extends Component implements HasForms
 {
@@ -100,7 +102,7 @@ class PublicLaporForm extends Component implements HasForms
                             ->maxSize(5120)
                             ->acceptedFileTypes(['application/pdf', 'image/*'])
                             ->visible(fn(callable $get) => $get('jenis_laporan') === 'Kenaikan Bandwidth'),
-
+                        CaptchaField::make('captcha'),
                     ])
                     ->columns(2)
             ])
