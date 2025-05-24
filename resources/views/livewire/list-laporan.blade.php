@@ -3,16 +3,17 @@
     <!-- Animated Background -->
     <div class="animated-bg">
         <div id="stars" class="stars"></div>
-        
+
     </div>
 
-        <!-- Header -->
+    <!-- Header -->
     <header class="header">
         <div class="container px-4 mx-auto">
             <div class="flex flex-wrap gap-2 justify-between items-center">
                 <!-- Logo dan Nama Aplikasi yang bisa diklik -->
                 <a href="{{ url('/') }}" class="transition-opacity logo-container hover:opacity-90 min-w-fit">
-                    <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="logo">
+                    <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung"
+                        class="logo">
                     <div>
                         <h1 class="app-title">{{ config('app.name') }}</h1>
                         <p class="app-subtitle">Sistem Informasi Infrastruktur</p>
@@ -34,9 +35,13 @@
         <div class="mx-auto max-w-6xl">
             <div class="flex items-center justify-between mb-4">
                 <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Daftar Laporan</h1>
-                <a href="{{ route('public.laporform') }}" class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-white rounded-md shadow-sm bg-gradient-to-r from-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-700 transform hover:scale-105 transition-all duration-300 hover:shadow-lg create-report-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 animate-pulse-slow" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                <a href="{{ route('public.laporform') }}"
+                    class="inline-flex items-center px-3 py-1.5 text-lm font-medium text-white rounded-md shadow-sm nav-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                            clip-rule="evenodd" />
                     </svg>
                     Buat Laporan
                 </a>
@@ -48,45 +53,48 @@
     </div>
 
     <style>
-.pt-120 {
-    padding-top: 120px;
-}
+        .pt-120 {
+            padding-top: 120px;
+        }
 
-/* Animasi untuk ikon tombol Buat Laporan */
-@keyframes pulse-slow {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.7;
-    }
-}
+        /* Animasi untuk ikon tombol Buat Laporan */
+        @keyframes pulse-slow {
 
-.animate-pulse-slow {
-    animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
+            0%,
+            100% {
+                opacity: 1;
+            }
 
-/* Efek tambahan untuk tombol Buat Laporan */
-.create-report-btn {
-    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-    position: relative;
-    overflow: hidden;
-}
+            50% {
+                opacity: 0.7;
+            }
+        }
 
-.create-report-btn:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: 0.5s;
-}
+        .animate-pulse-slow {
+            animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
 
-.create-report-btn:hover:after {
-    left: 100%;
-}
+        /* Efek tambahan untuk tombol Buat Laporan */
+        .create-report-btn {
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .create-report-btn:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .create-report-btn:hover:after {
+            left: 100%;
+        }
 
         /* Base styles */
         body {
@@ -154,7 +162,7 @@
             }
         }
 
-        
+
         /* Hapus @keyframes float */
         /* @keyframes float {
             0% {
@@ -312,16 +320,18 @@
             color: #60a5fa;
         }
 
-         /* Mobile responsive spacing */
-         @media (max-width: 640px) {
-                .container.px-4.py-8.mx-auto.pt-120 {
-                    margin-top: 140px !important;
-                }
-                .filament-notifications, .toast, .alert {
-                    margin-top: 140px !important;
-                }
+        /* Mobile responsive spacing */
+        @media (max-width: 640px) {
+            .container.px-4.py-8.mx-auto.pt-120 {
+                margin-top: 140px !important;
             }
-     
+
+            .filament-notifications,
+            .toast,
+            .alert {
+                margin-top: 140px !important;
+            }
+        }
     </style>
 
     <script>
@@ -329,7 +339,7 @@
         function createStars() {
             const stars = document.getElementById('stars');
             const count = 100;
-            
+
             for (let i = 0; i < count; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
@@ -341,30 +351,30 @@
                 stars.appendChild(star);
             }
         }
-        
-        
-        
+
+
+
         // Theme toggle
         function setupThemeToggle() {
             const toggle = document.getElementById('theme-toggle');
             const body = document.body;
             const theme = localStorage.getItem('theme');
-            
+
             if (theme === 'dark') {
                 body.classList.add('dark');
                 toggle.classList.add('dark');
             }
-            
+
             toggle.addEventListener('click', () => {
                 body.classList.toggle('dark');
                 toggle.classList.toggle('dark');
-                
+
                 const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
                 localStorage.setItem('theme', currentTheme);
             });
         }
-        
-                
+
+
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             createStars();
@@ -375,10 +385,10 @@
     </script>
 
     @pushOnce('scripts')
-    <script>
-        function onSubmit(token) {
-            document.getElementById("LaporForm").submit();
-        }
-    </script>
+        <script>
+            function onSubmit(token) {
+                document.getElementById("LaporForm").submit();
+            }
+        </script>
     @endPushOnce
 </div>

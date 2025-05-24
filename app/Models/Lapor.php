@@ -42,6 +42,8 @@ class Lapor extends Model
     }
 
 
+
+
     public function getFileLaporanUrlAttribute()
     {
         return Storage::url($this->file_laporan);
