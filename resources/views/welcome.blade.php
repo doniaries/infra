@@ -32,7 +32,7 @@
     <title>{{ config('app.name') }}</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('front/images/favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/kabupaten-sijunjung.png
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

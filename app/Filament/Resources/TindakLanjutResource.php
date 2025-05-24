@@ -12,6 +12,10 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
+use Filament\Support\Facades\Storage;
 
 class TindakLanjutResource extends Resource
 {
@@ -29,7 +33,26 @@ class TindakLanjutResource extends Resource
             ->schema([
                 Forms\Components\Select::make('lapor_id')
                     ->relationship('lapor', 'no_tiket')
-                    ->required(),
+                    ->required()
+                    ->live()
+                    ->afterStateUpdated(fn ($state, $set) => $set('lapor_details', $state)),
+
+                Forms\Components\Hidden::make('lapor_details'),
+
+                Forms\Components\Section::make('Detail Laporan')
+                    ->schema([
+                        Forms\Components\Placeholder::make('detail_laporan')
+                            ->content(function ($get) {
+                                $laporId = $get('lapor_id');
+                                if (!$laporId) return 'Pilih laporan terlebih dahulu';
+                                
+                                $lapor = \App\Models\Lapor::find($laporId);
+                                if (!$lapor) return 'Laporan tidak ditemukan';
+                                
+                                return view('filament.components.lapor-detail', ['lapor' => $lapor]);
+                            })
+                    ])
+                    ->visible(fn ($get) => (bool) $get('lapor_id')),
 
                 Forms\Components\Select::make('petugas_id')
                     ->relationship('petugas', 'name')
