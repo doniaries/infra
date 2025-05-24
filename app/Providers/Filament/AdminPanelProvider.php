@@ -30,6 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->breadcrumbs(false)
             ->path('admin')
+            ->favicon(asset('images/kabupaten-sijunjung.png'))
             ->brandName('Help Desk Infrastruktur TI')
             ->login()
             ->registration()
