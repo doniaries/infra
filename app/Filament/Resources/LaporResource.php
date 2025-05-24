@@ -246,11 +246,11 @@ class LaporResource extends Resource
                 // Tambahkan filter di sini jika diperlukan
 
             ])
-            ->actions([
-                Tables\Actions\EditAction::make()
-                    ->iconButton()
-                // ->slideOver()
-            ], position: ActionsPosition::BeforeColumns)
+            // ->actions([
+            // Tables\Actions\EditAction::make()
+            //     ->iconButton()
+            // ->slideOver()
+            // ], position: ActionsPosition::BeforeColumns)
 
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
