@@ -399,6 +399,10 @@
             .filament-notifications, .toast, .alert {
                 margin-top: 120px !important;
                 z-index: 9999 !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                max-width: 500px !important;
+                width: 90% !important;
             }
             
             /* Mobile responsive spacing */
@@ -409,6 +413,12 @@
                 .filament-notifications, .toast, .alert {
                     margin-top: 140px !important;
                 }
+            }
+
+            /* Styling untuk notifikasi */
+            .filament-notification {
+                text-align: center !important;
+                margin: 0 auto !important;
             }
         </style>
 

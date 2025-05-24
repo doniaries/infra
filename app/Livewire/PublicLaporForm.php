@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use AbanoubNassem\FilamentGRecaptchaField\Forms\Components\GRecaptcha;
 use App\Models\Lapor;
 use App\Models\Opd;
 use Carbon\Carbon;
@@ -34,8 +33,6 @@ class PublicLaporForm extends Component implements HasForms
     {
         $this->form->fill();
     }
-
-
 
     public function form(Form $form): Form
     {
@@ -138,7 +135,7 @@ class PublicLaporForm extends Component implements HasForms
             $lapor = Lapor::create([
                 ...$data,
                 'status_laporan' => 'Belum Diproses',
-                'keterangan_petugas' => 'Belum ada keterangan',
+                // 'keterangan_petugas' => 'Belum ada keterangan',
             ]);
 
             Notification::make()

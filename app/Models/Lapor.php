@@ -30,7 +30,7 @@ class Lapor extends Model
         'file_laporan',
         'foto_laporan',
         'status_laporan',
-        'keterangan_petugas',
+        // Hapus 'keterangan_petugas' dari sini
     ];
 
 
