@@ -35,6 +35,8 @@ class PublicLaporForm extends Component implements HasForms
         $this->form->fill();
     }
 
+
+
     public function form(Form $form): Form
     {
         return $form
@@ -65,6 +67,7 @@ class PublicLaporForm extends Component implements HasForms
 
                         TextInput::make('nama_pelapor')
                             ->label('Nama Lengkap')
+                            ->rules(['min_length' => 3])
                             ->required()
                             ->maxLength(255),
 

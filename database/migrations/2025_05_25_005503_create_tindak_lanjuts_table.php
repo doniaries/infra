@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('tindak_lanjuts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lapor_id')->constrained('lapors')->cascadeOnDelete();
+            $table->foreignId('petugas_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->text('keterangan');
+            $table->enum('status', ['Belum Diproses', 'Sedang Diproses', 'Selesai'])->default('Belum Diproses');
+            $table->datetime('tanggal')->default(now());
             $table->timestamps();
         });
     }

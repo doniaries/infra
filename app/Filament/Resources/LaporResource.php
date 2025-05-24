@@ -40,7 +40,7 @@ class LaporResource extends Resource
     protected static ?string $model = Lapor::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-bell-alert';
-
+    protected static ?string $navigationGroup = 'Laporan';
     protected static ?string $navigationLabel = 'Laporan';
 
     public static function form(Form $form): Form

@@ -41,7 +41,10 @@ class Lapor extends Model
         return $this->belongsTo(Opd::class, 'opd_id');
     }
 
-
+    public function tindakLanjuts()
+    {
+        return $this->hasMany(TindakLanjut::class);
+    }
 
 
     public function getFileLaporanUrlAttribute()
