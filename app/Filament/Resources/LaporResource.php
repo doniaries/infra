@@ -199,6 +199,7 @@ class LaporResource extends Resource
                         return match ($state) {
                             'Laporan Gangguan' => 'danger',
                             'Koordinasi Teknis' => 'warning',
+                            'Kenaikan Bandwidth' => 'success',
                         };
                     })
                     ->colors([

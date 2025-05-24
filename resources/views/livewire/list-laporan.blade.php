@@ -34,8 +34,8 @@
         <div class="mx-auto max-w-6xl">
             <div class="flex items-center justify-between mb-4">
                 <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Daftar Laporan</h1>
-                <a href="{{ route('public.laporform') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white rounded-md shadow-sm bg-gradient-to-r from-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-700 transform hover:scale-105 transition-all duration-300 hover:shadow-lg create-report-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 animate-pulse-slow" viewBox="0 0 20 20" fill="currentColor">
+                <a href="{{ route('public.laporform') }}" class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-white rounded-md shadow-sm bg-gradient-to-r from-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-700 transform hover:scale-105 transition-all duration-300 hover:shadow-lg create-report-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 animate-pulse-slow" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                     </svg>
                     Buat Laporan
