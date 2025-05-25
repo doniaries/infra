@@ -1,8 +1,7 @@
 <?php
 
-
-
 use App\Enums\JenisLaporan;
+use App\Enums\StatusLaporan;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -24,7 +23,7 @@ return new class extends Migration
             $table->text('uraian_laporan')->nullable();
             $table->string('file_laporan')->nullable();
             $table->string('foto_laporan')->nullable();
-            $table->string('status_laporan')->default('Belum Diproses');
+            $table->string('status_laporan')->default(StatusLaporan::BELUM_DIPROSES->value);
             $table->foreignId('petugas_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('keterangan_petugas')->default('belum ada');
             // $table->string('hasil_laporan')->default('belum ada');

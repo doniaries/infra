@@ -4,6 +4,7 @@ namespace App\Filament\Resources\LaporResource\Pages;
 
 use Filament\Actions;
 use Illuminate\Support\Facades\DB;
+use App\Enums\StatusLaporan;
 use App\Filament\Resources\LaporResource;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
@@ -29,20 +30,20 @@ class ListLapors extends ListRecords
                 ->badgeColor('primary')
                 ->badge($counts['semua']),
             'belum diproses' => Tab::make('Belum Diproses ')
-                ->icon('heroicon-o-bolt-slash')
-                ->badgeColor('danger')
+                ->icon(StatusLaporan::BELUM_DIPROSES->getIcon())
+                ->badgeColor(StatusLaporan::BELUM_DIPROSES->getColor())
                 ->badge($counts['belum_diproses'])
-                ->modifyQueryUsing(fn(Builder $query) => $query->where('status_laporan', 'belum diproses')),
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('status_laporan', StatusLaporan::BELUM_DIPROSES->value)),
             'sedang diproses' => Tab::make('Sedang Diproses ')
-                ->icon('heroicon-o-bolt')
-                ->badgeColor('warning')
+                ->icon(StatusLaporan::SEDANG_DIPROSES->getIcon())
+                ->badgeColor(StatusLaporan::SEDANG_DIPROSES->getColor())
                 ->badge($counts['sedang_diproses'])
-                ->modifyQueryUsing(fn(Builder $query) => $query->where('status_laporan', 'sedang diproses')),
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('status_laporan', StatusLaporan::SEDANG_DIPROSES->value)),
             'selesai diproses' => Tab::make('Selesai Diproses ')
-                ->icon('heroicon-o-check-circle')
-                ->badgeColor('success')
+                ->icon(StatusLaporan::SELESAI_DIPROSES->getIcon())
+                ->badgeColor(StatusLaporan::SELESAI_DIPROSES->getColor())
                 ->badge($counts['selesai_diproses'])
-                ->modifyQueryUsing(fn(Builder $query) => $query->where('status_laporan', 'selesai diproses')),
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('status_laporan', StatusLaporan::SELESAI_DIPROSES->value)),
         ];
     }
 
@@ -50,9 +51,9 @@ class ListLapors extends ListRecords
     {
         return [
             'semua' => DB::table('lapors')->count(),
-            'belum_diproses' => DB::table('lapors')->where('status_laporan', 'belum diproses')->count(),
-            'sedang_diproses' => DB::table('lapors')->where('status_laporan', 'sedang diproses')->count(),
-            'selesai_diproses' => DB::table('lapors')->where('status_laporan', 'selesai diproses')->count(),
+            'belum_diproses' => DB::table('lapors')->where('status_laporan', StatusLaporan::BELUM_DIPROSES->value)->count(),
+            'sedang_diproses' => DB::table('lapors')->where('status_laporan', StatusLaporan::SEDANG_DIPROSES->value)->count(),
+            'selesai_diproses' => DB::table('lapors')->where('status_laporan', StatusLaporan::SELESAI_DIPROSES->value)->count(),
         ];
     }
 }

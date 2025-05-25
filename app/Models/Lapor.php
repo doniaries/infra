@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\LaporanStatus;
+use App\Enums\StatusLaporan;
+use App\Enums\JenisLaporan;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -16,10 +17,12 @@ class Lapor extends Model
 {
     use HasFactory;
     protected $dates = ['tgl_laporan'];
-    //enum
-    // protected $casts = [
-    //     'status' =>  LaporanStatus::class,
-    // ];
+
+    protected $casts = [
+        'status_laporan' => StatusLaporan::class,
+        'jenis_laporan' => JenisLaporan::class,
+    ];
+
     protected $fillable = [
         'no_tiket',
         'tgl_laporan',
@@ -56,15 +59,15 @@ class Lapor extends Model
     {
         static::updating(function ($lapor) {
             // Jika keterangan petugas diubah dan status masih Belum Diproses
-            if ($lapor->isDirty('keterangan_petugas') && $lapor->getOriginal('status_laporan') === 'Belum Diproses') {
-                $lapor->status_laporan = 'Sedang Diproses';
+            if ($lapor->isDirty('keterangan_petugas') && $lapor->getOriginal('status_laporan') === StatusLaporan::BELUM_DIPROSES->value) {
+                $lapor->status_laporan = StatusLaporan::SEDANG_DIPROSES->value;
             }
 
             // Jika laporan dilihat dan status masih Belum Diproses, otomatis ubah status dan isi keterangan
             if (
                 $lapor->isDirty('status_laporan') &&
-                $lapor->status_laporan === 'Sedang Diproses' &&
-                $lapor->getOriginal('status_laporan') === 'Belum Diproses' &&
+                $lapor->status_laporan === StatusLaporan::SEDANG_DIPROSES->value &&
+                $lapor->getOriginal('status_laporan') === StatusLaporan::BELUM_DIPROSES->value &&
                 empty($lapor->keterangan_petugas)
             ) {
                 $lapor->keterangan_petugas = 'Laporan dibaca';

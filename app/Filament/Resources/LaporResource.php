@@ -35,6 +35,7 @@ use Filament\Forms\Components\Select as ComponentsSelect;
 use App\Filament\Resources\LaporResource\RelationManagers;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Tables\Enums\ActionsPosition;
+use App\Enums\JenisLaporan;
 
 
 class LaporResource extends Resource
@@ -49,7 +50,6 @@ class LaporResource extends Resource
     {
         return $form
             ->schema([
-
                 Section::make()->columns(2)
                     ->schema([
                         Forms\Components\DateTimePicker::make('tgl_laporan')
@@ -98,12 +98,8 @@ class LaporResource extends Resource
                         Forms\Components\Select::make('jenis_laporan')
                             ->disabled()
                             ->dehydrated(false)
-                            ->options([
-                                'Laporan Gangguan' => 'Laporan Gangguan',
-                                'Koordinasi Teknis' => 'Koordinasi Teknis',
-                                'Kenaikan Bandwidth' => 'Kenaikan Bandwidth',
-                            ])
-                            ->default('Laporan Gangguan'),
+                            ->options(JenisLaporan::getSelectOptions())
+                            ->default(JenisLaporan::LAPORAN_GANGGUAN->value),
                         Forms\Components\Textarea::make('uraian_laporan')
                             ->disabled()
                             ->dehydrated(false)
@@ -133,14 +129,15 @@ class LaporResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('status_laporan')
                             ->hidden(true)
-                            ->default('Belum Diproses'),
+                            ->options(StatusLaporan::getSelectOptions())
+                            ->default(StatusLaporan::BELUM_DIPROSES->value),
 
                         Forms\Components\Actions::make([
                             Forms\Components\Actions\Action::make('selesai')
                                 ->label('Selesaikan Laporan')
                                 ->icon('heroicon-o-check-circle')
                                 ->color('success')
-                                ->visible(fn($record) => $record && $record->status_laporan === 'Sedang Diproses')
+                                ->visible(fn($record) => $record && $record->status_laporan === StatusLaporan::SEDANG_DIPROSES->value)
                                 ->requiresConfirmation()
                                 ->modalHeading('Selesaikan Laporan')
                                 ->modalDescription('Apakah Anda yakin ingin menyelesaikan laporan ini?')
@@ -148,7 +145,7 @@ class LaporResource extends Resource
                                     try {
                                         // Update status dan simpan perubahan
                                         $record->fill([
-                                            'status_laporan' => 'Selesai Diproses'
+                                            'status_laporan' => StatusLaporan::SELESAI_DIPROSES->value
                                         ])->save();
 
                                         Notification::make()
@@ -188,22 +185,13 @@ class LaporResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('status_laporan')
                     ->badge()
-                    ->color(function (string $state): string {
-                        return match ($state) {
-                            'Belum Diproses' => 'danger',
-                            'Sedang Diproses' => 'warning',
-                            'Selesai' => 'success',
-                        };
-                    })
-                    ->icon(function (string $state): string {
-                        return match ($state) {
-                            'Belum Diproses' => 'heroicon-o-exclamation-circle',
-                            'Sedang Diproses' => 'heroicon-o-clock',
-                            'Selesai' => 'heroicon-o-check-circle',
-                        };
-                    })
+                    ->color(fn(StatusLaporan $state): string => $state->getColor())
+                    ->icon(fn(StatusLaporan $state): string => $state->getIcon())
                     ->sortable(),
                 Tables\Columns\TextColumn::make('jenis_laporan')
+                    ->badge()
+                    ->color(fn(JenisLaporan $state): string => $state->getColor())
+                    ->formatStateUsing(fn(JenisLaporan $state): string => $state->getLabel())
                     ->badge(function (string $state): string {
                         return match ($state) {
                             'Laporan Gangguan' => 'danger',
@@ -282,9 +270,9 @@ class LaporResource extends Resource
                             ->columns(1),
                     ])
                     ->action(function ($record) {
-                        if ($record->status_laporan === 'Belum Diproses') {
+                        if ($record->status_laporan === StatusLaporan::BELUM_DIPROSES->value) {
                             $record->update([
-                                'status_laporan' => 'Sedang Diproses',
+                                'status_laporan' => StatusLaporan::SEDANG_DIPROSES->value,
                             ]);
                         }
                     })
@@ -294,7 +282,7 @@ class LaporResource extends Resource
                     ->modalHeading('Detail Laporan')
                     ->stickyModalHeader()
                     ->stickyModalFooter()
-                    ->visible(fn($record) => $record->status_laporan === 'Belum Diproses'),
+                    ->visible(fn($record) => $record->status_laporan === StatusLaporan::BELUM_DIPROSES->value),
 
                 Tables\Actions\Action::make('prosesLaporan')
                     ->label('Proses Laporan')
@@ -309,7 +297,7 @@ class LaporResource extends Resource
 
                         $record->update([
                             'keterangan_petugas' => $data['keterangan_petugas'],
-                            'status_laporan' => 'Selesai Diproses',
+                            'status_laporan' => StatusLaporan::SELESAI_DIPROSES->value,
                             'petugas_id' => $user->id,
                         ]);
 
@@ -322,24 +310,8 @@ class LaporResource extends Resource
                     ->modalWidth('lg')
                     ->closeModalByEscaping()
                     ->modalHeading('Proses Laporan')
-                    ->visible(fn($record) => $record->status_laporan === 'Sedang Diproses'),
+                    ->visible(fn($record) => $record->status_laporan === StatusLaporan::SEDANG_DIPROSES->value),
 
-
-
-
-                // Tables\Actions\ViewAction::make()
-                //     ->stickyModalHeader()
-                //     ->stickyModalFooter()
-                //     ->iconButton()
-                //     ->before(function ($record) {
-                //         // Jika status laporan masih 'Belum Diproses', ubah menjadi 'Sedang Diproses'
-                //         if ($record->status_laporan === 'Belum Diproses') {
-                //             $record->update([
-                //                 'status_laporan' => 'Sedang Diproses',
-                //                 'petugas_id' => auth()->id(), // Tetapkan petugas yang melihat laporan
-                //             ]);
-                //         }
-                //     }),
                 Tables\Actions\EditAction::make()
                     ->iconButton()
             ], position: ActionsPosition::BeforeColumns)
