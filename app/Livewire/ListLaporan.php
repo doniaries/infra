@@ -27,10 +27,25 @@ class ListLaporan extends Component implements HasTable, HasForms
 {
     use InteractsWithTable, InteractsWithForms;
 
+    public $ticket;
+
+    public function mount()
+    {
+        // Mengambil parameter ticket dari URL jika ada
+        $this->ticket = request()->get('ticket');
+    }
+
     public function table(Table $table): Table
     {
+        $query = Lapor::query();
+
+        // Filter berdasarkan nomor tiket jika ada
+        if ($this->ticket) {
+            $query->where('no_tiket', $this->ticket);
+        }
+
         return $table
-            ->query(Lapor::query())
+            ->query($query)
             ->contentGrid([
                 'md' => 1,
                 'xl' => 1,

@@ -16,7 +16,7 @@
                         class="logo">
                     <div>
                         <h1 class="app-title">{{ config('app.name') }}</h1>
-                        <p class="app-subtitle">Sistem Informasi Infrastruktur</p>
+                        <p class="app-subtitle">Sistem Informasi Infrastruktur TI</p>
                     </div>
                 </a>
                 <!-- Menu Navigasi dan Theme Toggle -->
@@ -34,7 +34,22 @@
     <div class="container px-4 py-8 mx-auto pt-120">
         <div class="mx-auto max-w-6xl">
             <div class="flex items-center justify-between mb-4">
-                <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Daftar Laporan</h1>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Daftar Laporan</h1>
+                    @if($ticket)
+                    <div class="mt-2 px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 rounded-md inline-flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                        </svg>
+                        <span>Menampilkan hasil untuk nomor tiket: <strong>{{ $ticket }}</strong></span>
+                        <a href="{{ url('/list-laporan') }}" class="ml-2 text-blue-600 dark:text-blue-300 hover:underline">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </a>
+                    </div>
+                    @endif
+                </div>
                 <a href="{{ route('public.laporform') }}"
                     class="inline-flex items-center px-3 py-1.5 text-lm font-medium text-white rounded-md shadow-sm nav-button">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 20 20"

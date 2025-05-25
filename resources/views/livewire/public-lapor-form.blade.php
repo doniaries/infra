@@ -344,7 +344,7 @@
                         <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="logo">
                         <div>
                             <h1 class="app-title">Lapor Infrastruktur</h1>
-                            <p class="app-subtitle">Sistem Informasi Infrastruktur</p>
+                            <p class="app-subtitle">Sistem Informasi Infrastruktur TI</p>
                         </div>
                     </a>
                     <!-- Menu Navigasi dan Theme Toggle -->

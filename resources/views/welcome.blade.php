@@ -5,10 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-        content="Sistem Informasi Infrastruktur - Aplikasi berbasis Laravel dengan Filament Admin Panel">
+        content="Sistem Informasi Infrastruktur TI - Aplikasi berbasis Laravel dengan Filament Admin Panel">
     <meta name="keywords" content="infrastruktur, sistem informasi, laravel, filament, admin panel">
     <meta name="author" content="Admin Panel">
     <meta name="robots" content="index, follow">
+    <meta name="google-site-verification" content="4K5Ik2HmVn7IBgAeytIkqUr-ScWT7BdxcZZ-bKCyfJQ" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -648,6 +649,113 @@
             background-color: #198754 !important;
         }
 
+        /* Ticket Search Styles */
+        .ticket-search-container {
+            margin-top: 2rem;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .ticket-search-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        body.dark .ticket-search-title {
+            color: #60a5fa;
+        }
+
+        .ticket-search-form {
+            width: 100%;
+        }
+
+        .ticket-search-input-group {
+            display: flex;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .ticket-search-input-group:focus-within {
+            box-shadow: 0 10px 15px rgba(37, 99, 235, 0.2);
+            transform: translateY(-2px);
+        }
+
+        body.dark .ticket-search-input-group {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark .ticket-search-input-group:focus-within {
+            box-shadow: 0 10px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .ticket-search-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-right: none;
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background-color: white;
+            color: #1e293b;
+        }
+
+        body.dark .ticket-search-input {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #e2e8f0;
+        }
+
+        .ticket-search-input:focus {
+            border-color: #3b82f6;
+        }
+
+        body.dark .ticket-search-input:focus {
+            border-color: #60a5fa;
+        }
+
+        .ticket-search-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            background-color: #3b82f6;
+            color: white;
+            font-weight: 600;
+            border: none;
+            border-top-right-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ticket-search-button:hover {
+            background-color: #2563eb;
+        }
+
+        body.dark .ticket-search-button {
+            background-color: #60a5fa;
+        }
+
+        body.dark .ticket-search-button:hover {
+            background-color: #3b82f6;
+        }
+
+        .ticket-search-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.5rem;
+        }
+
         /* Card styles for mobile */
         @media (max-width: 768px) {
             .card {
@@ -674,6 +782,30 @@
             .col-md-4 {
                 padding-left: 10px;
                 padding-right: 10px;
+            }
+            
+            .ticket-search-container {
+                padding: 0 1rem;
+            }
+            
+            .ticket-search-title {
+                font-size: 1.1rem;
+            }
+            
+            .ticket-search-input {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .ticket-search-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .ticket-search-icon {
+                width: 1rem;
+                height: 1rem;
+                margin-right: 0.3rem;
             }
         }
     </style>
@@ -757,7 +889,7 @@
                     class="logo">
                 <div>
                     <h1 class="app-title">{{ config('app.name') }}</h1>
-                    <p class="app-subtitle">Sistem Informasi Infrastruktur</p>
+                    <p class="app-subtitle">Sistem Informasi Infrastruktur TI</p>
                 </div>
             </a>
         </div>
@@ -836,6 +968,22 @@
                     Data BTS
                 </a>
             </div>
+            
+            <!-- Pencarian Nomor Tiket -->
+            <div class="ticket-search-container mt-4">
+                <h3 class="ticket-search-title">Cek Status Laporan Anda</h3>
+                <form action="{{ url('list-laporan') }}" method="GET" class="ticket-search-form">
+                    <div class="ticket-search-input-group">
+                        <input type="text" name="ticket" id="ticket" placeholder="Masukkan Nomor Tiket" class="ticket-search-input" required>
+                        <button type="submit" class="ticket-search-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ticket-search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            Cari
+                        </button>
+                    </div>
+                </form>
+            </div>
         </section>
 
         {{-- <!-- Navigation Links (Desktop) -->
@@ -855,7 +1003,7 @@
                         <img src="{{ asset('/front/images/illustration-1.png') }}" alt="Helpdesk Infrastruktur"
                             class="mb-3 img-fluid" style="max-height: 150px;">
                         <h3 class="card-title text-primary">Tentang Aplikasi</h3>
-                        <p class="card-text">Sistem Informasi Infrastruktur adalah aplikasi yang memudahkan pelaporan
+                        <p class="card-text">Sistem Informasi Infrastruktur TI adalah aplikasi yang memudahkan pelaporan
                             dan pengelolaan gangguan jaringan serta konsultasi teknis di Kabupaten Sijunjung.</p>
                         <p class="card-text">Aplikasi ini membantu mempercepat penanganan masalah infrastruktur
                             teknologi informasi dengan sistem pelaporan yang terintegrasi.</p>
@@ -1320,7 +1468,7 @@ padding-right: 10px;
                     class="logo">
                 <div>
                     <h1 class="app-title">{{ config('app.name') }}</h1>
-                    <p class="app-subtitle">Sistem Informasi Infrastruktur</p>
+                    <p class="app-subtitle">Sistem Informasi Infrastruktur TI</p>
                 </div>
             </a>
         </div>
@@ -1404,7 +1552,7 @@ padding-right: 10px;
                         <img src="{{ asset('/front/images/illustration-1.png') }}" alt="Helpdesk Infrastruktur"
                             class="mb-3 img-fluid" style="max-height: 150px;">
                         <h3 class="card-title text-primary">Tentang Aplikasi</h3>
-                        <p class="card-text">Sistem Informasi Infrastruktur adalah aplikasi yang memudahkan pelaporan
+                        <p class="card-text">Sistem Informasi Infrastruktur TI adalah aplikasi yang memudahkan pelaporan
                             dan pengelolaan gangguan jaringan serta konsultasi teknis di Kabupaten Sijunjung.</p>
                         <p class="card-text">Aplikasi ini membantu mempercepat penanganan masalah infrastruktur
                             teknologi informasi dengan sistem pelaporan yang terintegrasi.</p>
