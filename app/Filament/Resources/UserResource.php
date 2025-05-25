@@ -67,7 +67,7 @@ class UserResource extends Resource
                     ->color(function (string $state): string {
                         return match ($state) {
                             'super_admin' => 'danger',
-                            'adminit' => 'success',
+                            'petugas' => 'success',
                             default => 'gray',
                         };
                     }),

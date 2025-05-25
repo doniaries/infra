@@ -30,20 +30,20 @@ class Lapor extends Model
         'file_laporan',
         'foto_laporan',
         'status_laporan',
-        // Hapus 'keterangan_petugas' dari sini
+        'petugas_id',
+        'keterangan_petugas',
+        // 'hasil_laporan',
     ];
 
-
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'petugas_id');
+    }
 
     //untuk relationship perlu dituliskan
     public function opd(): BelongsTo
     {
         return $this->belongsTo(Opd::class, 'opd_id');
-    }
-
-    public function tindakLanjuts()
-    {
-        return $this->hasMany(TindakLanjut::class);
     }
 
 
@@ -58,6 +58,16 @@ class Lapor extends Model
             // Jika keterangan petugas diubah dan status masih Belum Diproses
             if ($lapor->isDirty('keterangan_petugas') && $lapor->getOriginal('status_laporan') === 'Belum Diproses') {
                 $lapor->status_laporan = 'Sedang Diproses';
+            }
+
+            // Jika laporan dilihat dan status masih Belum Diproses, otomatis ubah status dan isi keterangan
+            if (
+                $lapor->isDirty('status_laporan') &&
+                $lapor->status_laporan === 'Sedang Diproses' &&
+                $lapor->getOriginal('status_laporan') === 'Belum Diproses' &&
+                empty($lapor->keterangan_petugas)
+            ) {
+                $lapor->keterangan_petugas = 'Laporan dibaca';
             }
         });
     }

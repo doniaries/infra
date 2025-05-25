@@ -20,7 +20,9 @@ use Forms\Components\FileUpload;
 use Forms\Components\BadgeColumn;
 use Illuminate\Support\HtmlString;
 use Filament\Tables\Columns\Column;
-use Filament\Forms\Components\Section;
+// use Filament\Forms\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\Section;
 use Filament\Notifications\Notification;
 // use Filament\Notifications\Actions\Action;
 use Illuminate\Support\Facades\Storage;
@@ -108,7 +110,6 @@ class LaporResource extends Resource
                             ->columnSpan(2)
                             ->placeholder('tuliskan dan jelaskan secara singkat'),
                         Forms\Components\FileUpload::make('file_laporan')
-
                             ->placeholder('upload surat laporan'),
                     ]),
 
@@ -125,6 +126,7 @@ class LaporResource extends Resource
                                     ]);
                                 }
                             }),
+
                     ]),
 
                 Section::make()->columns(2)
@@ -190,7 +192,14 @@ class LaporResource extends Resource
                         return match ($state) {
                             'Belum Diproses' => 'danger',
                             'Sedang Diproses' => 'warning',
-                            'Selesai Diproses' => 'success',
+                            'Selesai' => 'success',
+                        };
+                    })
+                    ->icon(function (string $state): string {
+                        return match ($state) {
+                            'Belum Diproses' => 'heroicon-o-exclamation-circle',
+                            'Sedang Diproses' => 'heroicon-o-clock',
+                            'Selesai' => 'heroicon-o-check-circle',
                         };
                     })
                     ->sortable(),
@@ -205,6 +214,7 @@ class LaporResource extends Resource
                     ->colors([
                         'danger' => 'Laporan Gangguan',
                         'warning' => 'Koordinasi Teknis',
+                        'success' => 'Kenaikan Bandwidth',
                     ]),
                 Tables\Columns\TextColumn::make('no_tiket')
                     ->label('No Tiket')
@@ -224,9 +234,16 @@ class LaporResource extends Resource
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('uraian_laporan'),
-                // sdsd
+                Tables\Columns\TextColumn::make('petugas.name')
+                    ->label('Petugas')
+                    ->sortable()
+                    ->searchable()
+                    ->default('-'),
                 Tables\Columns\TextColumn::make('keterangan_petugas')
                     ->searchable(),
+                // Tables\Columns\TextColumn::make('hasil_laporan')
+                //     ->searchable(),
+
                 Tables\Columns\TextColumn::make('file_laporan')
                     ->openUrlInNewTab()
                     ->url(fn($record) => Storage::url($record->file_laporan)),
@@ -246,11 +263,86 @@ class LaporResource extends Resource
                 // Tambahkan filter di sini jika diperlukan
 
             ])
-            // ->actions([
-            // Tables\Actions\EditAction::make()
-            //     ->iconButton()
-            // ->slideOver()
-            // ], position: ActionsPosition::BeforeColumns)
+            ->actions([
+
+
+                Tables\Actions\Action::make('lihatLaporan')
+                    ->label('Lihat Laporan')
+                    ->icon('heroicon-o-eye')
+                    ->infolist([
+                        Section::make('Detail Laporan')
+                            ->schema([
+                                TextEntry::make('no_tiket')->label('Nomor Tiket'),
+                                TextEntry::make('nama_pelapor')->label('Nama Pelapor'),
+                                TextEntry::make('opd.nama')->label('OPD'),
+                                TextEntry::make('jenis_laporan')->label('Jenis Laporan'),
+                                TextEntry::make('tgl_laporan')->label('Tanggal Laporan')->dateTime('d M Y H:i'),
+                                TextEntry::make('uraian_laporan')->label('Uraian Laporan'),
+                            ])
+                            ->columns(1),
+                    ])
+                    ->action(function ($record) {
+                        if ($record->status_laporan === 'Belum Diproses') {
+                            $record->update([
+                                'status_laporan' => 'Sedang Diproses',
+                            ]);
+                        }
+                    })
+                    ->closeModalByClickingAway(false)
+                    ->modalWidth('lg')
+                    ->closeModalByEscaping()
+                    ->modalHeading('Detail Laporan')
+                    ->stickyModalHeader()
+                    ->stickyModalFooter()
+                    ->visible(fn($record) => $record->status_laporan === 'Belum Diproses'),
+
+                Tables\Actions\Action::make('prosesLaporan')
+                    ->label('Proses Laporan')
+                    ->icon('heroicon-o-check-circle')
+                    ->form([
+                        Forms\Components\Textarea::make('keterangan_petugas')
+                            ->label('Keterangan Tindakan')
+                            ->required(),
+                    ])
+                    ->action(function ($record, array $data) {
+                        $user = auth()->user();
+
+                        $record->update([
+                            'keterangan_petugas' => $data['keterangan_petugas'],
+                            'status_laporan' => 'Selesai Diproses',
+                            'petugas_id' => $user->id,
+                        ]);
+
+                        Notification::make()
+                            ->title("Laporan #{$record->no_tiket} selesai diproses oleh {$user->name}")
+                            ->success()
+                            ->send();
+                    })
+                    ->closeModalByClickingAway(false)
+                    ->modalWidth('lg')
+                    ->closeModalByEscaping()
+                    ->modalHeading('Proses Laporan')
+                    ->visible(fn($record) => $record->status_laporan === 'Sedang Diproses'),
+
+
+
+
+                // Tables\Actions\ViewAction::make()
+                //     ->stickyModalHeader()
+                //     ->stickyModalFooter()
+                //     ->iconButton()
+                //     ->before(function ($record) {
+                //         // Jika status laporan masih 'Belum Diproses', ubah menjadi 'Sedang Diproses'
+                //         if ($record->status_laporan === 'Belum Diproses') {
+                //             $record->update([
+                //                 'status_laporan' => 'Sedang Diproses',
+                //                 'petugas_id' => auth()->id(), // Tetapkan petugas yang melihat laporan
+                //             ]);
+                //         }
+                //     }),
+                Tables\Actions\EditAction::make()
+                    ->iconButton()
+            ], position: ActionsPosition::BeforeColumns)
 
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

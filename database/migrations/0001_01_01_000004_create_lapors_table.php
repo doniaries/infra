@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('file_laporan')->nullable();
             $table->string('foto_laporan')->nullable();
             $table->string('status_laporan')->default('Belum Diproses');
+            $table->foreignId('petugas_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->string('keterangan_petugas')->default('belum ada');
+            // $table->string('hasil_laporan')->default('belum ada');
             $table->timestamps();
         });
     }

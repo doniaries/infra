@@ -23,23 +23,41 @@ class UserSeeder extends Seeder
             ]);
             $superAdmin->assignRole('super_admin');
 
-            // Admin IT
-            $petugas = User::create([
-                'name' => 'Admin IT',
-                'email' => 'adminit@gmail.com',
-                'password' => bcrypt('@Adminit123'),
-                // 'is_active' => true,
+            // Petugas 1
+            $petugas1 = User::create([
+                'name' => 'Petugas 1',
+                'email' => 'petugas1@gmail.com',
+                'password' => bcrypt('petugas1'),
+                'is_active' => true,
             ]);
-            $petugas->assignRole('petugas');
+            $petugas1->assignRole('petugas');
 
-            // Pengguna
-            $pengguna = User::create([
-                'name' => 'Pengguna',
-                'email' => 'pengguna@gmail.com',
-                'password' => bcrypt('@Pengguna123'),
-                // 'is_active' => true,
+            // Petugas 2
+            $petugas2 = User::create([
+                'name' => 'Petugas 2',
+                'email' => 'petugas2@gmail.com',
+                'password' => bcrypt('petugas2'),
+                'is_active' => true,
             ]);
-            $pengguna->assignRole('pengguna');
+            $petugas2->assignRole('petugas');
+
+            // Pengguna1
+            $pengguna1 = User::create([
+                'name' => 'Pengguna',
+                'email' => 'pengguna1@gmail.com',
+                'password' => bcrypt('pengguna1'),
+                'is_active' => true,
+            ]);
+            $pengguna1->assignRole('pengguna');
+
+            //Pengguna2
+            $pengguna2 = User::create([
+                'name' => 'Pengguna',
+                'email' => 'pengguna2@gmail.com',
+                'password' => bcrypt('pengguna2'),
+                'is_active' => true,
+            ]);
+            $pengguna2->assignRole('pengguna');
         });
     }
 }
