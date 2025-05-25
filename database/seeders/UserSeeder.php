@@ -22,16 +22,16 @@ class UserSeeder extends Seeder
                 // 'is_active' => true,
             ]);
             $superAdmin->assignRole('super_admin');
-            
+
             // Admin IT
-            $adminIT = User::create([
+            $petugas = User::create([
                 'name' => 'Admin IT',
                 'email' => 'adminit@gmail.com',
                 'password' => bcrypt('@Adminit123'),
                 // 'is_active' => true,
             ]);
-            $adminIT->assignRole('adminit');
-            
+            $petugas->assignRole('petugas');
+
             // Pengguna
             $pengguna = User::create([
                 'name' => 'Pengguna',

@@ -12,7 +12,7 @@ class RoleSeeder extends Seeder
     {
         // Buat roles
         $superAdmin = Role::updateOrCreate(['name' => 'super_admin', 'guard_name' => 'web']);
-        $adminIT = Role::updateOrCreate(['name' => 'adminit', 'guard_name' => 'web']);
+        $petugas = Role::updateOrCreate(['name' => 'petugas', 'guard_name' => 'web']);
         $pengguna = Role::updateOrCreate(['name' => 'pengguna', 'guard_name' => 'web']);
 
         // Get all permissions
@@ -27,7 +27,7 @@ class RoleSeeder extends Seeder
             // Exclude some super admin specific permissions if needed
             return !str_contains($permission->name, 'shield');
         });
-        $adminIT->syncPermissions($adminITPermissions);
+        $petugas->syncPermissions($adminITPermissions);
 
         // Assign limited permissions to pengguna
         // You can customize these permissions based on your needs

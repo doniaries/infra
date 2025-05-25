@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             ShieldSeeder::class, // Harus dijalankan sebelum RoleSeeder untuk membuat permission
             RoleSeeder::class,   // Menggunakan permission yang dibuat oleh ShieldSeeder
             UserSeeder::class,   // Membuat user dengan role yang telah dibuat
+            LaporSeeder::class,  // Membuat data laporan
         ]);
     }
 }
