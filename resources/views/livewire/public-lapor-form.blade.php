@@ -343,7 +343,7 @@
                     <a href="{{ url('/') }}" class="transition-opacity logo-container hover:opacity-90 min-w-fit">
                         <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="logo">
                         <div>
-                            <h1 class="app-title">Lapor Infrastruktur</h1>
+                            <h1 class="app-title">{{ config('app.name') }}</h1>
                             <p class="app-subtitle">Sistem Informasi Infrastruktur TI</p>
                         </div>
                     </a>
