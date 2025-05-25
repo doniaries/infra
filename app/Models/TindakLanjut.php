@@ -23,4 +23,19 @@ class TindakLanjut extends Model
     {
         return $this->belongsTo(User::class, 'petugas_id');
     }
+
+    protected static function booted()
+    {
+        static::created(function ($tindakLanjut) {
+            $tindakLanjut->lapor->update([
+                'status_laporan' => $tindakLanjut->status,
+            ]);
+        });
+
+        static::updated(function ($tindakLanjut) {
+            $tindakLanjut->lapor->update([
+                'status_laporan' => $tindakLanjut->status,
+            ]);
+        });
+    }
 }

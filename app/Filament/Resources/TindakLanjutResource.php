@@ -21,17 +21,32 @@ class TindakLanjutResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return $form->schema([
+            Forms\Components\Select::make('lapor_id')
+                ->relationship('lapor', 'no_tiket')
+
+                ->required(),
+            Forms\Components\Textarea::make('keterangan')->required(),
+            Forms\Components\Select::make('status')
+                ->options([
+                    'Belum Diproses' => 'Belum Diproses',
+                    'Sedang Diproses' => 'Sedang Diproses',
+                    'Selesai' => 'Selesai',
+                ])
+                ->default('Belum Diproses')
+                ->required(),
+        ]);
     }
+
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('lapor.no_tiket')->label('No Tiket'),
+                Tables\Columns\TextColumn::make('keterangan')->wrap(),
+                Tables\Columns\TextColumn::make('status')->badge(),
+                Tables\Columns\TextColumn::make('created_at')->dateTime('d M Y H:i'),
             ])
             ->filters([
                 //
@@ -60,5 +75,12 @@ class TindakLanjutResource extends Resource
             'create' => Pages\CreateTindakLanjut::route('/create'),
             'edit' => Pages\EditTindakLanjut::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->whereHas('lapor', function ($query) {
+            $query->where('status_laporan', 'Belum Diproses');
+        });
     }
 }
