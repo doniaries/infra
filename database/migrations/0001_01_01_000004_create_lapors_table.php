@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('lapors', function (Blueprint $table) {
             $table->id();
-            $table->string('no_tiket')->unique();
+            $table->string('no_tiket')->unique()->index();
             $table->datetime('tgl_laporan');
             $table->string('nama_pelapor');
             $table->foreignId('opd_id')->constrained('opds')->cascadeOnDelete();

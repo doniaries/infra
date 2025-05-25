@@ -192,11 +192,14 @@ class LaporResource extends Resource
                     ->badge()
                     ->color(fn(JenisLaporan $state): string => $state->getColor())
                     ->formatStateUsing(fn(JenisLaporan $state): string => $state->getLabel())
-                    ->badge(function (string $state): string {
-                        return match ($state) {
+                    ->badge(function ($state): string {
+                        // Convert enum to string if it's an enum instance
+                        $stateValue = $state instanceof JenisLaporan ? $state->value : $state;
+                        return match ($stateValue) {
                             'Laporan Gangguan' => 'danger',
                             'Koordinasi Teknis' => 'warning',
                             'Kenaikan Bandwidth' => 'success',
+                            default => 'primary',
                         };
                     })
                     ->colors([
@@ -221,7 +224,8 @@ class LaporResource extends Resource
                     ->numeric()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('uraian_laporan'),
+                Tables\Columns\TextColumn::make('uraian_laporan')
+                    ->wrap(),
                 Tables\Columns\TextColumn::make('petugas.name')
                     ->label('Petugas')
                     ->sortable()
@@ -252,11 +256,10 @@ class LaporResource extends Resource
 
             ])
             ->actions([
-
-
                 Tables\Actions\Action::make('lihatLaporan')
                     ->label('Lihat Laporan')
                     ->icon('heroicon-o-eye')
+                    ->iconButton()
                     ->infolist([
                         Section::make('Detail Laporan')
                             ->schema([
@@ -312,8 +315,8 @@ class LaporResource extends Resource
                     ->modalHeading('Proses Laporan')
                     ->visible(fn($record) => $record->status_laporan === StatusLaporan::SEDANG_DIPROSES->value),
 
-                Tables\Actions\EditAction::make()
-                    ->iconButton()
+                // Tables\Actions\EditAction::make()
+                //     ->iconButton()
             ], position: ActionsPosition::BeforeColumns)
 
             ->bulkActions([
