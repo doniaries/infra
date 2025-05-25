@@ -136,8 +136,7 @@ class PublicLaporForm extends Component implements HasForms
                 ...$data,
                 'status_laporan' => 'Belum Diproses',
 
-                'keterangan1' => 'Belum ada keterangan',
-                'keterangan2' => 'Belum ada keterangan',
+                'keterangan_petugas' => 'Belum ada',
             ]);
 
             Notification::make()

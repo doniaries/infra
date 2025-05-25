@@ -118,7 +118,7 @@ class LaporResource extends Resource
                             ->afterStateUpdated(function ($record) {
                                 if ($record) {
                                     $record->update([
-                                        'status_laporan' => 'Sedang Diproses'
+                                        'status_laporan' => StatusLaporan::SEDANG_DIPROSES->value
                                     ]);
                                 }
                             }),

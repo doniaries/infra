@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\StatusLaporan;
 use App\Models\Lapor;
 use App\Models\Opd;
 use Carbon\Carbon;
@@ -80,11 +81,8 @@ class ListLaporan extends Component implements HasTable, HasForms
                     ->wrap(),
                 Tables\Columns\TextColumn::make('status_laporan')
                     ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'Belum Diproses' => 'danger',
-                        'Sedang Diproses' => 'warning',
-                        'Selesai Diproses' => 'success',
-                    }),
+                    ->color(fn(StatusLaporan $state): string => $state->getColor())
+                    ->icon(fn(StatusLaporan $state): string => $state->getIcon()),
                 Tables\Columns\TextColumn::make('keterangan_petugas'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
