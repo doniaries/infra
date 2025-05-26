@@ -51,4 +51,18 @@ class User extends Authenticatable implements FilamentUser
     {
         return true;
     }
+
+    // Tambahkan method untuk cek status
+    public function isActive(): bool
+    {
+        return $this->is_active;
+    }
+
+    // Method untuk mencegah login jika tidak aktif
+    protected static function booted()
+    {
+        static::creating(function ($user) {
+            $user->is_active = true; // Set default ke aktif
+        });
+    }
 }

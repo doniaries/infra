@@ -51,6 +51,19 @@ class UserResource extends Resource
                     ->preload()
                     ->relationship('roles', 'name')
                     ->searchable(),
+                Forms\Components\Toggle::make('is_active')
+                    ->label('Status Aktif')
+                    ->onIcon('heroicon-m-bolt')
+                    ->offIcon('heroicon-m-user')
+                    ->onColor('success')
+                    ->offColor('danger')
+                    ->inline(false)
+                    ->default(true)
+                    ->afterStateUpdated(function ($state, $record) {
+                        if ($record) {
+                            $record->update(['is_active' => $state]);
+                        }
+                    }),
 
 
 
