@@ -158,10 +158,9 @@ class UserResource extends Resource
                 return $query->count();
             }
 
-            // Menggunakan whereHas untuk filter berdasarkan relasi teams
-            return $query->whereHas('teams', function ($q) {
-                $q->where('teams.id', auth()->user()->teams->first()?->id);
-            })->count();
+            // // Menggunakan whereHas untuk filter berdasarkan relasi teams
+
+            // return $query->count();
         });
     }
 }
