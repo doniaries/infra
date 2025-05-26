@@ -151,16 +151,6 @@ class UserResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return cache()->remember('user_count_' . auth()->id(), 300, function () {
-            $query = static::getEloquentQuery();
-
-            if (auth()->user()->hasRole('super_admin')) {
-                return $query->count();
-            }
-
-            // // Menggunakan whereHas untuk filter berdasarkan relasi teams
-
-            // return $query->count();
-        });
+        return static::getModel()::count();
     }
 }
