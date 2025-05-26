@@ -91,6 +91,26 @@ class UserResource extends Resource
                             default => 'gray',
                         };
                     }),
+                Tables\Columns\IconColumn::make('is_active')
+                    ->label('Status User')
+                    ->boolean()
+                    ->action(function ($record, $column) {
+                        if (!auth()->user()->hasRole(['super_admin'])) {
+                            Notification::make()
+                                ->title("Hanya Super Admin yang dapat mengubah status user")
+                                ->danger()
+                                ->send();
+                            return;
+                        }
+
+                        $name = $record->name;
+                        $record->update(['is_active' => !$record->is_active]);
+                        Notification::make()
+                            ->title($record->is_active ? "User $name telah diaktifkan" : "User $name telah dinonaktifkan")
+                            ->success()
+                            ->send();
+                    })
+                    ->visible(fn() => auth()->user()->hasAnyRole(['super_admin'])),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
