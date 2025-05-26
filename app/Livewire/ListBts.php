@@ -30,6 +30,10 @@ class ListBts extends Component implements HasTable, HasForms
         return $table
 
             ->query(Bts::query())
+            ->contentGrid([
+                'md' => 1,
+                'xl' => 1,
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('operator.nama_operator')
                     ->badge()

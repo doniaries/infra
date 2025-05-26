@@ -20,7 +20,6 @@ use Forms\Components\FileUpload;
 use Forms\Components\BadgeColumn;
 use Illuminate\Support\HtmlString;
 use Filament\Tables\Columns\Column;
-// use Filament\Forms\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Notifications\Notification;
@@ -259,37 +258,36 @@ class LaporResource extends Resource
                 Tables\Actions\Action::make('lihatLaporan')
                     ->label('Lihat Laporan')
                     ->icon('heroicon-o-eye')
-                    ->iconButton()
+                    ->color('danger')
+                    // ->iconButton()
                     ->infolist([
-                        Section::make('Detail Laporan')
-                            ->schema([
-                                TextEntry::make('no_tiket')->label('Nomor Tiket'),
-                                TextEntry::make('nama_pelapor')->label('Nama Pelapor'),
-                                TextEntry::make('opd.nama')->label('OPD'),
-                                TextEntry::make('jenis_laporan')->label('Jenis Laporan'),
-                                TextEntry::make('tgl_laporan')->label('Tanggal Laporan')->dateTime('d M Y H:i'),
-                                TextEntry::make('uraian_laporan')->label('Uraian Laporan'),
-                            ])
-                            ->columns(1),
+                        TextEntry::make('no_tiket')->label('Nomor Tiket'),
+                        TextEntry::make('nama_pelapor')->label('Nama Pelapor'),
+                        TextEntry::make('opd.nama')->label('OPD'),
+                        TextEntry::make('jenis_laporan')->label('Jenis Laporan'),
+                        TextEntry::make('tgl_laporan')->label('Tanggal Laporan')->dateTime('d M Y H:i'),
+                        TextEntry::make('uraian_laporan')->label('Uraian Laporan'),
                     ])
                     ->action(function ($record) {
-                        if ($record->status_laporan === StatusLaporan::BELUM_DIPROSES->value) {
+                        if ($record->status_laporan === StatusLaporan::BELUM_DIPROSES) {
                             $record->update([
-                                'status_laporan' => StatusLaporan::SEDANG_DIPROSES->value,
+                                'status_laporan' => StatusLaporan::SEDANG_DIPROSES,
                             ]);
                         }
                     })
+                    ->visible(fn($record) => $record->status_laporan === StatusLaporan::BELUM_DIPROSES)
                     ->closeModalByClickingAway(false)
-                    ->modalWidth('lg')
                     ->closeModalByEscaping()
                     ->modalHeading('Detail Laporan')
+                    ->modalWidth('lg')
                     ->stickyModalHeader()
-                    ->stickyModalFooter()
-                    ->visible(fn($record) => $record->status_laporan === StatusLaporan::BELUM_DIPROSES->value),
+                    ->stickyModalFooter(),
 
                 Tables\Actions\Action::make('prosesLaporan')
                     ->label('Proses Laporan')
                     ->icon('heroicon-o-check-circle')
+                    ->color('info')
+                    // ->iconButton()
                     ->form([
                         Forms\Components\Textarea::make('keterangan_petugas')
                             ->label('Keterangan Tindakan')
@@ -300,7 +298,7 @@ class LaporResource extends Resource
 
                         $record->update([
                             'keterangan_petugas' => $data['keterangan_petugas'],
-                            'status_laporan' => StatusLaporan::SELESAI_DIPROSES->value,
+                            'status_laporan' => StatusLaporan::SELESAI_DIPROSES,
                             'petugas_id' => $user->id,
                         ]);
 
@@ -309,11 +307,11 @@ class LaporResource extends Resource
                             ->success()
                             ->send();
                     })
+                    ->visible(fn($record) => $record->status_laporan === StatusLaporan::SEDANG_DIPROSES)
                     ->closeModalByClickingAway(false)
-                    ->modalWidth('lg')
                     ->closeModalByEscaping()
                     ->modalHeading('Proses Laporan')
-                    ->visible(fn($record) => $record->status_laporan === StatusLaporan::SEDANG_DIPROSES->value),
+                    ->modalWidth('lg'),
 
                 // Tables\Actions\EditAction::make()
                 //     ->iconButton()

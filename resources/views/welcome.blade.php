@@ -41,8 +41,9 @@
         rel="stylesheet" />
 
     <!-- CSS Plugins -->
-    <link rel="stylesheet" href="{{ asset('/front/plugins/slick/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {{-- <link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/fontawesome.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/brands.css') }}">
     <link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/solid.css') }}">
     <link rel="stylesheet" href="{{ asset('/front/css/style.css') }}">
