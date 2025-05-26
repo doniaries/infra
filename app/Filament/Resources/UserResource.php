@@ -148,16 +148,20 @@ class UserResource extends Resource
             // 'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
-    // public static function getPermissionPrefixes(): array
-    // {
-    //     return [
-    //         'view',
-    //         'view_any',
-    //         'create',
-    //         'update',
-    //         'delete',
-    //         'delete_any',
-    //         'publish'
-    //     ];
-    // }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return cache()->remember('user_count_' . auth()->id(), 300, function () {
+            $query = static::getEloquentQuery();
+
+            if (auth()->user()->hasRole('super_admin')) {
+                return $query->count();
+            }
+
+            // Menggunakan whereHas untuk filter berdasarkan relasi teams
+            return $query->whereHas('teams', function ($q) {
+                $q->where('teams.id', auth()->user()->teams->first()?->id);
+            })->count();
+        });
+    }
 }
