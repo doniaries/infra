@@ -892,6 +892,8 @@
                     <h1 class="app-title">{{ config('app.name') }}</h1>
                     <p class="app-subtitle">Sistem Informasi Infrastruktur TI</p>
                 </div>
+                <!-- Logo Geopark di sebelah kanan judul -->
+                <img src="{{ asset('images/logo-geopark.png') }}" alt="Logo Geopark Silokek" style="height: 40px; width: auto;">
             </a>
         </div>
         <div class="d-flex align-items-center">
@@ -971,7 +973,7 @@
             </div>
             
             <!-- Pencarian Nomor Tiket -->
-            <div class="ticket-search-container mt-4">
+            <div class="mt-4 ticket-search-container">
                 <h3 class="ticket-search-title">Cek Status Laporan Anda</h3>
                 <form action="{{ url('list-laporan') }}" method="GET" class="ticket-search-form">
                     <div class="ticket-search-input-group">

@@ -16,6 +16,8 @@
                     <h1 class="app-title">{{ config('app.name') }}</h1>
                     <p class="app-subtitle">Sistem Informasi Infrastruktur TI</p>
                 </div>
+                 <!-- Logo Geopark di sebelah kanan judul -->
+                 <img src="{{ asset('images/logo-geopark.png') }}" alt="Logo Geopark Silokek" style="height: 40px; width: auto;">
             </a>
             <!-- Menu Navigasi dan Theme Toggle -->
             <div class="flex flex-wrap gap-2 items-center mt-2 md:gap-4 md:mt-0">
