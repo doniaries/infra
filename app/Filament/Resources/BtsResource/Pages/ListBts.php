@@ -19,4 +19,11 @@ class ListBts extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
+
+    // public function getTableBulkActions()
+    // {
+    //     return  [
+    //         ExportBulkAction::make()
+    //     ];
+    // }
 }
