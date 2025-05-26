@@ -44,6 +44,13 @@ class UserResource extends Resource
                     ->dehydrateStateUsing(fn($state) => Hash::make($state))
                     ->dehydrated(fn($state) => filled($state))
                     ->required(fn(string $context): bool => $context === 'create'),
+                Forms\Components\Select::make('roles')
+                    ->prefixIcon('heroicon-o-bolt')
+                    ->label('Role')
+                    ->multiple()
+                    ->preload()
+                    ->relationship('roles', 'name')
+                    ->searchable(),
 
 
 
