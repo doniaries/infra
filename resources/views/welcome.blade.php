@@ -971,7 +971,7 @@
             </div>
             
             <!-- Pencarian Nomor Tiket -->
-            <div class="ticket-search-container mt-4">
+            <div class="mt-4 ticket-search-container">
                 <h3 class="ticket-search-title">Cek Status Laporan Anda</h3>
                 <form action="{{ url('list-laporan') }}" method="GET" class="ticket-search-form">
                     <div class="ticket-search-input-group">
@@ -1264,7 +1264,7 @@
 </body>
 
 </html>
-/* Tombol Buat Laporan dengan efek khusus */
+{{-- /* Tombol Buat Laporan dengan efek khusus */
 .btn-create-report {
 background-color: #f97316;
 box-shadow: 0 4px 6px rgba(249, 115, 22, 0.2);
@@ -1391,7 +1391,7 @@ padding-right: 10px;
 </style>
 
 @livewireStyles
-</head>
+</head> --}}
 
 <body>
     <!-- Animated Background -->
@@ -1513,86 +1513,7 @@ padding-right: 10px;
             </div>
         </div>
     </div>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <section class="hero">
-            <h2 class="hero-title">Ada Gangguan Jaringan Atau Ada Konsultasi Teknis!</h2>
-            <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
-                Sistem ini membantu Anda melacak laporan secara real-time.</p>
-            <div class="hero-buttons">
-                <a href="{{ route('public.laporform') }}" class="register-button btn-laporan"
-                    style="background-color: #f97316; box-shadow: 0 4px 6px rgba(249, 115, 22, 0.2);">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="inline-block mr-2 w-5 h-5" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    Buat Laporan
-                </a>
-                <a href="{{ url('list-laporan') }}" class="register-button btn-laporan">Daftar Laporan</a>
-                <a href="{{ route('list.bts') }}" class="register-button btn-bts">Data BTS</a>
-            </div>
-        </section>
-
-        {{-- <!-- Navigation Links (Desktop) -->
-        <div class="mb-5 text-center desktop-nav">
-            {{-- <a href="{{ asset('/') }}" class="mx-2 btn btn-outline-primary">Home</a> --}}
-        {{-- <a href="{{ route('public.laporform') }}" class="register-button">Buat Laporan</a>
-            <a href="list-laporan" class="mx-2 btn btn-outline-primary">Daftar Laporan</a>
-            <a href="{{ route('list.bts') }}" class="mx-2 btn btn-outline-primary">Data BTS</a> --}}
-        {{-- </div> --}}
-
-        <!-- Info Cards Section -->
-        <div class="mt-5 row">
-            <!-- Aplikasi Info Card -->
-            <div class="mb-4 col-md-4">
-                <div class="shadow-sm card h-100">
-                    <div class="text-center card-body">
-                        <img src="{{ asset('/front/images/illustration-1.png') }}" alt="Helpdesk Infrastruktur"
-                            class="mb-3 img-fluid" style="max-height: 150px;">
-                        <h3 class="card-title text-primary">Tentang Aplikasi</h3>
-                        <p class="card-text">Sistem Informasi Infrastruktur TI adalah aplikasi yang memudahkan pelaporan
-                            dan pengelolaan gangguan jaringan serta konsultasi teknis di Kabupaten Sijunjung.</p>
-                        <p class="card-text">Aplikasi ini membantu mempercepat penanganan masalah infrastruktur
-                            teknologi informasi dengan sistem pelaporan yang terintegrasi.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Dinas Info Card -->
-            <div class="mb-4 col-md-4">
-                <div class="shadow-sm card h-100">
-                    <div class="text-center card-body">
-                        <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Dinas"
-                            class="mb-3 img-fluid" style="max-height: 150px;">
-                        <h3 class="card-title text-primary">Dinas Komunikasi dan Informatika</h3>
-                        <p class="card-text">Dinas Kominfo Kabupaten Sijunjung bertanggung jawab dalam pengembangan dan
-                            pemeliharaan infrastruktur teknologi informasi di seluruh wilayah kabupaten.</p>
-                        <p class="card-text">Alamat: Jl. Prof. M. Yamin, SH, Muaro Sijunjung<br>Telp: (0754)
-                            20202<br>Email: diskominfo@sijunjung.go.id</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Helpdesk Info Card -->
-            <div class="mb-4 col-md-4">
-                <div class="shadow-sm card h-100">
-                    <div class="text-center card-body">
-                        <img src="{{ asset('/front/images/illustration-2.png') }}" alt="Helpdesk Support"
-                            class="mb-3 img-fluid" style="max-height: 150px;">
-                        <h3 class="card-title text-primary">Helpdesk Infrastruktur</h3>
-                        <p class="card-text">Tim helpdesk kami siap membantu Anda dengan masalah infrastruktur
-                            jaringan, perangkat keras, dan konsultasi teknis lainnya.</p>
-                        <p class="card-text">Jam Operasional: Senin-Jumat, 08.00-16.00 WIB<br>Hotline:
-                            0812-3456-7890<br>WhatsApp: 0812-3456-7890</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Additional CSS for Cards -->
+           <!-- Additional CSS for Cards -->
         <style>
             .mega-menu-content {
                 background: rgba(20, 30, 48, 0.98);
