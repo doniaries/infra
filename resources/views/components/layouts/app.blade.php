@@ -10,6 +10,9 @@
 
     <title>{{ config('app.name') }}</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/kabupaten-sijunjung.png') }}">
+
     <style>
         [x-cloak] {
             display: none !important;
