@@ -111,4 +111,9 @@ class InventarisResource extends Resource
             'edit' => Pages\EditInventaris::route('/{record}/edit'),
         ];
     }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 }
