@@ -820,7 +820,7 @@
         <div class="stars" id="stars"></div>
     </div>
 
-    {{-- <!-- Buildings Silhouette -->
+    <!-- Buildings Silhouette -->
     <div class="buildings">
         <div class="building building-1">
             <div class="window"></div>
@@ -874,7 +874,7 @@
             <div class="window"></div>
             <div class="window"></div>
         </div>
-    </div> --}}
+    </div>
 
     <!-- Landmarks -->
     <div class="landmark jam-gadang"></div>
@@ -971,7 +971,7 @@
             </div>
             
             <!-- Pencarian Nomor Tiket -->
-            <div class="mt-4 ticket-search-container">
+            <div class="ticket-search-container mt-4">
                 <h3 class="ticket-search-title">Cek Status Laporan Anda</h3>
                 <form action="{{ url('list-laporan') }}" method="GET" class="ticket-search-form">
                     <div class="ticket-search-input-group">
@@ -987,7 +987,13 @@
             </div>
         </section>
 
-      
+        {{-- <!-- Navigation Links (Desktop) -->
+        <div class="mb-5 text-center desktop-nav">
+            {{-- <a href="{{ asset('/') }}" class="mx-2 btn btn-outline-primary">Home</a> --}}
+        {{-- <a href="{{ route('public.laporform') }}" class="register-button">Buat Laporan</a>
+            <a href="list-laporan" class="mx-2 btn btn-outline-primary">Daftar Laporan</a>
+            <a href="{{ route('list.bts') }}" class="mx-2 btn btn-outline-primary">Data BTS</a> --}}
+        {{-- </div> --}}
 
         <!-- Info Cards Section -->
         <div class="mt-5 row">
@@ -1166,7 +1172,7 @@
     <script src="/front/js/script.js"></script>
 
     <!-- Custom Scripts -->
-    {{-- <script>
+    <script>
         // Mobile Menu Toggle
         document.addEventListener('DOMContentLoaded', function() {
             const menuToggle = document.getElementById('mobileMenuToggle');
@@ -1192,9 +1198,9 @@
                 });
             }
         });
-    </script> --}}
+    </script>
 
-    {{-- <script>
+    <script>
         // Create stars
         function createStars() {
             const stars = document.getElementById('stars');
@@ -1252,8 +1258,9 @@
             setupThemeToggle();
             setupLandmarks();
         });
-    </script> --}}
+    </script>
 
     @livewireScripts
 </body>
+
 </html>
