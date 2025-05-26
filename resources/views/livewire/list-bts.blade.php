@@ -33,7 +33,8 @@
     </header>
 
     <div class="container px-4 py-8 mx-auto pt-120">
-        <div class="mx-auto max-w-4xl">
+        {{-- lebar tabel --}}
+        <div class="mx-auto max-w-7xl">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-semibold hero-title">Data BTS</h1>
             </div>
