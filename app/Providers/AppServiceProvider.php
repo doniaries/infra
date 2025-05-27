@@ -33,13 +33,18 @@ class AppServiceProvider extends ServiceProvider
         // Konfigurasi notifikasi agar lebih fleksibel
         // Posisi horizontal: Start (kiri), Center (tengah), End (kanan)
         Notifications::alignment(Alignment::End);
-        
+
         // Posisi vertikal: Start (atas), Center (tengah), End (bawah)
         Notifications::verticalAlignment(VerticalAlignment::End);
-        
+
         // Opsional: Konfigurasi tampilan notifikasi
         Notification::configureUsing(function (Notification $notification): void {
             $notification->duration(5000); // Durasi tampilan 5 detik
         });
+
+        Filament::registerRenderHook(
+            'auth.login.before',
+            fn(): string => view('components.auth.error-message')->render()
+        );
     }
 }

@@ -16,6 +16,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
+use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 
 class UserResource extends Resource
 {
@@ -29,8 +31,11 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->required()
+                    ->label('Nama Lengkap')
+                    ->prefixIcon('heroicon-m-user')
+                    ->placeholder('Nama Lengkap')
                     ->unique(ignoreRecord: true)
+                    ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
                     ->email()
@@ -59,15 +64,7 @@ class UserResource extends Resource
                     ->onColor('success')
                     ->offColor('danger')
                     ->inline(false)
-                    ->default(true)
-                    ->afterStateUpdated(function ($state, $record) {
-                        if ($record) {
-                            $record->update(['is_active' => $state]);
-                        }
-                    }),
-
-
-
+                    ->default(true),
             ]);
     }
 
@@ -125,7 +122,56 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('Change Password')
+                    ->authorize('update')
+                    ->icon('heroicon-o-key')
+                    ->visible(
+                        fn($record) =>
+                        auth()->user()->hasRole('super_admin') ||
+                            $record->teams()->whereIn('id', auth()->user()->teams->pluck('id'))->exists()
+                    )
+                    ->form([
+                        Forms\Components\TextInput::make('password')
+                            ->required()
+                            ->revealable()
+                            ->password()
+                            ->rule(Password::default())
+                            ->same('passwordConfirmation'),
+                        Forms\Components\TextInput::make('passwordConfirmation')
+                            ->required()
+                            ->revealable()
+                            ->password(),
+                    ])
+                    ->action(function (User $user, array $data) {
+                        $user->update(['password' => Hash::make($data['password'])]);
+
+                        Notification::make()
+                            ->success()
+                            ->title('Password Sukses Diganti')
+                            ->send();
+                    }),
+                Impersonate::make() //untuk peniruan user
+                    ->visible(
+                        fn($record) =>
+                        auth()->user()->hasRole('super_admin') ||
+                            $record->teams()->whereIn('id', auth()->user()->teams->pluck('id'))->exists()
+                    ),
+                Tables\Actions\EditAction::make()
+                    ->closeModalByClickingAway(false)
+                    ->stickyModalFooter()
+                    ->stickyModalHeader() // judul modal tetap
+                    ->visible(
+                        fn($record) =>
+                        auth()->user()->hasRole('super_admin') ||
+                            $record->teams()->whereIn('id', auth()->user()->teams->pluck('id'))->exists()
+                    ),
+                // ->slideOver(),
+                Tables\Actions\DeleteAction::make()
+                    ->visible(
+                        fn($record) =>
+                        auth()->user()->hasRole('super_admin') ||
+                            $record->teams()->whereIn('id', auth()->user()->teams->pluck('id'))->exists()
+                    ),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

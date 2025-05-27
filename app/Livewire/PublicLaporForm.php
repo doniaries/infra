@@ -67,6 +67,12 @@ class PublicLaporForm extends Component implements HasForms
                             ->required()
                             ->maxLength(255),
 
+                        TextInput::make('nomor_kontak')
+                            ->tel()
+                            ->minLength(5)
+                            ->maxLength(15)
+                            ->required(),
+
                         Select::make('opd_id')
                             ->label('OPD')
                             ->options(Opd::pluck('nama', 'id'))
