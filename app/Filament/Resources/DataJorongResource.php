@@ -57,9 +57,11 @@ class DataJorongResource extends Resource
           ->required()
           ->maxLength(255)
           ->extraInputAttributes(['style' => 'text-transform: uppercase']),
+
         Forms\Components\TextInput::make('alamat')
           ->required()
           ->maxLength(255),
+
         Forms\Components\TextInput::make('kontak')
           ->required()
           ->tel()
