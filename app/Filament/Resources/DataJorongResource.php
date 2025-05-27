@@ -6,6 +6,7 @@ use App\Filament\Resources\DataJorongResource\Pages;
 use App\Models\DataJorong;
 use App\Models\DataNagari;
 use App\Models\Jorong;
+use App\Models\Nagari;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -32,28 +33,26 @@ class DataJorongResource extends Resource
       ->schema([
         Forms\Components\Select::make('nagari_id')
           ->label('Nagari')
-          ->options(DataNagari::with('nagari')->get()->pluck('nagari.nama', 'id'))
+          ->options(Nagari::pluck('nama', 'id'))
           ->required()
           ->preload()
           ->searchable()
-          ->reactive()
+          ->reactive() // supaya bisa trigger update jorong
           ->afterStateUpdated(fn(callable $set) => $set('jorong_id', null)),
+
         Forms\Components\Select::make('jorong_id')
           ->label('Jorong')
+          ->required()
+          ->preload()
+          ->searchable()
           ->options(function (callable $get) {
             $nagariId = $get('nagari_id');
             if (!$nagariId) {
-              return [];
+              return Jorong::pluck('nama', 'id');
             }
-            $dataNagari = DataNagari::find($nagariId);
-            if (!$dataNagari) {
-              return [];
-            }
-            return Jorong::where('nagari_id', $dataNagari->nagari_id)->pluck('nama', 'id');
-          })
-          ->required()
-          ->preload()
-          ->searchable(),
+            return Jorong::where('nagari_id', $nagariId)->pluck('nama', 'id');
+          }),
+
         Forms\Components\TextInput::make('nama_kepala_jorong')
           ->required()
           ->maxLength(255)
