@@ -18,6 +18,7 @@ class LaporSeeder extends Seeder
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),
             'tgl_laporan' => now(),
             'nama_pelapor' => 'Ahmad Fauzi',
+            'nomor_kontak' => '08123456789',
             'opd_id' => 12, // Dinas Komunikasi dan Informatika
             'jenis_laporan' => 'Laporan Gangguan',
             'uraian_laporan' => 'Jaringan internet terputus sejak pukul 09.00 WIB. Seluruh komputer di kantor tidak dapat mengakses internet.',
@@ -34,6 +35,7 @@ class LaporSeeder extends Seeder
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),
             'tgl_laporan' => now()->subHours(3),
             'nama_pelapor' => 'Rudi Hartono',
+            'nomor_kontak' => '08123456449',
             'opd_id' => 15, // Dinas Pekerjaan Umum dan Penataan Ruang
             'jenis_laporan' => 'Laporan Gangguan',
             'uraian_laporan' => 'Koneksi internet lambat dan sering terputus. Mengganggu proses kerja terutama saat mengakses aplikasi online.',
@@ -50,6 +52,7 @@ class LaporSeeder extends Seeder
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),
             'tgl_laporan' => now()->subHours(5),
             'nama_pelapor' => 'Siti Rahma',
+            'nomor_kontak' => '0812345649',
             'opd_id' => 18, // Dinas Pendidikan dan Kebudayaan
             'jenis_laporan' => 'Koordinasi Teknis',
             'uraian_laporan' => 'Membutuhkan bantuan teknis untuk instalasi jaringan LAN di ruang rapat baru.',

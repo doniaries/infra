@@ -61,7 +61,6 @@ class PublicLaporForm extends Component implements HasForms
                             })
                             ->readOnly(),
 
-
                         TextInput::make('nama_pelapor')
                             ->label('Nama Lengkap')
                             ->required()
@@ -71,6 +70,7 @@ class PublicLaporForm extends Component implements HasForms
                             ->tel()
                             ->minLength(5)
                             ->maxLength(15)
+                            ->unique(ignoreRecord: true)
                             ->required(),
 
                         Select::make('opd_id')
@@ -141,7 +141,6 @@ class PublicLaporForm extends Component implements HasForms
             $lapor = Lapor::create([
                 ...$data,
                 'status_laporan' => 'Belum Diproses',
-
                 'keterangan_petugas' => 'Belum ada',
             ]);
 

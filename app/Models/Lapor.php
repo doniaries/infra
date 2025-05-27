@@ -27,6 +27,7 @@ class Lapor extends Model
         'no_tiket',
         'tgl_laporan',
         'nama_pelapor',
+        'nomor_kontak',
         'opd_id',
         'jenis_laporan',
         'uraian_laporan',

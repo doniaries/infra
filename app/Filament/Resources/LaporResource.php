@@ -80,6 +80,11 @@ class LaporResource extends Resource
                             ->dehydrated(false)
                             ->required()
                             ->maxLength(255),
+                        Forms\Components\TextInput::make('nomor_kontak')
+                            ->tel()
+                            ->minLength(5)
+                            ->maxLength(15)
+                            ->required(),
                         Forms\Components\Select::make('opd_id')
                             ->options(Opd::all()->pluck('nama', 'id'))
                             ->preload()
@@ -217,6 +222,9 @@ class LaporResource extends Resource
                     ->sortable()
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('nama_pelapor')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('nomor_kontak')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('opd.nama')
