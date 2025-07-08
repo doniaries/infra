@@ -1052,7 +1052,7 @@
                     .then(data => {
                         // Custom icon tower
                         var towerIcon = L.icon({
-                            iconUrl: '/images/tower-marker.png', // Ganti ke SVG jika ada
+                            iconUrl: "{{ asset('images/tower-marker.png') }}", // Ganti ke SVG jika ada
                             iconSize: [32, 40],
                             iconAnchor: [16, 40],
                             popupAnchor: [0, -36]
