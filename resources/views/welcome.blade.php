@@ -146,7 +146,7 @@
             align-items: center;
             transition: all 0.3s ease;
         }
-        
+
         .header nav a {
             color: #1e40af;
             font-weight: 500;
@@ -154,11 +154,11 @@
             padding: 0.5rem 0;
             position: relative;
         }
-        
+
         .header nav a:hover {
             color: #1e3a8a;
         }
-        
+
         .header nav a::after {
             content: '';
             position: absolute;
@@ -169,19 +169,19 @@
             background-color: #1e40af;
             transition: width 0.3s ease;
         }
-        
+
         .header nav a:hover::after {
             width: 100%;
         }
-        
+
         body.dark .header nav a {
             color: #60a5fa;
         }
-        
+
         body.dark .header nav a:hover {
             color: #93c5fd;
         }
-        
+
         body.dark .header nav a::after {
             background-color: #60a5fa;
         }
@@ -909,7 +909,7 @@
                     <i class="fas fa-broadcast-tower me-1"></i> Data BTS
                 </a>
             </nav>
-            
+
             <a href="{{ route('login') }}" class="login-button me-3 d-none d-md-inline-block"
                 title="Hanya untuk member area">Login</a>
             <div class="theme-toggle me-3" id="theme-toggle"></div>
@@ -1004,14 +1004,6 @@
                 </form>
             </div>
         </section>
-
-        {{-- <!-- Navigation Links (Desktop) -->
-        <div class="mb-5 text-center desktop-nav">
-            {{-- <a href="{{ asset('/') }}" class="mx-2 btn btn-outline-primary">Home</a> --}}
-        {{-- <a href="{{ route('public.laporform') }}" class="register-button">Buat Laporan</a>
-            <a href="list-laporan" class="mx-2 btn btn-outline-primary">Daftar Laporan</a>
-            <a href="{{ route('list.bts') }}" class="mx-2 btn btn-outline-primary">Data BTS</a> --}}
-        {{-- </div> --}}
 
         <!-- Info Cards Section -->
         <div class="mt-5 row">
