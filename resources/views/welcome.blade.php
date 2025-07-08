@@ -147,11 +147,50 @@
             transition: all 0.3s ease;
         }
         
+        .header nav a {
+            color: #1e40af;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .header nav a:hover {
+            color: #1e3a8a;
+        }
+        
+        .header nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #1e40af;
+            transition: width 0.3s ease;
+        }
+        
+        .header nav a:hover::after {
+            width: 100%;
+        }
+        
+        body.dark .header nav a {
+            color: #60a5fa;
+        }
+        
+        body.dark .header nav a:hover {
+            color: #93c5fd;
+        }
+        
+        body.dark .header nav a::after {
+            background-color: #60a5fa;
+        }
+
         .header.scrolled {
             background-color: rgba(255, 255, 255, 0.95);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        
+
         body.dark .header.scrolled {
             background-color: rgba(15, 23, 42, 0.95);
         }
@@ -858,6 +897,19 @@
             </a>
         </div>
         <div class="d-flex align-items-center">
+            <!-- Desktop Navigation -->
+            <nav class="d-none d-md-flex align-items-center me-4">
+                <a href="{{ route('public.laporform') }}" class="me-4 text-decoration-none text-dark">
+                    <i class="fas fa-plus-circle me-1"></i> Buat Laporan
+                </a>
+                <a href="{{ route('list.laporan') }}" class="me-4 text-decoration-none text-dark">
+                    <i class="fas fa-list me-1"></i> Daftar Laporan
+                </a>
+                <a href="{{ route('list.bts') }}" class="me-4 text-decoration-none text-dark">
+                    <i class="fas fa-broadcast-tower me-1"></i> Data BTS
+                </a>
+            </nav>
+            
             <a href="{{ route('login') }}" class="login-button me-3 d-none d-md-inline-block"
                 title="Hanya untuk member area">Login</a>
             <div class="theme-toggle me-3" id="theme-toggle"></div>
@@ -1136,7 +1188,7 @@
                 header.classList.remove('scrolled');
             }
         });
-        
+
         // Initialize header state on page load
         document.addEventListener('DOMContentLoaded', function() {
             const header = document.querySelector('.header');
@@ -1145,7 +1197,7 @@
             }
         });
     </script>
-    
+
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
