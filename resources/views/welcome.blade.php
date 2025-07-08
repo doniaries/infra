@@ -142,10 +142,12 @@
     body.dark .header nav a {
         color: #fff !important;
     }
+
     body.dark .header nav a:hover,
     body.dark .header nav a.active {
         color: #60a5fa !important;
     }
+
     body.dark .header nav a::after {
         background-color: #60a5fa;
     }
@@ -990,8 +992,10 @@
             <div class="mb-4 col-md-4">
                 <div class="shadow-sm card h-100">
                     <div class="text-center card-body">
-                        <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Dinas"
-                            class="mb-3 img-fluid" style="max-height: 150px;">
+                        <div class="w-100 d-flex justify-content-center">
+                            <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Dinas"
+                                class="mb-3 img-fluid" style="max-height: 150px;">
+                        </div>
                         <h3 class="card-title text-primary">Dinas Komunikasi dan Informatika</h3>
                         <p class="card-text">Dinas Kominfo Kabupaten Sijunjung bertanggung jawab dalam pengembangan dan
                             pemeliharaan infrastruktur teknologi informasi di seluruh wilayah kabupaten.</p>
@@ -1019,6 +1023,13 @@
 
         <!-- Additional CSS for Cards -->
         <style>
+        /* Center images in all card-body (info cards section) */
+        .card-body img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
             .mega-menu-content {
                 background: rgba(20, 30, 48, 0.98);
                 border-radius: 16px;
