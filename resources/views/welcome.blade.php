@@ -1021,6 +1021,41 @@
             </div>
         </div>
 
+        <!-- Section: Peta BTS -->
+        <div class="container my-5">
+            <h2 class="mb-3 text-center text-primary">Peta Sebaran BTS Kabupaten Sijunjung</h2>
+            <div id="bts-map" style="width:100%;height:400px;border-radius:16px;overflow:hidden;"></div>
+        </div>
+
+        <!-- LeafletJS CDN -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inisialisasi peta
+            var map = L.map('bts-map').setView([-0.693, 100.987], 10); // Default center Sijunjung
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+
+            // Ambil data marker dari endpoint Laravel
+            fetch('/bts-map-data')
+                .then(res => res.json())
+                .then(data => {
+                    data.forEach(function(bts) {
+                        if(bts.lat && bts.lng) {
+                            var marker = L.marker([bts.lat, bts.lng]).addTo(map);
+                            var popup = `<b>${bts.pemilik || '-'}</b><br>${bts.alamat || '-'}<br>` +
+                                `Teknologi: <b>${bts.teknologi}</b><br>Status: <b>${bts.status}</b><br>` +
+                                `Tahun Bangun: <b>${bts.tahun_bangun}</b>`;
+                            marker.bindPopup(popup);
+                        }
+                    });
+                });
+        });
+        </script>
+
         <!-- Additional CSS for Cards -->
         <style>
         /* Center images in all card-body (info cards section) */
