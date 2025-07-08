@@ -56,6 +56,7 @@
                 padding: 0.4rem 1rem !important;
                 font-size: 0.9rem !important;
             }
+
             .register-button svg {
                 width: 14px !important;
                 height: 14px !important;
@@ -797,25 +798,25 @@
                 padding-left: 10px;
                 padding-right: 10px;
             }
-            
+
             .ticket-search-container {
                 padding: 0 1rem;
             }
-            
+
             .ticket-search-title {
                 font-size: 1.1rem;
             }
-            
+
             .ticket-search-input {
                 padding: 0.6rem 0.8rem;
                 font-size: 0.9rem;
             }
-            
+
             .ticket-search-button {
                 padding: 0.6rem 1rem;
                 font-size: 0.9rem;
             }
-            
+
             .ticket-search-icon {
                 width: 1rem;
                 height: 1rem;
@@ -833,66 +834,6 @@
         <div class="stars" id="stars"></div>
     </div>
 
-    <!-- Buildings Silhouette -->
-    <div class="buildings">
-        <div class="building building-1">
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-        </div>
-        <div class="building building-2">
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-        </div>
-        <div class="building building-3">
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-        </div>
-        <div class="building building-4">
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-        </div>
-        <div class="building building-5">
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-            <div class="window"></div>
-        </div>
-    </div>
-
-    <!-- Landmarks -->
-    <div class="landmark jam-gadang"></div>
-    <div class="landmark rumah-gadang"></div>
-    <div class="landmark surat"></div>
 
     <!-- Header -->
     <header class="header">
@@ -906,7 +847,8 @@
                     <p class="app-subtitle">Sistem Informasi Infrastruktur TI</p>
                 </div>
                 <!-- Logo Geopark di sebelah kanan judul -->
-                <img src="{{ asset('images/logo-geopark.png') }}" alt="Logo Geopark Silokek" style="height: 40px; width: auto;">
+                <img src="{{ asset('images/logo-geopark.png') }}" alt="Logo Geopark Silokek"
+                    style="height: 40px; width: auto;">
             </a>
         </div>
         <div class="d-flex align-items-center">
@@ -984,16 +926,19 @@
                     Data BTS
                 </a>
             </div>
-            
+
             <!-- Pencarian Nomor Tiket -->
             <div class="mt-4 ticket-search-container">
                 <h3 class="ticket-search-title">Cek Status Laporan Anda</h3>
                 <form action="{{ url('list-laporan') }}" method="GET" class="ticket-search-form">
                     <div class="ticket-search-input-group">
-                        <input type="text" name="ticket" id="ticket" placeholder="Masukkan Nomor Tiket" class="ticket-search-input" required>
+                        <input type="text" name="ticket" id="ticket" placeholder="Masukkan Nomor Tiket"
+                            class="ticket-search-input" required>
                         <button type="submit" class="ticket-search-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="ticket-search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ticket-search-icon" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                             Cari
                         </button>
@@ -1019,7 +964,8 @@
                         <img src="{{ asset('/front/images/illustration-1.png') }}" alt="Helpdesk Infrastruktur"
                             class="mb-3 img-fluid" style="max-height: 150px;">
                         <h3 class="card-title text-primary">Tentang Aplikasi</h3>
-                        <p class="card-text">Sistem Informasi Infrastruktur TI adalah aplikasi yang memudahkan pelaporan
+                        <p class="card-text">Sistem Informasi Infrastruktur TI adalah aplikasi yang memudahkan
+                            pelaporan
                             dan pengelolaan gangguan jaringan serta konsultasi teknis di Kabupaten Sijunjung.</p>
                         <p class="card-text">Aplikasi ini membantu mempercepat penanganan masalah infrastruktur
                             teknologi informasi dengan sistem pelaporan yang terintegrasi.</p>
