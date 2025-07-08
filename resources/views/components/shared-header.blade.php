@@ -440,26 +440,6 @@
 
     .nav-link.active {
         font-weight: 500;
-        color: #1e40af;
-        border-bottom: 2px solid #2563eb;
-    }
-
-    body.dark .nav-link {
-        color: #60a5fa;
-    }
-
-    body.dark .nav-link:hover {
-        color: #93c5fd;
-    }
-
-    body.dark .nav-link.active {
-        color: #93c5fd;
-        border-bottom: 2px solid #60a5fa;
-    }
-
-    .nav-button {
-        padding: 0.5rem 1rem;
-        background-color: #2563eb;
         color: white;
         border-radius: 0.5rem;
         transition: background-color 0.2s;
