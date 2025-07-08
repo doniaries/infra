@@ -50,6 +50,19 @@
 
     <!-- Styles -->
     <style>
+        /* Responsive button sizes */
+        @media (min-width: 992px) {
+            .register-button {
+                padding: 0.4rem 1rem !important;
+                font-size: 0.9rem !important;
+            }
+            .register-button svg {
+                width: 14px !important;
+                height: 14px !important;
+                margin-right: 0.4rem !important;
+            }
+        }
+
         /* Base styles */
         body {
             font-family: 'Poppins', sans-serif;
