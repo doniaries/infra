@@ -22,7 +22,8 @@
     <script src="https://www.google.com/recaptcha/api.js"></script>
 
     @filamentStyles
-    @vite('resources/css/app.css')
+    {{-- @vite('resources/css/app.css') --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="antialiased">
