@@ -953,7 +953,7 @@
                 <h2 class="hero-title text-center text-4xl font-bold text-blue-700 type-hero"></h2>
             </div>
             <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
-                Sistem ini membantu Anda melacak laporan secara real-time.</p>
+                Sistem ini membantu Anda melacak laporan secara real-time!.</p>
             <div class="hero-buttons">
                 <a href="{{ route('public.laporform') }}" class="register-button btn-create-report btn-small">
                     <svg xmlns="http://www.w3.org/2000/svg" class="inline-block mr-2 w-4 h-4 animate-pulse"
