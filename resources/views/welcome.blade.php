@@ -15,6 +15,27 @@
 
 <!-- Styles -->
 <style>
+    /* Typewriter cursor animation */
+    .caret {
+        display: inline-block;
+        width: 2px;
+        background-color: currentColor;
+        margin-left: 2px;
+        animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+        from, to { opacity: 1; }
+        50% { opacity: 0; }
+    }
+
+    /* Typewriter container */
+    .type-hero {
+        min-height: 1.5em;
+        display: inline-block;
+        text-align: center;
+    }
+
     /* Base styles */
     body {
         font-family: 'Poppins', sans-serif;
@@ -54,7 +75,7 @@
         height: 100%;
         overflow: hidden;
         z-index: -1;
-        background-color: #e0f2fe;
+        background-color: #1377b9;
         /* Light blue sky for light mode */
         transition: background-color 0.3s ease;
     }
@@ -922,7 +943,7 @@
     <main class="main-content">
         <section class="hero">
             <div class="w-full flex justify-center">
-                <h2 id="typewriter" class="hero-title text-center"></h2>
+                <h2 class="hero-title text-center text-4xl font-bold text-yellow-400 type-hero"></h2>
             </div>
             <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
                 Sistem ini membantu Anda melacak laporan secara real-time.</p>
@@ -1357,46 +1378,7 @@
     </script>
 
     @livewireScripts
-    <script>
-        const words = ["Ada Gangguan Jaringan?", "Butuh Konsultasi Teknis?", "Laporkan Sekarang!"].map(word => word + " ​");
-        let i = 0;
-        let j = 0;
-        let currentWord = "";
-        let isDeleting = false;
-        let isEnd = false;
-        const typewriterElement = document.getElementById("typewriter");
-
-        function type() {
-            currentWord = words[i];
-            if (isDeleting) {
-                typewriterElement.innerHTML = currentWord.substring(0, j - 1);
-                j--;
-                if (j == 0) {
-                    isDeleting = false;
-                    i++;
-                    if (i == words.length) {
-                        i = 0;
-                    }
-                }
-            } else {
-                typewriterElement.innerHTML = currentWord.substring(0, j + 1);
-                j++;
-                if (j == currentWord.length) {
-                    isEnd = true;
-                    isDeleting = true;
-                }
-            }
-            const time = isDeleting ? 50 : isEnd ? 2000 : 100;
-            isEnd = false;
-            setTimeout(type, time);
-        }
-
-        // Start the typewriter effect after a short delay
-        if (typewriterElement) {
-            typewriterElement.innerHTML = ''; // Clear any initial content
-            setTimeout(type, 1000);
-        }
-    </script>
+    <!-- Typewriter effect is now handled by Tailwind CSS plugin -->
 </body>
 
 </html>
