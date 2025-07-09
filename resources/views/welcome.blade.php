@@ -15,6 +15,22 @@
 
 <!-- Styles -->
 <style>
+    /* Base styles */
+    body {
+        font-family: 'Poppins', sans-serif;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* Dark mode styles */
+    body.dark {
+        background-color: #0f172a;
+        color: #f8fafc;
+    }
+
     /* Responsive button sizes */
     @media (min-width: 992px) {
         .register-button {
@@ -27,20 +43,6 @@
             height: 14px !important;
             margin-right: 0.4rem !important;
         }
-    }
-
-    /* Base styles */
-    body {
-        font-family: 'Poppins', sans-serif;
-        transition: background-color 0.3s ease, color 0.3s ease;
-        margin: 0;
-        padding: 0;
-    }
-
-    /* Dark mode styles */
-    body.dark {
-        background-color: #0f172a;
-        color: #f8fafc;
     }
 
     /* Sky background */
@@ -721,8 +723,7 @@
         box-shadow: 0 10px 15px rgba(59, 130, 246, 0.3);
     }
 
-    /* Typewriter effect is now handled by Tailwind's animation utilities */
-
+    /* Search input styles */
     .ticket-search-input {
         flex: 1;
         padding: 0.75rem 1rem;
@@ -977,7 +978,7 @@
 
         <!-- Section: Peta BTS -->
         <h2 class="mb-3 text-center text-primary" style="margin-top:6rem;">
-            <span class="bg-white px-3 py-2 rounded shadow-lg d-inline-block bts-map-title-bg">Peta Sebaran BTS
+            <span class="bg-white px-3 py-2 rounded shadow-md d-inline-block bts-map-title-bg">Peta Sebaran BTS
                 Kabupaten Sijunjung</span>
         </h2>
         <div class="container my-5 bg-white">
@@ -1076,28 +1077,49 @@
             });
         </script>
 
-        <!-- Additional CSS for Cards -->
+        <!-- Map and Card Styles -->
         <style>
-            /* Pastikan header selalu di atas peta (Leaflet) */
-            body.dark .bts-map-title-bg {
-                background: #fff !important;
-                color: #1e40af !important;
-            }
-
-            .header {
-                z-index: 1100;
-            }
-
+            /* Map container */
             .leaflet-container {
                 z-index: 1;
+                height: 400px;
+                width: 100%;
+                border-radius: 0.5rem;
+                margin: 1rem 0;
             }
 
-            /* Center images in all card-body (info cards section) */
-            .card-body img {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
+            /* Card styling */
+            .card {
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                border: none;
+                border-radius: 0.5rem;
+                overflow: hidden;
             }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.25rem;
+                font-weight: 600;
+                margin-bottom: 0.75rem;
+                color: #1e40af;
+            }
+
+            .card-text {
+                color: #4b5563;
+                margin-bottom: 1rem;
+                line-height: 1.6;
+            }
+
+            /* Center images in cards */
+            .card-body img {}
 
             .mega-menu-content {
                 background: rgba(20, 30, 48, 0.98);
