@@ -950,7 +950,9 @@
     <main class="main-content">
         <section class="hero">
             <div class="w-full flex justify-center">
-                <h2 class="hero-title text-center text-4xl font-bold text-blue-700 type-hero"></h2>
+                <h2 class="hero-title text-center text-4xl font-bold text-blue-700 type-hero">
+                    <span class="type-hero__word"></span><span class="type-hero__caret"></span>
+                </h2>
             </div>
             <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
                 Sistem ini membantu Anda melacak laporan secara real-time!.</p>
@@ -1447,78 +1449,6 @@
     @livewireScripts
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- ScrollMenu Script -->
-    <script>
-        // Make ScrollMenu available globally
-        window.ScrollMenu = function(selector, options) {
-            return new(function() {
-                this.init = function() {
-                    this.menuItems = document.querySelectorAll(selector);
-                    this.options = Object.assign({
-                        duration: 400,
-                        activeOffset: 40,
-                        scrollOffset: 10,
-                        easing: 'easeInOutQuad'
-                    }, options);
-
-                    this.setupEventListeners();
-                    this.updateActive();
-                };
-
-                this.setupEventListeners = function() {
-                    window.addEventListener('scroll', this.updateActive.bind(this));
-                    window.addEventListener('resize', this.updateActive.bind(this));
-
-                    this.menuItems.forEach(item => {
-                        item.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            const targetId = item.getAttribute('href');
-                            const targetElement = document.querySelector(targetId);
-
-                            if (targetElement) {
-                                const headerOffset = this.options.activeOffset;
-                                const elementPosition = targetElement
-                                    .getBoundingClientRect().top;
-                                const offsetPosition = elementPosition + window
-                                    .pageYOffset - headerOffset;
-
-                                window.scrollTo({
-                                    top: offsetPosition,
-                                    behavior: 'smooth'
-                                });
-                            }
-                        });
-                    });
-                };
-
-                this.updateActive = function() {
-                    const currentScroll = window.pageYOffset + this.options.activeOffset;
-
-                    this.menuItems.forEach(item => {
-                        const targetId = item.getAttribute('href');
-                        const targetElement = document.querySelector(targetId);
-
-                        if (targetElement) {
-                            const targetTop = targetElement.offsetTop;
-                            const targetHeight = targetElement.offsetHeight;
-
-                            if (currentScroll >= targetTop && currentScroll < targetTop +
-                                targetHeight) {
-                                this.menuItems.forEach(i => i.classList.remove('active'));
-                                item.classList.add('active');
-                            }
-                        }
-                    });
-                };
-
-                // Initialize
-                this.init();
-            })();
-        };
-    </script>
-
-    <!-- Back to Top Button with Ripple Effect -->
 
     <!-- Smooth scroll functionality -->
     <script>
