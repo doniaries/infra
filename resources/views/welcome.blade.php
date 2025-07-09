@@ -25,8 +25,15 @@
     }
 
     @keyframes blink {
-        from, to { opacity: 1; }
-        50% { opacity: 0; }
+
+        from,
+        to {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
     }
 
     /* Typewriter container */
@@ -75,8 +82,8 @@
         height: 100%;
         overflow: hidden;
         z-index: -1;
-        background-color: #1377b9;
-        /* Light blue sky for light mode */
+        background-color: #f5f1f1;
+        /* Brighter blue for light mode */
         transition: background-color 0.3s ease;
     }
 
@@ -943,7 +950,7 @@
     <main class="main-content">
         <section class="hero">
             <div class="w-full flex justify-center">
-                <h2 class="hero-title text-center text-4xl font-bold text-yellow-400 type-hero"></h2>
+                <h2 class="hero-title text-center text-4xl font-bold text-blue-700 type-hero"></h2>
             </div>
             <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
                 Sistem ini membantu Anda melacak laporan secara real-time.</p>
@@ -1256,6 +1263,46 @@
         </style>
     </main>
 
+    <!-- Back to top button -->
+    <button type="button" data-twe-ripple-init data-twe-ripple-color="light"
+        class="!fixed bottom-5 end-5 hidden rounded-full bg-blue-600 p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg"
+        id="btn-back-to-top">
+        <span class="[&>svg]:w-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+            </svg>
+        </span>
+    </button>
+
+    <!-- Back to Top Script -->
+    <script>
+        // Back to top button
+        const backToTopButton = document.getElementById('btn-back-to-top');
+
+        // Show the button when scrolling down 300px
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+
+        // Scroll to top when clicked
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Initialize ripple effect if TW Elements is loaded
+        if (typeof Ripple !== 'undefined') {
+            new Ripple(backToTopButton);
+        }
+    </script>
+
     <!-- Scroll Handler -->
     <script>
         window.addEventListener('scroll', function() {
@@ -1378,7 +1425,167 @@
     </script>
 
     @livewireScripts
-    <!-- Typewriter effect is now handled by Tailwind CSS plugin -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- ScrollMenu Script -->
+    <script>
+        // Make ScrollMenu available globally
+        window.ScrollMenu = function(selector, options) {
+            return new(function() {
+                this.init = function() {
+                    this.menuItems = document.querySelectorAll(selector);
+                    this.options = Object.assign({
+                        duration: 400,
+                        activeOffset: 40,
+                        scrollOffset: 10,
+                        easing: 'easeInOutQuad'
+                    }, options);
+
+                    this.setupEventListeners();
+                    this.updateActive();
+                };
+
+                this.setupEventListeners = function() {
+                    window.addEventListener('scroll', this.updateActive.bind(this));
+                    window.addEventListener('resize', this.updateActive.bind(this));
+
+                    this.menuItems.forEach(item => {
+                        item.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const targetId = item.getAttribute('href');
+                            const targetElement = document.querySelector(targetId);
+
+                            if (targetElement) {
+                                const headerOffset = this.options.activeOffset;
+                                const elementPosition = targetElement
+                                    .getBoundingClientRect().top;
+                                const offsetPosition = elementPosition + window
+                                    .pageYOffset - headerOffset;
+
+                                window.scrollTo({
+                                    top: offsetPosition,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        });
+                    });
+                };
+
+                this.updateActive = function() {
+                    const currentScroll = window.pageYOffset + this.options.activeOffset;
+
+                    this.menuItems.forEach(item => {
+                        const targetId = item.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+
+                        if (targetElement) {
+                            const targetTop = targetElement.offsetTop;
+                            const targetHeight = targetElement.offsetHeight;
+
+                            if (currentScroll >= targetTop && currentScroll < targetTop +
+                                targetHeight) {
+                                this.menuItems.forEach(i => i.classList.remove('active'));
+                                item.classList.add('active');
+                            }
+                        }
+                    });
+                };
+
+                // Initialize
+                this.init();
+            })();
+        };
+    </script>
+
+    <!-- Back to Top Functionality -->
+    <script>
+        // Back to Top Button
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('backToTop');
+
+            // Show/hide button on scroll
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+
+            // Smooth scroll to top
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+    <!-- Smooth scroll functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Calculate the offset based on the header height
+                        const headerOffset = 80;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        // Close mobile menu if open
+                        const mobileMenu = document.getElementById('mobile-menu');
+                        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+                        if (mobileMenu && mobileMenu.classList.contains('active')) {
+                            mobileMenu.classList.remove('active');
+                            mobileMenuToggle.classList.remove('active');
+                        }
+                    }
+                });
+            });
+
+            // Add active class to current section in viewport
+            const sections = document.querySelectorAll('section[id]');
+
+            function onScroll() {
+                const scrollPosition = window.scrollY + 100;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        document.querySelectorAll('nav a').forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+
+            // Run once on page load
+            onScroll();
+
+            // Run on scroll
+            window.addEventListener('scroll', onScroll);
+        });
+    </script>
 </body>
 
 </html>
