@@ -1263,44 +1263,52 @@
         </style>
     </main>
 
-    <!-- Back to top button -->
+    <!-- Back to top button with Ripple Effect -->
     <button type="button" data-twe-ripple-init data-twe-ripple-color="light"
-        class="!fixed bottom-5 end-5 hidden rounded-full bg-blue-600 p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg"
-        id="btn-back-to-top">
-        <span class="[&>svg]:w-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
-            </svg>
-        </span>
+        class="!fixed bottom-8 end-8 z-50 hidden h-12 w-12 items-center justify-center rounded-full bg-blue-600 p-3 text-white shadow-lg transition-all duration-300 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        id="back-to-top"
+        aria-label="Kembali ke atas">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+            stroke="currentColor" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+        </svg>
     </button>
 
     <!-- Back to Top Script -->
     <script>
-        // Back to top button
-        const backToTopButton = document.getElementById('btn-back-to-top');
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            if (backToTopButton) {
+                // Show/hide button on scroll
+                function toggleBackToTop() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.remove('hidden');
+                    } else {
+                        backToTopButton.classList.add('hidden');
+                    }
+                }
 
-        // Show the button when scrolling down 300px
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.remove('hidden');
-            } else {
-                backToTopButton.classList.add('hidden');
+                // Initial check
+                toggleBackToTop();
+                
+                // Listen for scroll events
+                window.addEventListener('scroll', toggleBackToTop);
+
+                // Smooth scroll to top
+                backToTopButton.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+
+                // Initialize ripple effect if available
+                if (typeof Ripple !== 'undefined') {
+                    new Ripple(backToTopButton);
+                }
             }
         });
-
-        // Scroll to top when clicked
-        backToTopButton.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Initialize ripple effect if TW Elements is loaded
-        if (typeof Ripple !== 'undefined') {
-            new Ripple(backToTopButton);
-        }
     </script>
 
     <!-- Scroll Handler -->
@@ -1498,45 +1506,7 @@
         };
     </script>
 
-    <!-- Back to Top Button -->
-    <button id="backToTop" aria-label="Back to top" class="fixed bottom-8 right-8 z-50 hidden h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg transition-all duration-300 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-    </button>
-
-    <!-- Back to Top Functionality -->
-    <script>
-        // Back to Top Button
-        document.addEventListener('DOMContentLoaded', function() {
-            const backToTopButton = document.getElementById('backToTop');
-            
-            // Only run if the button exists
-            if (backToTopButton) {
-                // Show/hide button on scroll
-                window.addEventListener('scroll', function() {
-                    if (window.pageYOffset > 300) {
-                        backToTopButton.classList.remove('hidden');
-                        backToTopButton.classList.add('flex');
-                    } else {
-                        backToTopButton.classList.add('hidden');
-                        backToTopButton.classList.remove('flex');
-                    }
-                });
-
-                // Smooth scroll to top
-                backToTopButton.addEventListener('click', function() {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                });
-                
-                // Initial check in case page loads scrolled
-                window.dispatchEvent(new Event('scroll'));
-            }
-        });
-    </script>
+    <!-- Back to Top Button with Ripple Effect -->
 
     <!-- Smooth scroll functionality -->
     <script>
