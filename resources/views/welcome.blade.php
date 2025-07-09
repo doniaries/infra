@@ -151,7 +151,7 @@
     }
 
     .header nav a:hover {
-        color: #1e3a8a;
+        color: #1a4fe2;
     }
 
     .header nav a::after {
@@ -364,7 +364,7 @@
     .app-title {
         font-size: 1.5rem;
         font-weight: 600;
-        color: #12130f;
+        color: #06088b;
         margin: 0;
     }
 
@@ -374,12 +374,12 @@
 
     .app-subtitle {
         font-size: 0.875rem;
-        color: #64748b;
+        color: #000000;
         margin: 0;
     }
 
     body.dark .app-subtitle {
-        color: #94a3b8;
+        color: #c9cacc;
     }
 
     /* Theme toggle */
@@ -446,7 +446,7 @@
 
     .hero-subtitle {
         font-size: 1.25rem;
-        color: #64748b;
+        color: #191c1f;
         max-width: 800px;
         margin-bottom: 2rem;
         line-height: 1.6;
