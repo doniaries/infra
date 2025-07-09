@@ -25,15 +25,8 @@
     }
 
     @keyframes blink {
-
-        from,
-        to {
-            opacity: 1;
-        }
-
-        50% {
-            opacity: 0;
-        }
+        from, to { opacity: 1; }
+        50% { opacity: 0; }
     }
 
     /* Typewriter container */
@@ -82,8 +75,8 @@
         height: 100%;
         overflow: hidden;
         z-index: -1;
-        background-color: #ffffff;
-        /* Brighter blue for light mode */
+        background-color: #1377b9;
+        /* Light blue sky for light mode */
         transition: background-color 0.3s ease;
     }
 
@@ -151,7 +144,7 @@
     }
 
     .header nav a:hover {
-        color: #1a4fe2;
+        color: #1e3a8a;
     }
 
     .header nav a::after {
@@ -364,7 +357,7 @@
     .app-title {
         font-size: 1.5rem;
         font-weight: 600;
-        color: #06088b;
+        color: #12130f;
         margin: 0;
     }
 
@@ -374,12 +367,12 @@
 
     .app-subtitle {
         font-size: 0.875rem;
-        color: #000000;
+        color: #64748b;
         margin: 0;
     }
 
     body.dark .app-subtitle {
-        color: #c9cacc;
+        color: #94a3b8;
     }
 
     /* Theme toggle */
@@ -446,7 +439,7 @@
 
     .hero-subtitle {
         font-size: 1.25rem;
-        color: #191c1f;
+        color: #64748b;
         max-width: 800px;
         margin-bottom: 2rem;
         line-height: 1.6;
@@ -950,13 +943,10 @@
     <main class="main-content">
         <section class="hero">
             <div class="w-full flex justify-center">
-                <h2 class="hero-title text-center text-4xl font-bold text-blue-700">
-                    <span id="typewriter-text">Ada Gangguan Jaringan?</span>
-                    <span class="inline-block w-1 h-8 bg-blue-700 align-middle ml-1 animate-pulse"></span>
-                </h2>
+                <h2 class="hero-title text-center text-4xl font-bold text-yellow-400 type-hero"></h2>
             </div>
             <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
-                Sistem ini membantu Anda melacak laporan secara real-time!.</p>
+                Sistem ini membantu Anda melacak laporan secara real-time.</p>
             <div class="hero-buttons">
                 <a href="{{ route('public.laporform') }}" class="register-button btn-create-report btn-small">
                     <svg xmlns="http://www.w3.org/2000/svg" class="inline-block mr-2 w-4 h-4 animate-pulse"
@@ -1266,66 +1256,6 @@
         </style>
     </main>
 
-    <!-- Back to top button -->
-    <button
-      type="button"
-      data-twe-ripple-init
-      data-twe-ripple-color="light"
-      class="!fixed bottom-5 end-5 z-50 hidden rounded-full bg-red-600 p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg"
-      id="back-to-top"
-      aria-label="Kembali ke atas">
-      <span class="[&>svg]:w-4">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="3"
-          stroke="currentColor">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
-        </svg>
-      </span>
-    </button>
-
-    <!-- Back to Top Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const backToTopButton = document.getElementById('back-to-top');
-            
-            if (backToTopButton) {
-                // Show/hide button on scroll
-                function toggleBackToTop() {
-                    if (window.pageYOffset > 300) {
-                        backToTopButton.classList.remove('hidden');
-                    } else {
-                        backToTopButton.classList.add('hidden');
-                    }
-                }
-
-                // Initial check
-                toggleBackToTop();
-                
-                // Listen for scroll events
-                window.addEventListener('scroll', toggleBackToTop);
-
-                // Smooth scroll to top
-                backToTopButton.addEventListener('click', function() {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                });
-
-                // Initialize ripple effect if available
-                if (typeof Ripple !== 'undefined') {
-                    new Ripple(backToTopButton);
-                }
-            }
-        });
-    </script>
-
     <!-- Scroll Handler -->
     <script>
         window.addEventListener('scroll', function() {
@@ -1388,51 +1318,6 @@
     </script>
 
     <script>
-        // Simple Typewriter Effect
-        document.addEventListener('DOMContentLoaded', function() {
-            const typewriterText = document.getElementById('typewriter-text');
-            const cursor = document.querySelector('.animate-pulse');
-            
-            if (typewriterText && cursor) {
-                const words = ['Ada Gangguan Jaringan?', 'Butuh Konsultasi Teknis?', 'Laporkan Sekarang!'];
-                let wordIndex = 0;
-                let charIndex = 0;
-                let isDeleting = false;
-                let isEnd = false;
-                let typeSpeed = 100;
-                let deleteSpeed = 50;
-                let pauseTime = 1000;
-                
-                function type() {
-                    const currentWord = words[wordIndex];
-                    
-                    if (isDeleting) {
-                        typewriterText.textContent = currentWord.substring(0, charIndex - 1);
-                        charIndex--;
-                        typeSpeed = deleteSpeed;
-                    } else {
-                        typewriterText.textContent = currentWord.substring(0, charIndex + 1);
-                        charIndex++;
-                        typeSpeed = 100;
-                    }
-                    
-                    if (!isDeleting && charIndex === currentWord.length) {
-                        isEnd = true;
-                        typeSpeed = pauseTime;
-                        isDeleting = true;
-                    } else if (isDeleting && charIndex === 0) {
-                        isDeleting = false;
-                        wordIndex = (wordIndex + 1) % words.length;
-                    }
-                    
-                    setTimeout(type, typeSpeed);
-                }
-                
-                // Start the typewriter effect after a short delay
-                setTimeout(type, 500);
-            }
-        });
-
         // Create stars
         function createStars() {
             const stars = document.getElementById('stars');
@@ -1493,72 +1378,7 @@
     </script>
 
     @livewireScripts
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Smooth scroll functionality -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Smooth scroll for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        // Calculate the offset based on the header height
-                        const headerOffset = 80;
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-
-                        // Close mobile menu if open
-                        const mobileMenu = document.getElementById('mobile-menu');
-                        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-                        if (mobileMenu && mobileMenu.classList.contains('active')) {
-                            mobileMenu.classList.remove('active');
-                            mobileMenuToggle.classList.remove('active');
-                        }
-                    }
-                });
-            });
-
-            // Add active class to current section in viewport
-            const sections = document.querySelectorAll('section[id]');
-
-            function onScroll() {
-                const scrollPosition = window.scrollY + 100;
-
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.offsetHeight;
-                    const sectionId = section.getAttribute('id');
-
-                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                        document.querySelectorAll('nav a').forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === `#${sectionId}`) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
-                });
-            }
-
-            // Run once on page load
-            onScroll();
-
-            // Run on scroll
-            window.addEventListener('scroll', onScroll);
-        });
-    </script>
+    <!-- Typewriter effect is now handled by Tailwind CSS plugin -->
 </body>
 
 </html>
