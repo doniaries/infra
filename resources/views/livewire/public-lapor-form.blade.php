@@ -10,11 +10,6 @@
         @vite('resources/css/app.css')
 
         <style>
-            .pt-120 {
-    padding-top: 90px;
-}
-
-
             /* Custom styling */
             .filament-form-component {
                 max-width: 100% !important;
@@ -22,7 +17,7 @@
 
             .filament-forms-field-wrapper {
                 max-width: 100% !important;
-                background-color: #f8fafc !important; /* Warna latar belakang field yang lembut */
+                background-color: #f8fafc !important;
                 border-radius: 0.5rem;
                 padding: 0.5rem;
             }
@@ -31,70 +26,47 @@
                 background-color: #1e293b !important;
             }
 
-            .filament-forms-text-input-component {
-                width: 100% !important;
-            }
-
+            .filament-forms-text-input-component,
             .filament-forms-textarea-component {
                 width: 100% !important;
             }
 
-            /* Custom background dan shadow untuk form container */
+            /* Form container styling */
             .form-container {
                 background-color: #ffffff;
-                box-shadow:
-                    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                    0 2px 4px -1px rgba(0, 0, 0, 0.06),
-                    0 0 0 1px rgba(0, 0, 0, 0.05);
-                border-radius: 1rem;
-                transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                border-radius: 0.75rem;
+                border: 1px solid #e2e8f0;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             }
 
             body.dark .form-container {
-                background-color: #1e293b;
-                box-shadow:
-                    0 4px 6px -1px rgba(0, 0, 0, 0.2),
-                    0 2px 4px -1px rgba(0, 0, 0, 0.1),
-                    0 0 0 1px rgba(0, 0, 0, 0.1);
+                background-color: #1f2937;
+                border-color: #374151;
             }
 
-            /* Styling untuk section form */
+            /* Form section styling */
             .filament-forms-section-component {
-                background-color: #f8fafc !important;
-                border: 1px solid #e2e8f0;
-                border-radius: 0.75rem;
-                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-                transition: background-color 0.3s ease, border-color 0.3s ease;
+                background-color: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
             }
-
-            body.dark .filament-forms-section-component {
-                background-color: #0f172a !important;
-                border-color: #334155;
-            }
-
-
 
             /* Form buttons */
             .form-button {
-                transition: all 0.3s ease;
+                transition: all 0.2s ease-in-out;
+                font-weight: 500;
+                border-radius: 0.5rem;
+                padding: 0.75rem 1.5rem;
             }
 
             .form-button-back {
-                background-color: #e2e8f0;
-                color: #475569;
+                background-color: #e5e7eb;
+                color: #374151;
             }
 
             .form-button-back:hover {
-                background-color: #cbd5e1;
-            }
-
-            body.dark .form-button-back {
-                background-color: #334155;
-                color: #e2e8f0;
-            }
-
-            body.dark .form-button-back:hover {
-                background-color: #475569;
+                background-color: #d1d5db;
             }
 
             .form-button-submit {
@@ -106,6 +78,15 @@
                 background-color: #1d4ed8;
             }
 
+            body.dark .form-button-back {
+                background-color: #374151;
+                color: #e5e7eb;
+            }
+
+            body.dark .form-button-back:hover {
+                background-color: #4b5563;
+            }
+
             body.dark .form-button-submit {
                 background-color: #3b82f6;
             }
@@ -115,89 +96,83 @@
             }
         </style>
     </head>
-    <body class="bg-gray-50"> <!-- Ubah background body -->
+    <body class="bg-gray-50 dark:bg-gray-900">
         <x-shared-header activeMenu="" />
+        
+        <section class="pb-8 pt-20 dark:bg-dark lg:pb-[70px] lg:pt-[120px]">
+            <div class="container px-4 mx-auto">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-6 mb-6">
+                    <h1 class="text-2xl text-center font-bold text-gray-800 dark:text-white">Form Laporan Infrastruktur</h1>
+                </div>
+                
+                <div class="overflow-x-auto rounded-lg shadow-lg bg-white dark:bg-gray-800 p-6 border border-gray-200 dark:border-gray-700 mb-6 form-container">
+                    <form wire:submit.prevent="submit" class="space-y-6">
+                        {{ $this->form }}
 
-        <div class="container px-4 py-8 mx-auto pt-120" style="margin-top: 120px; margin-left: 32px;">
-            <div class="p-8 mx-auto space-y-8 w-full max-w-5xl form-container">
-                <form wire:submit.prevent="submit">
-                    {{ $this->form }}
+                        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                            <a href="{{ url('/') }}" class="px-6 py-3 text-center rounded-lg form-button form-button-back">
+                                Kembali
+                            </a>
+                            <button type="submit" class="px-6 py-3 rounded-lg form-button form-button-submit">
+                                Kirim Laporan
+                            </button>
+                        </div>
+                    </form>
 
-                    <div class="flex gap-4 mt-6">
-                        <a href="{{ url('/') }}" class="px-4 py-3 w-full text-center rounded-lg shadow-lg transition-colors duration-200 form-button form-button-back">
-                            Kembali
-                        </a>
-                        <button type="submit" class="px-4 py-3 w-full rounded-lg shadow-lg transition-colors duration-200 form-button form-button-submit">
-                            Kirim Laporan
-                        </button>
-                    </div>
-                </form>
-
-                <script>
-                    // Menangani event redirect untuk Livewire 3
-                    document.addEventListener('livewire:initialized', () => {
-                        Livewire.on('redirect', (url) => {
-                            window.location.href = url;
-                        });
-                    });
-                    
-                    // Menangani event redirect untuk Livewire 2 (fallback)
-                    document.addEventListener('DOMContentLoaded', () => {
-                        if (typeof window.Livewire !== 'undefined') {
-                            window.Livewire.on('redirect', url => {
-                                window.location.href = url;
-                            });
-                        }
-                    });
-                </script>
+                </div>
             </div>
-        </div>
+        </section>
 
         <style>
-            /* Ensure notifications are visible below the header */
-            .filament-notifications, .toast, .alert {
-                margin-top: 120px !important;
+            /* Notification styling */
+            .filament-notifications,
+            .toast,
+            .alert {
+                top: 120px !important;
                 z-index: 9999 !important;
                 left: 50% !important;
                 transform: translateX(-50%) !important;
                 max-width: 500px !important;
                 width: 90% !important;
-            }
-            
-            /* Mobile responsive spacing */
-            @media (max-width: 640px) {
-                .container.px-4.py-8.mx-auto.pt-120 {
-                    margin-top: 140px !important;
-                }
-                .filament-notifications, .toast, .alert {
-                    margin-top: 140px !important;
-                }
+                margin: 0 !important;
             }
 
-            /* Styling untuk notifikasi */
             .filament-notification {
                 text-align: center !important;
                 margin: 0 auto !important;
+                border-radius: 0.5rem !important;
+            }
+
+            /* Mobile responsive spacing */
+            @media (max-width: 640px) {
+                .filament-notifications,
+                .toast,
+                .alert {
+                    top: 100px !important;
+                }
+                
+                .form-button {
+                    width: 100%;
+                }
             }
         </style>
 
         <script>
-            // Create stars
-            function createStars() {
-                const stars = document.getElementById('stars');
-                const count = 100;
-                
-                for (let i = 0; i < count; i++) {
-                    const star = document.createElement('div');
-                    star.className = 'star';
-                    star.style.width = `${Math.random() * 3}px`;
-                    star.style.height = star.style.width;
-                    star.style.left = `${Math.random() * 100}%`;
-                    star.style.top = `${Math.random() * 100}%`;
-                    star.style.animationDelay = `${Math.random() * 2}s`;
-                    stars.appendChild(star);
+            // Handle Livewire redirect events
+            document.addEventListener('livewire:initialized', () => {
+                Livewire.on('redirect', (url) => {
+                    window.location.href = url;
+                });
+            });
+            
+            // Fallback for Livewire 2
+            document.addEventListener('DOMContentLoaded', () => {
+                if (typeof window.Livewire !== 'undefined') {
+                    window.Livewire.on('redirect', url => {
+                        window.location.href = url;
+                    });
                 }
-            }
+            });
             
             
 

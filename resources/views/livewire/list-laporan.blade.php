@@ -1,4 +1,5 @@
 <div>
+    <x-shared-header activeMenu="laporan" />
     <section class="pb-8 pt-20 dark:bg-dark lg:pb-[70px] lg:pt-[120px]">
         <div class="container px-4 mx-auto">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-6 mb-4 gap-4">
