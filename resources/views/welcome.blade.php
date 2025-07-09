@@ -720,6 +720,8 @@
     body.dark .ticket-search-input-group:focus-within {
         box-shadow: 0 10px 15px rgba(59, 130, 246, 0.3);
     }
+    
+    /* Typewriter effect is now handled by Tailwind's animation utilities */
 
     .ticket-search-input {
         flex: 1;
@@ -918,7 +920,9 @@
     <!-- Main Content -->
     <main class="main-content">
         <section class="hero">
-            <h2 class="hero-title">Ada Gangguan Jaringan Atau Ada Konsultasi Teknis!</h2>
+            <div class="w-full flex justify-center">
+                <h2 id="typewriter" class="hero-title text-center"></h2>
+            </div>
             <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
                 Sistem ini membantu Anda melacak laporan secara real-time.</p>
             <div class="hero-buttons">
@@ -1331,6 +1335,42 @@
     </script>
 
     @livewireScripts
+    <script>
+    const words = ["Ada Gangguan Jaringan?", "Butuh Konsultasi Teknis?", "Laporkan Sekarang!"].map(word => word + " ​");
+    let i = 0;
+    let j = 0;
+    let currentWord = "";
+    let isDeleting = false;
+    let isEnd = false;
+
+    function type() {
+        currentWord = words[i];
+        if (isDeleting) {
+            document.getElementById("typewriter").textContent = currentWord.substring(0, j-1);
+            j--;
+            if (j == 0) {
+                isDeleting = false;
+                i++;
+                if (i == words.length) {
+                    i = 0;
+                }
+            }
+        } else {
+            document.getElementById("typewriter").textContent = currentWord.substring(0, j+1);
+            j++;
+            if (j == currentWord.length) {
+                isEnd = true;
+                isDeleting = true;
+            }
+        }
+        const time = isDeleting ? 50 : isEnd ? 2000 : 100;
+        isEnd = false;
+        setTimeout(type, time);
+    }
+
+    // Start the typewriter effect after a short delay
+    setTimeout(type, 1000);
+    </script>
 </body>
 
 </html>
