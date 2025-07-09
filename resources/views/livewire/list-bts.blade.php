@@ -1,6 +1,6 @@
 {{-- resources/views/livewire/list-bts.blade.php --}}
 <div>
-    <x-shared-header activeMenu="bts" />
+    {{-- <x-shared-header activeMenu="bts" /> --}}
 
     <div class="container px-4 py-8 mx-auto pt-120">
         {{-- lebar tabel --}}

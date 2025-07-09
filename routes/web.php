@@ -1,17 +1,21 @@
 <?php
 
+use App\Livewire\Home;
 use App\Livewire\ListBts;
 use App\Livewire\ListLaporan;
 use App\Livewire\PublicLaporForm;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
+
+Route::get('/', Home::class);
 
 Route::get('/lapor', PublicLaporForm::class)->name('public.laporform');
 
