@@ -82,7 +82,7 @@
         height: 100%;
         overflow: hidden;
         z-index: -1;
-        background-color: #f5f1f1;
+        background-color: #ffffff;
         /* Brighter blue for light mode */
         transition: background-color 0.3s ease;
     }
