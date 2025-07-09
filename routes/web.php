@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 
 
-
-
-
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -31,7 +28,3 @@ Route::get('/list-bts', ListBts::class)->name('list.bts');
 Route::fallback(function () {
     return redirect('/')->with('error', 'Halaman tidak ditemukan.');
 });
-
-
-Route::get('/list-laporan', ListLaporan::class)->name('list.laporan');
-Route::get('/list-bts', ListBts::class)->name('list.bts');
