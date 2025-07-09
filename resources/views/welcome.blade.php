@@ -334,7 +334,7 @@
     .app-title {
         font-size: 1.5rem;
         font-weight: 600;
-        color: #2563eb;
+        color: #12130f;
         margin: 0;
     }
 
@@ -405,13 +405,13 @@
     .hero-title {
         font-size: 2.5rem;
         font-weight: 700;
-        color: #1e40af;
+        color: #181b15;
         margin-bottom: 1rem;
         line-height: 1.2;
     }
 
     body.dark .hero-title {
-        color: #60a5fa;
+        color: #a5fa60;
     }
 
     .hero-subtitle {
@@ -720,7 +720,7 @@
     body.dark .ticket-search-input-group:focus-within {
         box-shadow: 0 10px 15px rgba(59, 130, 246, 0.3);
     }
-    
+
     /* Typewriter effect is now handled by Tailwind's animation utilities */
 
     .ticket-search-input {
@@ -1336,40 +1336,44 @@
 
     @livewireScripts
     <script>
-    const words = ["Ada Gangguan Jaringan?", "Butuh Konsultasi Teknis?", "Laporkan Sekarang!"].map(word => word + " ​");
-    let i = 0;
-    let j = 0;
-    let currentWord = "";
-    let isDeleting = false;
-    let isEnd = false;
+        const words = ["Ada Gangguan Jaringan?", "Butuh Konsultasi Teknis?", "Laporkan Sekarang!"].map(word => word + " ​");
+        let i = 0;
+        let j = 0;
+        let currentWord = "";
+        let isDeleting = false;
+        let isEnd = false;
+        const typewriterElement = document.getElementById("typewriter");
 
-    function type() {
-        currentWord = words[i];
-        if (isDeleting) {
-            document.getElementById("typewriter").textContent = currentWord.substring(0, j-1);
-            j--;
-            if (j == 0) {
-                isDeleting = false;
-                i++;
-                if (i == words.length) {
-                    i = 0;
+        function type() {
+            currentWord = words[i];
+            if (isDeleting) {
+                typewriterElement.innerHTML = currentWord.substring(0, j - 1);
+                j--;
+                if (j == 0) {
+                    isDeleting = false;
+                    i++;
+                    if (i == words.length) {
+                        i = 0;
+                    }
+                }
+            } else {
+                typewriterElement.innerHTML = currentWord.substring(0, j + 1);
+                j++;
+                if (j == currentWord.length) {
+                    isEnd = true;
+                    isDeleting = true;
                 }
             }
-        } else {
-            document.getElementById("typewriter").textContent = currentWord.substring(0, j+1);
-            j++;
-            if (j == currentWord.length) {
-                isEnd = true;
-                isDeleting = true;
-            }
+            const time = isDeleting ? 50 : isEnd ? 2000 : 100;
+            isEnd = false;
+            setTimeout(type, time);
         }
-        const time = isDeleting ? 50 : isEnd ? 2000 : 100;
-        isEnd = false;
-        setTimeout(type, time);
-    }
 
-    // Start the typewriter effect after a short delay
-    setTimeout(type, 1000);
+        // Start the typewriter effect after a short delay
+        if (typewriterElement) {
+            typewriterElement.innerHTML = ''; // Clear any initial content
+            setTimeout(type, 1000);
+        }
     </script>
 </body>
 
