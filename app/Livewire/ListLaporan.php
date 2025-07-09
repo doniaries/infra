@@ -187,6 +187,11 @@ class ListLaporan extends Component implements HasTable, HasForms
 
     public function render()
     {
-        return view('livewire.list-laporan');
+        // Ambil data laporan, sesuaikan dengan kebutuhan Anda (misal: latest, with relasi, dsb)
+        $laporans = \App\Models\Lapor::with('opd')->latest()->get();
+
+        return view('livewire.list-laporan', [
+            'laporans' => $laporans
+        ]);
     }
 }
