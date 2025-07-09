@@ -1263,15 +1263,27 @@
         </style>
     </main>
 
-    <!-- Back to top button with Ripple Effect -->
-    <button type="button" data-twe-ripple-init data-twe-ripple-color="light"
-        class="!fixed bottom-8 end-8 z-50 hidden h-12 w-12 items-center justify-center rounded-full bg-blue-600 p-3 text-white shadow-lg transition-all duration-300 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        id="back-to-top"
-        aria-label="Kembali ke atas">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-            stroke="currentColor" class="h-6 w-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+    <!-- Back to top button -->
+    <button
+      type="button"
+      data-twe-ripple-init
+      data-twe-ripple-color="light"
+      class="!fixed bottom-5 end-5 z-50 hidden rounded-full bg-red-600 p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg"
+      id="back-to-top"
+      aria-label="Kembali ke atas">
+      <span class="[&>svg]:w-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="3"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
         </svg>
+      </span>
     </button>
 
     <!-- Back to Top Script -->
