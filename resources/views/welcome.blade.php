@@ -950,8 +950,9 @@
     <main class="main-content">
         <section class="hero">
             <div class="w-full flex justify-center">
-                <h2 class="hero-title text-center text-4xl font-bold text-blue-700 type-hero">
-                    <span class="type-hero__word"></span><span class="type-hero__caret"></span>
+                <h2 class="hero-title text-center text-4xl font-bold text-blue-700">
+                    <span id="typewriter-text">Ada Gangguan Jaringan?</span>
+                    <span class="inline-block w-1 h-8 bg-blue-700 align-middle ml-1 animate-pulse"></span>
                 </h2>
             </div>
             <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
@@ -1387,6 +1388,51 @@
     </script>
 
     <script>
+        // Simple Typewriter Effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const typewriterText = document.getElementById('typewriter-text');
+            const cursor = document.querySelector('.animate-pulse');
+            
+            if (typewriterText && cursor) {
+                const words = ['Ada Gangguan Jaringan?', 'Butuh Konsultasi Teknis?', 'Laporkan Sekarang!'];
+                let wordIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+                let isEnd = false;
+                let typeSpeed = 100;
+                let deleteSpeed = 50;
+                let pauseTime = 1000;
+                
+                function type() {
+                    const currentWord = words[wordIndex];
+                    
+                    if (isDeleting) {
+                        typewriterText.textContent = currentWord.substring(0, charIndex - 1);
+                        charIndex--;
+                        typeSpeed = deleteSpeed;
+                    } else {
+                        typewriterText.textContent = currentWord.substring(0, charIndex + 1);
+                        charIndex++;
+                        typeSpeed = 100;
+                    }
+                    
+                    if (!isDeleting && charIndex === currentWord.length) {
+                        isEnd = true;
+                        typeSpeed = pauseTime;
+                        isDeleting = true;
+                    } else if (isDeleting && charIndex === 0) {
+                        isDeleting = false;
+                        wordIndex = (wordIndex + 1) % words.length;
+                    }
+                    
+                    setTimeout(type, typeSpeed);
+                }
+                
+                // Start the typewriter effect after a short delay
+                setTimeout(type, 500);
+            }
+        });
+
         // Create stars
         function createStars() {
             const stars = document.getElementById('stars');
