@@ -1498,28 +1498,43 @@
         };
     </script>
 
+    <!-- Back to Top Button -->
+    <button id="backToTop" aria-label="Back to top" class="fixed bottom-8 right-8 z-50 hidden h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg transition-all duration-300 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
     <!-- Back to Top Functionality -->
     <script>
         // Back to Top Button
         document.addEventListener('DOMContentLoaded', function() {
             const backToTopButton = document.getElementById('backToTop');
-
-            // Show/hide button on scroll
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 300) {
-                    backToTopButton.classList.add('visible');
-                } else {
-                    backToTopButton.classList.remove('visible');
-                }
-            });
-
-            // Smooth scroll to top
-            backToTopButton.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+            
+            // Only run if the button exists
+            if (backToTopButton) {
+                // Show/hide button on scroll
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.remove('hidden');
+                        backToTopButton.classList.add('flex');
+                    } else {
+                        backToTopButton.classList.add('hidden');
+                        backToTopButton.classList.remove('flex');
+                    }
                 });
-            });
+
+                // Smooth scroll to top
+                backToTopButton.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+                
+                // Initial check in case page loads scrolled
+                window.dispatchEvent(new Event('scroll'));
+            }
         });
     </script>
 
