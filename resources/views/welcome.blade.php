@@ -25,8 +25,15 @@
     }
 
     @keyframes blink {
-        from, to { opacity: 1; }
-        50% { opacity: 0; }
+
+        from,
+        to {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
     }
 
     /* Typewriter container */
@@ -75,7 +82,7 @@
         height: 100%;
         overflow: hidden;
         z-index: -1;
-        background-color: #1377b9;
+        background-color: #99cef1;
         /* Light blue sky for light mode */
         transition: background-color 0.3s ease;
     }
@@ -281,15 +288,24 @@
         opacity: 0;
     }
 
-    .mega-menu-section:nth-child(1) { animation-delay: 0.1s; }
-    .mega-menu-section:nth-child(2) { animation-delay: 0.2s; }
-    .mega-menu-section:nth-child(3) { animation-delay: 0.3s; }
+    .mega-menu-section:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .mega-menu-section:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .mega-menu-section:nth-child(3) {
+        animation-delay: 0.3s;
+    }
 
     @keyframes fadeInUp {
         from {
             opacity: 0;
             transform: translateY(20px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
@@ -426,7 +442,8 @@
             gap: 0.75rem;
         }
 
-        .register-button, .login-button {
+        .register-button,
+        .login-button {
             width: 100%;
             margin: 0;
             padding: 0.7rem 1rem;
@@ -473,12 +490,12 @@
 
     .app-subtitle {
         font-size: 0.875rem;
-        color: #64748b;
+        color: #444546;
         margin: 0;
     }
 
     body.dark .app-subtitle {
-        color: #94a3b8;
+        color: #4f5255;
     }
 
     /* Theme toggle */
@@ -540,7 +557,7 @@
     }
 
     body.dark .hero-title {
-        color: #a5fa60;
+        color: #7eeb26;
     }
 
     .hero-subtitle {
@@ -1104,7 +1121,7 @@
     <main class="main-content">
         <section class="hero">
             <div class="w-full flex justify-center">
-                <h2 class="hero-title text-center text-4xl font-bold text-yellow-400 type-hero"></h2>
+                <h2 class="hero-title text-center text-4xl font-bold text-blue-700 type-hero"></h2>
             </div>
             <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
                 Sistem ini membantu Anda melacak laporan secara real-time.</p>
