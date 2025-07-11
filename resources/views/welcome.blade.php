@@ -1136,12 +1136,9 @@
             <div class="w-full flex justify-center">
                 <h2 class="hero-title text-center text-4xl font-bold text-blue-700 type-hero"></h2>
             </div>
-            <div class="hero-buttons w-full max-w-md mx-auto mt-6">
-                <p class="text-lg text-center">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat,
-                    dan akurat.
-                    Sistem ini membantu Anda melacak laporan secara real-time.</p>
-            </div>
-            <div class="hero px-4 py-8">
+            <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
+                Sistem ini membantu Anda melacak laporan secara real-time.</p>
+            <div class="hero-buttons">
                 <a href="{{ route('public.laporform') }}" class="register-button btn-create-report btn-small">
                     <svg xmlns="http://www.w3.org/2000/svg" class="inline-block mr-2 w-4 h-4 animate-pulse"
                         viewBox="0 0 20 20" fill="currentColor">
@@ -1171,12 +1168,12 @@
             </div>
 
             <!-- Pencarian Nomor Tiket -->
-            <div class="ticket-search-container px-4">
+            <div class="mt-4 ticket-search-container">
                 <h3 class="ticket-search-title">Cek Status Laporan Anda</h3>
                 <form action="{{ url('list-laporan') }}" method="GET" class="ticket-search-form">
-                    <div class="ticket-search-input-group w-full">
-                        <input type="text" inputmode="search" name="ticket" id="ticket"
-                            placeholder="Masukkan Nomor Tiket" class="ticket-search-input" required>
+                    <div class="ticket-search-input-group">
+                        <input type="text" name="ticket" id="ticket" placeholder="Masukkan Nomor Tiket"
+                            class="ticket-search-input" required>
                         <button type="submit" class="ticket-search-button">
                             <svg xmlns="http://www.w3.org/2000/svg" class="ticket-search-icon" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -1190,6 +1187,7 @@
             </div>
         </section>
 
+
         <!-- Section: Peta BTS -->
         <h2 class="mb-3 text-center text-primary" style="margin-top:6rem;">
             <span class="bg-white px-3 py-2 rounded shadow-md d-inline-block bts-map-title-bg">Peta Sebaran BTS
@@ -1198,6 +1196,7 @@
         <div class="container my-5 bg-white">
             <div id="bts-map" style="width:100%;height:400px;border-radius:16px;overflow:hidden;"></div>
         </div>
+
 
         <!-- Info Cards Section -->
         <div class="mt-5 row">
@@ -1250,6 +1249,8 @@
             </div>
         </div>
 
+
+
         <!-- LeafletJS CDN -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -1259,7 +1260,7 @@
                 var map = L.map('bts-map').setView([-0.693, 100.987], 10); // Default center Sijunjung
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,
-                    attribution: '  OpenStreetMap'
+                    attribution: '© OpenStreetMap'
                 }).addTo(map);
 
                 // Ambil data marker dari endpoint Laravel
