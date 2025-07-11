@@ -11,24 +11,8 @@
     <meta name="robots" content="index, follow">
     <meta name="google-site-verification" content="4K5Ik2HmVn7IBgAeytIkqUr-ScWT7BdxcZZ-bKCyfJQ" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="Lapor Infrastruktur | Aplikasi Manajemen Infrastruktur">
-    <meta property="og:description"
-        content="Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat. Sistem ini membantu Anda melacak laporan secara real-time.">
-    <meta property="og:image" content="{{ asset('front/images/logo.png') }}">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="Lapor Infrastruktur | Aplikasi Manajemen Infrastruktur">
-    <meta property="twitter:description"
-        content="Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat. Sistem ini membantu Anda melacak laporan secara real-time.">
-    <meta property="twitter:image" content="{{ asset('front/images/logo.png') }}">
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}">
-
 
     <style>
         [x-cloak] {

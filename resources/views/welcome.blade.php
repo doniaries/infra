@@ -1,1044 +1,1057 @@
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="{{ asset('images/kabupaten-sijunjung.png') }}">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.bunny.net">
-<link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700|instrument-sans:400,500,600" rel="stylesheet" />
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Sistem Informasi Infrastruktur TI - Aplikasi berbasis Laravel dengan Filament Admin Panel">
+    <meta name="keywords" content="infrastruktur, sistem informasi, laravel, filament, admin panel">
+    <meta name="author" content="Admin Panel">
+    <meta name="robots" content="index, follow">
+    <meta name="google-site-verification" content="4K5Ik2HmVn7IBgAeytIkqUr-ScWT7BdxcZZ-bKCyfJQ" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/kabupaten-sijunjung.png') }}">
 
-<!-- CSS Plugins -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-{{-- <link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/fontawesome.min.css') }}"> --}}
-<link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/brands.css') }}">
-<link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/solid.css') }}">
-<link rel="stylesheet" href="{{ asset('/front/css/style.css') }}">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700|instrument-sans:400,500,600"
+        rel="stylesheet" />
 
-<!-- Styles -->
-<style>
-    /* Typewriter cursor animation */
-    .caret {
-        display: inline-block;
-        width: 2px;
-        background-color: currentColor;
-        margin-left: 2px;
-        animation: blink 1s step-end infinite;
-    }
+    <!-- CSS Plugins -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {{-- <link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/fontawesome.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/brands.css') }}">
+    <link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/solid.css') }}">
+    <link rel="stylesheet" href="{{ asset('/front/css/style.css') }}">
 
-    @keyframes blink {
-
-        from,
-        to {
-            opacity: 1;
+    <!-- Styles -->
+    <style>
+        /* Typewriter cursor animation */
+        .caret {
+            display: inline-block;
+            width: 2px;
+            background-color: currentColor;
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
         }
 
-        50% {
+        @keyframes blink {
+
+            from,
+            to {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Typewriter container */
+        .type-hero {
+            min-height: 1.5em;
+            display: inline-block;
+            text-align: center;
+        }
+
+        /* Base styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Dark mode styles */
+        body.dark {
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        /* Responsive button sizes */
+        @media (min-width: 992px) {
+            .register-button {
+                padding: 0.4rem 1rem !important;
+                font-size: 0.9rem !important;
+            }
+
+            .register-button svg {
+                width: 14px !important;
+                height: 14px !important;
+                margin-right: 0.4rem !important;
+            }
+        }
+
+        /* Sky background */
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            background-color: #daf0ff;
+            /* Light blue sky for light mode */
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark .animated-bg {
+            background-color: #0c1222;
+            /* Dark blue night sky for dark mode */
+        }
+
+        /* Stars (visible only in dark mode) */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             opacity: 0;
-        }
-    }
-
-    /* Typewriter container */
-    .type-hero {
-        min-height: 1.5em;
-        display: inline-block;
-        text-align: center;
-    }
-
-    /* Base styles */
-    body {
-        font-family: 'Poppins', sans-serif;
-        transition: background-color 0.3s ease, color 0.3s ease;
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        position: relative;
-    }
-
-    /* Dark mode styles */
-    body.dark {
-        background-color: #0f172a;
-        color: #f8fafc;
-    }
-
-    /* Responsive button sizes */
-    @media (min-width: 992px) {
-        .register-button {
-            padding: 0.4rem 1rem !important;
-            font-size: 0.9rem !important;
+            transition: opacity 0.3s ease;
         }
 
-        .register-button svg {
-            width: 14px !important;
-            height: 14px !important;
-            margin-right: 0.4rem !important;
-        }
-    }
-
-    /* Sky background */
-    .animated-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: -1;
-        background-color: #daf0ff;
-        /* Light blue sky for light mode */
-        transition: background-color 0.3s ease;
-    }
-
-    body.dark .animated-bg {
-        background-color: #0c1222;
-        /* Dark blue night sky for dark mode */
-    }
-
-    /* Stars (visible only in dark mode) */
-    .stars {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    body.dark .stars {
-        opacity: 1;
-    }
-
-    .star {
-        position: absolute;
-        background-color: #ffffff;
-        border-radius: 50%;
-        animation: twinkle 2s infinite alternate;
-    }
-
-    @keyframes twinkle {
-        0% {
-            opacity: 0.2;
-        }
-
-        100% {
+        body.dark .stars {
             opacity: 1;
         }
-    }
 
-
-
-    /* Header styles */
-    .header {
-        background-color: transparent;
-        padding: 1rem 2rem;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: all 0.3s ease;
-    }
-
-    .header nav a {
-        color: #1e40af;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        padding: 0.5rem 0;
-        position: relative;
-    }
-
-    .header nav a:hover {
-        color: #1e3a8a;
-    }
-
-    .header nav a::after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 2px;
-        bottom: 0;
-        left: 0;
-        background-color: #1e40af;
-        transition: width 0.3s ease;
-    }
-
-    .header nav a:hover::after {
-        width: 100%;
-    }
-
-    body.dark .header nav a {
-        color: #fff !important;
-    }
-
-    body.dark .header nav a:hover,
-    body.dark .header nav a.active {
-        color: #60a5fa !important;
-    }
-
-    body.dark .header nav a::after {
-        background-color: #60a5fa;
-    }
-
-    .header.scrolled {
-        background-color: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    body.dark .header.scrolled {
-        background-color: rgba(15, 23, 42, 0.95);
-    }
-
-    /* Mobile menu styles */
-    .mobile-menu-toggle {
-        display: none;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 32px;
-        height: 24px;
-        padding: 4px;
-        cursor: pointer;
-        z-index: 200;
-        transition: all 0.3s ease;
-    }
-
-    .mobile-menu-toggle:hover {
-        opacity: 0.8;
-    }
-
-    .mobile-menu-toggle span {
-        display: block;
-        height: 3px;
-        width: 100%;
-        background-color: #2563eb;
-        border-radius: 3px;
-        transition: all 0.3s ease;
-    }
-
-    body.dark .mobile-menu-toggle span {
-        background-color: #60a5fa;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(1) {
-        transform: translateY(9px) rotate(45deg);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3) {
-        transform: translateY(-9px) rotate(-45deg);
-    }
-
-    /* Mega menu styles */
-    .mega-menu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 0;
-        background-color: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        overflow-y: auto;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 150;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        padding-top: 80px;
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    .mega-menu.active {
-        height: 100vh;
-        opacity: 1;
-        visibility: visible;
-    }
-
-    body.dark .mega-menu {
-        background-color: rgba(15, 23, 42, 0.95);
-    }
-
-    .mega-menu.active {
-        height: 100vh;
-        padding: 80px 20px 20px;
-        overflow-y: auto;
-    }
-
-    .mega-menu-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        max-width: 500px;
-        padding: 1.5rem;
-    }
-
-    .mega-menu-section {
-        margin-bottom: 2rem;
-        width: 100%;
-        text-align: center;
-        animation: fadeInUp 0.5s ease forwards;
-        opacity: 0;
-    }
-
-    .mega-menu-section:nth-child(1) {
-        animation-delay: 0.1s;
-    }
-
-    .mega-menu-section:nth-child(2) {
-        animation-delay: 0.2s;
-    }
-
-    .mega-menu-section:nth-child(3) {
-        animation-delay: 0.3s;
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
+        .star {
+            position: absolute;
+            background-color: #ffffff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
         }
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+        @keyframes twinkle {
+            0% {
+                opacity: 0.2;
+            }
 
-    .mega-menu-title {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: #2563eb;
-        margin-bottom: 10px;
-    }
-
-    body.dark .mega-menu-title {
-        color: #60a5fa;
-    }
-
-    .mega-menu-links {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 12px;
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-    }
-
-    .mega-menu-link {
-        padding: 12px 20px;
-        background-color: #f1f5f9;
-        border-radius: 8px;
-        color: #1e40af;
-        text-decoration: none;
-        transition: all 0.2s ease;
-        font-size: 1rem;
-        font-weight: 500;
-        text-align: center;
-        border: 1px solid rgba(0, 0, 0, 0.05);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    body.dark .mega-menu {
-        background-color: rgba(15, 23, 42, 0.98);
-    }
-
-    body.dark .mega-menu-link {
-        background-color: #1e293b;
-        color: #93c5fd;
-        border-color: rgba(255, 255, 255, 0.05);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    body.dark .mega-menu-link:hover {
-        background-color: #2d3748;
-    }
-
-    .mega-menu-link:hover {
-        background-color: #e2e8f0;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    body.dark .mega-menu-link:hover {
-        background-color: #334155;
-    }
-
-    /* Prevent scrolling when menu is open */
-    body.menu-open {
-        overflow: hidden;
-    }
-
-    @media (max-width: 992px) {
-        .mobile-menu-toggle {
-            display: flex;
+            100% {
+                opacity: 1;
+            }
         }
 
-        .desktop-nav {
-            display: none;
-        }
 
+
+        /* Header styles */
         .header {
-            padding: 0.75rem 1rem;
+            background-color: transparent;
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .header nav a {
+            color: #1e40af;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .header nav a:hover {
+            color: #1e3a8a;
+        }
+
+        .header nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #1e40af;
+            transition: width 0.3s ease;
+        }
+
+        .header nav a:hover::after {
+            width: 100%;
+        }
+
+        body.dark .header nav a {
+            color: #fff !important;
+        }
+
+        body.dark .header nav a:hover,
+        body.dark .header nav a.active {
+            color: #60a5fa !important;
+        }
+
+        body.dark .header nav a::after {
+            background-color: #60a5fa;
+        }
+
+        .header.scrolled {
             background-color: rgba(255, 255, 255, 0.95);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        body.dark .header {
+        body.dark .header.scrolled {
             background-color: rgba(15, 23, 42, 0.95);
         }
 
-        .logo {
-            height: 36px;
+        /* Mobile menu styles */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 32px;
+            height: 24px;
+            padding: 4px;
+            cursor: pointer;
+            z-index: 200;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            opacity: 0.8;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #2563eb;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark .mobile-menu-toggle span {
+            background-color: #60a5fa;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Mega menu styles */
+        .mega-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            overflow-y: auto;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 150;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 80px;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .mega-menu.active {
+            height: 100vh;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        body.dark .mega-menu {
+            background-color: rgba(15, 23, 42, 0.95);
+        }
+
+        .mega-menu.active {
+            height: 100vh;
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+        }
+
+        .mega-menu-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            padding: 1.5rem;
+        }
+
+        .mega-menu-section {
+            margin-bottom: 2rem;
+            width: 100%;
+            text-align: center;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .mega-menu-section:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .mega-menu-section:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .mega-menu-section:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mega-menu-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        body.dark .mega-menu-title {
+            color: #60a5fa;
+        }
+
+        .mega-menu-links {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .mega-menu-link {
+            padding: 12px 20px;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            color: #1e40af;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark .mega-menu {
+            background-color: rgba(15, 23, 42, 0.98);
+        }
+
+        body.dark .mega-menu-link {
+            background-color: #1e293b;
+            color: #93c5fd;
+            border-color: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        body.dark .mega-menu-link:hover {
+            background-color: #2d3748;
+        }
+
+        .mega-menu-link:hover {
+            background-color: #e2e8f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark .mega-menu-link:hover {
+            background-color: #334155;
+        }
+
+        /* Prevent scrolling when menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        @media (max-width: 992px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .desktop-nav {
+                display: none;
+            }
+
+            .header {
+                padding: 0.75rem 1rem;
+                background-color: rgba(255, 255, 255, 0.95);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            body.dark .header {
+                background-color: rgba(15, 23, 42, 0.95);
+            }
+
+            .logo {
+                height: 36px;
+            }
+
+            .logo-container {
+                gap: 0.5rem;
+            }
+
+            .app-title {
+                font-size: 1.1rem;
+                line-height: 1.2;
+            }
+
+            .app-subtitle {
+                font-size: 0.7rem;
+                line-height: 1.2;
+            }
+
+            .main-content {
+                padding-top: 4.5rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 0.5rem;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                padding: 0 0.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+                gap: 0.75rem;
+            }
+
+            .register-button,
+            .login-button {
+                width: 100%;
+                margin: 0;
+                padding: 0.7rem 1rem;
+                font-size: 0.95rem;
+                justify-content: center;
+            }
+
+            .ticket-search-container {
+                margin-top: 1.5rem;
+                padding: 0 0.5rem;
+            }
+
+            .ticket-search-title {
+                font-size: 1.1rem;
+            }
         }
 
         .logo-container {
-            gap: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .app-title {
-            font-size: 1.1rem;
-            line-height: 1.2;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #12130f;
+            margin: 0;
+        }
+
+        body.dark .app-title {
+            color: #60a5fa;
         }
 
         .app-subtitle {
-            font-size: 0.7rem;
+            font-size: 0.875rem;
+            color: #444546;
+            margin: 0;
+        }
+
+        body.dark .app-subtitle {
+            color: #b1b4b8;
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            cursor: pointer;
+            width: 48px;
+            height: 24px;
+            border-radius: 12px;
+            background-color: #e2e8f0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle.dark {
+            background-color: #1f2937;
+        }
+
+        .theme-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle.dark::after {
+            transform: translateX(24px);
+            background-color: #f59e0b;
+        }
+
+        /* Main content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 7rem 2rem 2rem;
+        }
+
+        /* Hero section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #181b15;
+            margin-bottom: 1rem;
             line-height: 1.2;
         }
 
-        .main-content {
-            padding-top: 4.5rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-
-        .hero {
-            padding: 2rem 0.5rem;
-        }
-
-        .hero-title {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+        body.dark .hero-title {
+            color: #7eeb26;
         }
 
         .hero-subtitle {
-            font-size: 1rem;
-            padding: 0 0.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            color: #64748b;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
         }
 
         .hero-buttons {
-            flex-direction: column;
-            width: 100%;
-            max-width: 280px;
-            margin: 0 auto;
-            gap: 0.75rem;
-        }
-
-        .register-button,
-        .login-button {
-            width: 100%;
-            margin: 0;
-            padding: 0.7rem 1rem;
-            font-size: 0.95rem;
-            justify-content: center;
-        }
-
-        .ticket-search-container {
-            margin-top: 1.5rem;
-            padding: 0 0.5rem;
-        }
-
-        .ticket-search-title {
-            font-size: 1.1rem;
-        }
-    }
-
-    .logo-container {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .logo {
-        height: 50px;
-        width: auto;
-        transition: transform 0.3s ease;
-    }
-
-    .logo:hover {
-        transform: scale(1.05);
-    }
-
-    .app-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #12130f;
-        margin: 0;
-    }
-
-    body.dark .app-title {
-        color: #60a5fa;
-    }
-
-    .app-subtitle {
-        font-size: 0.875rem;
-        color: #444546;
-        margin: 0;
-    }
-
-    body.dark .app-subtitle {
-        color: #b1b4b8;
-    }
-
-    /* Theme toggle */
-    .theme-toggle {
-        cursor: pointer;
-        width: 48px;
-        height: 24px;
-        border-radius: 12px;
-        background-color: #e2e8f0;
-        position: relative;
-        transition: all 0.3s ease;
-    }
-
-    .theme-toggle.dark {
-        background-color: #1f2937;
-    }
-
-    .theme-toggle::after {
-        content: '';
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: white;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .theme-toggle.dark::after {
-        transform: translateX(24px);
-        background-color: #f59e0b;
-    }
-
-    /* Main content */
-    .main-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 7rem 2rem 2rem;
-    }
-
-    /* Hero section */
-    .hero {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 3rem 1rem;
-        margin-bottom: 3rem;
-    }
-
-    .hero-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #181b15;
-        margin-bottom: 1rem;
-        line-height: 1.2;
-    }
-
-    body.dark .hero-title {
-        color: #7eeb26;
-    }
-
-    .hero-subtitle {
-        font-size: 1.25rem;
-        color: #64748b;
-        max-width: 800px;
-        margin-bottom: 2rem;
-        line-height: 1.6;
-    }
-
-    .hero-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-    }
-
-    @media (max-width: 768px) {
-        .hero-title {
-            font-size: 1.8rem;
-        }
-
-        .hero-subtitle {
-            font-size: 1rem;
-        }
-
-        hero-buttons a {
-            padding: 0.5rem 1rem !important;
-            font-size: 0.8rem !important;
-            border-radius: 0.375rem !important;
-            width: 100%;
-            max-width: 280px;
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             justify-content: center;
+            gap: 1rem;
         }
 
-        .hero-buttons a svg {
-            width: 1rem;
-            height: 1rem;
-            margin-right: 0.5rem;
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            hero-buttons a {
+                padding: 0.5rem 1rem !important;
+                font-size: 0.8rem !important;
+                border-radius: 0.375rem !important;
+                width: 100%;
+                max-width: 280px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .hero-buttons a svg {
+                width: 1rem;
+                height: 1rem;
+                margin-right: 0.5rem;
+            }
+
+            .register-button,
+            .login-button {
+                margin-right: 0;
+                margin-bottom: 1rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .desktop-nav {
+                display: none;
+            }
         }
 
-        .register-button,
+        body.dark .hero-subtitle {
+            color: #94a3b8;
+        }
+
+        /* Login button with animation */
         .login-button {
-            margin-right: 0;
-            margin-bottom: 1rem;
-            width: 100%;
+            display: inline-block;
+            background-color: #2563eb;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
             text-align: center;
         }
 
-        .desktop-nav {
-            display: none;
-        }
-    }
-
-    body.dark .hero-subtitle {
-        color: #94a3b8;
-    }
-
-    /* Login button with animation */
-    .login-button {
-        display: inline-block;
-        background-color: #2563eb;
-        color: white;
-        font-weight: 600;
-        padding: 0.75rem 2rem;
-        border-radius: 0.5rem;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
-        text-align: center;
-    }
-
-    .login-button:before {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 0%;
-        background-color: #1d4ed8;
-        transition: all 0.3s ease;
-        border-radius: 0.5rem;
-        z-index: -1;
-    }
-
-    .login-button:hover:before {
-        height: 100%;
-    }
-
-    .login-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
-    }
-
-    body.dark .login-button {
-        background-color: #3b82f6;
-        box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
-    }
-
-    body.dark .login-button:before {
-        background-color: #2563eb;
-    }
-
-    /* Register button */
-    .register-button {
-        display: inline-block;
-        background-color: #10b981;
-        color: white;
-        font-weight: 600;
-        padding: 0.75rem 2rem;
-        border-radius: 0.5rem;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
-        margin-right: 1rem;
-        text-align: center;
-    }
-
-    .register-button:before {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 0%;
-        background-color: #059669;
-        transition: all 0.3s ease;
-        border-radius: 0.5rem;
-        z-index: -1;
-    }
-
-    .register-button:hover:before {
-        height: 100%;
-    }
-
-    .register-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
-    }
-
-    body.dark .register-button {
-        background-color: #10b981;
-        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
-    }
-
-    body.dark .register-button:before {
-        background-color: #059669;
-    }
-
-    /* button warna */
-
-    /* Tambahan efek khusus */
-    .btn-laporan {
-        background-color: #f59e0b;
-        box-shadow: 0 4px 6px rgba(245, 158, 11, 0.2);
-    }
-
-    .btn-laporan:before {
-        background-color: #d97706;
-    }
-
-    .btn-laporan:hover {
-        box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
-    }
-
-    /* Tombol ukuran kecil */
-    .btn-small {
-        padding: 0.5rem 1.25rem;
-        font-size: 0.875rem;
-        border-radius: 0.375rem;
-    }
-
-    .btn-bts {
-        background-color: #6366f1;
-        box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2);
-    }
-
-    .btn-bts:before {
-        background-color: #4f46e5;
-    }
-
-    .btn-bts:hover {
-        box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
-    }
-
-
-    body.dark .btn-laporan {
-        background-color: #f59e0b;
-        box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
-    }
-
-    body.dark .btn-laporan:before {
-        background-color: #d97706;
-    }
-
-    body.dark .btn-laporan:hover {
-        box-shadow: 0 10px 20px rgba(245, 158, 11, 0.4);
-    }
-
-    body.dark .btn-bts {
-        background-color: #6366f1;
-        box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
-    }
-
-    body.dark .btn-bts:before {
-        background-color: #4f46e5;
-    }
-
-    body.dark .btn-bts:hover {
-        box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
-    }
-
-
-    /* Table styles */
-    .table-responsive {
-        margin-top: 2rem;
-    }
-
-    .table th {
-        background-color: #2f55d4;
-        color: white;
-    }
-
-    .table td {
-        vertical-align: middle;
-    }
-
-    .badge {
-        padding: 0.5em 1em;
-    }
-
-    .bg-danger {
-        background-color: #dc3545 !important;
-    }
-
-    .bg-warning {
-        background-color: #ffc107 !important;
-    }
-
-    .bg-primary {
-        background-color: #0d6efd !important;
-    }
-
-    .bg-secondary {
-        background-color: #6c757d !important;
-    }
-
-    .bg-info {
-        background-color: #0dcaf0 !important;
-    }
-
-    .bg-success {
-        background-color: #198754 !important;
-    }
-
-    /* Ticket Search Styles */
-    .ticket-search-container {
-        margin-top: 2rem;
-        width: 100%;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .ticket-search-title {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: #1e40af;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
-
-    body.dark .ticket-search-title {
-        color: #60a5fa;
-    }
-
-    .ticket-search-form {
-        width: 100%;
-    }
-
-    .ticket-search-input-group {
-        display: flex;
-        border-radius: 0.5rem;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-    }
-
-    .ticket-search-input-group:focus-within {
-        box-shadow: 0 10px 15px rgba(37, 99, 235, 0.2);
-        transform: translateY(-2px);
-    }
-
-    body.dark .ticket-search-input-group {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    }
-
-    body.dark .ticket-search-input-group:focus-within {
-        box-shadow: 0 10px 15px rgba(59, 130, 246, 0.3);
-    }
-
-    /* Search input styles */
-    .ticket-search-input {
-        flex: 1;
-        padding: 0.75rem 1rem;
-        border: 2px solid #e2e8f0;
-        border-right: none;
-        border-top-left-radius: 0.5rem;
-        border-bottom-left-radius: 0.5rem;
-        font-size: 1rem;
-        outline: none;
-        transition: all 0.3s ease;
-        background-color: white;
-        color: #1e293b;
-    }
-
-    body.dark .ticket-search-input {
-        background-color: #1e293b;
-        border-color: #334155;
-        color: #e2e8f0;
-    }
-
-    .ticket-search-input:focus {
-        border-color: #3b82f6;
-    }
-
-    body.dark .ticket-search-input:focus {
-        border-color: #60a5fa;
-    }
-
-    .ticket-search-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.75rem 1.5rem;
-        background-color: #3b82f6;
-        color: white;
-        font-weight: 600;
-        border: none;
-        border-top-right-radius: 0.5rem;
-        border-bottom-right-radius: 0.5rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .ticket-search-button:hover {
-        background-color: #2563eb;
-    }
-
-    body.dark .ticket-search-button {
-        background-color: #60a5fa;
-    }
-
-    body.dark .ticket-search-button:hover {
-        background-color: #3b82f6;
-    }
-
-    .ticket-search-icon {
-        width: 1.25rem;
-        height: 1.25rem;
-        margin-right: 0.5rem;
-    }
-
-    /* Card styles for mobile */
-    @media (max-width: 768px) {
-        .row {
-            margin-left: -8px;
-            margin-right: -8px;
+        .login-button:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background-color: #1d4ed8;
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            z-index: -1;
         }
 
-        .col-md-4 {
-            padding-left: 8px;
-            padding-right: 8px;
-            margin-bottom: 1rem;
-            flex: 0 0 100%;
-            max-width: 100%;
+        .login-button:hover:before {
+            height: 100%;
         }
 
-        .card {
-            margin-bottom: 1rem;
-            border-radius: 12px;
+        .login-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        body.dark .login-button {
+            background-color: #3b82f6;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+        }
+
+        body.dark .login-button:before {
+            background-color: #2563eb;
+        }
+
+        /* Register button */
+        .register-button {
+            display: inline-block;
+            background-color: #10b981;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+            margin-right: 1rem;
+            text-align: center;
         }
 
-        .card-body {
-            padding: 1.25rem;
+        .register-button:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background-color: #059669;
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            z-index: -1;
         }
 
-        .card-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
+        .register-button:hover:before {
+            height: 100%;
         }
 
-        .card-text {
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
+        .register-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
         }
 
+        body.dark .register-button {
+            background-color: #10b981;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+        }
+
+        body.dark .register-button:before {
+            background-color: #059669;
+        }
+
+        /* button warna */
+
+        /* Tambahan efek khusus */
+        .btn-laporan {
+            background-color: #f59e0b;
+            box-shadow: 0 4px 6px rgba(245, 158, 11, 0.2);
+        }
+
+        .btn-laporan:before {
+            background-color: #d97706;
+        }
+
+        .btn-laporan:hover {
+            box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Tombol ukuran kecil */
+        .btn-small {
+            padding: 0.5rem 1.25rem;
+            font-size: 0.875rem;
+            border-radius: 0.375rem;
+        }
+
+        .btn-bts {
+            background-color: #6366f1;
+            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn-bts:before {
+            background-color: #4f46e5;
+        }
+
+        .btn-bts:hover {
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+
+        body.dark .btn-laporan {
+            background-color: #f59e0b;
+            box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
+        }
+
+        body.dark .btn-laporan:before {
+            background-color: #d97706;
+        }
+
+        body.dark .btn-laporan:hover {
+            box-shadow: 0 10px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        body.dark .btn-bts {
+            background-color: #6366f1;
+            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
+        }
+
+        body.dark .btn-bts:before {
+            background-color: #4f46e5;
+        }
+
+        body.dark .btn-bts:hover {
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+        }
+
+
+        /* Table styles */
+        .table-responsive {
+            margin-top: 2rem;
+        }
+
+        .table th {
+            background-color: #2f55d4;
+            color: white;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+        .badge {
+            padding: 0.5em 1em;
+        }
+
+        .bg-danger {
+            background-color: #dc3545 !important;
+        }
+
+        .bg-warning {
+            background-color: #ffc107 !important;
+        }
+
+        .bg-primary {
+            background-color: #0d6efd !important;
+        }
+
+        .bg-secondary {
+            background-color: #6c757d !important;
+        }
+
+        .bg-info {
+            background-color: #0dcaf0 !important;
+        }
+
+        .bg-success {
+            background-color: #198754 !important;
+        }
+
+        /* Ticket Search Styles */
         .ticket-search-container {
-            padding: 0 0.5rem;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .ticket-search-title {
-            font-size: 1.1rem;
-            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            text-align: center;
         }
 
+        body.dark .ticket-search-title {
+            color: #60a5fa;
+        }
+
+        .ticket-search-form {
+            width: 100%;
+        }
+
+        .ticket-search-input-group {
+            display: flex;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .ticket-search-input-group:focus-within {
+            box-shadow: 0 10px 15px rgba(37, 99, 235, 0.2);
+            transform: translateY(-2px);
+        }
+
+        body.dark .ticket-search-input-group {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark .ticket-search-input-group:focus-within {
+            box-shadow: 0 10px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Search input styles */
         .ticket-search-input {
+            flex: 1;
             padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-right: none;
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
             font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background-color: white;
+            color: #1e293b;
+        }
+
+        body.dark .ticket-search-input {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #e2e8f0;
+        }
+
+        .ticket-search-input:focus {
+            border-color: #3b82f6;
+        }
+
+        body.dark .ticket-search-input:focus {
+            border-color: #60a5fa;
         }
 
         .ticket-search-button {
-            padding: 0 1.25rem;
-            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            background-color: #3b82f6;
+            color: white;
+            font-weight: 600;
+            border: none;
+            border-top-right-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ticket-search-button:hover {
+            background-color: #2563eb;
+        }
+
+        body.dark .ticket-search-button {
+            background-color: #60a5fa;
+        }
+
+        body.dark .ticket-search-button:hover {
+            background-color: #3b82f6;
         }
 
         .ticket-search-icon {
-            width: 1rem;
-            height: 1rem;
+            width: 1.25rem;
+            height: 1.25rem;
             margin-right: 0.5rem;
         }
 
-        /* Map container adjustments */
-        #bts-map {
-            height: 300px;
-            border-radius: 12px;
+        /* Card styles for mobile */
+        @media (max-width: 768px) {
+            .row {
+                margin-left: -8px;
+                margin-right: -8px;
+            }
+
+            .col-md-4 {
+                padding-left: 8px;
+                padding-right: 8px;
+                margin-bottom: 1rem;
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+
+            .card {
+                margin-bottom: 1rem;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .card-body {
+                padding: 1.25rem;
+            }
+
+            .card-title {
+                font-size: 1.25rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .card-text {
+                font-size: 0.95rem;
+                margin-bottom: 1rem;
+            }
+
+            .ticket-search-container {
+                padding: 0 0.5rem;
+                margin-top: 1.5rem;
+            }
+
+            .ticket-search-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .ticket-search-input {
+                padding: 0.75rem 1rem;
+                font-size: 1rem;
+            }
+
+            .ticket-search-button {
+                padding: 0 1.25rem;
+                font-size: 1rem;
+            }
+
+            .ticket-search-icon {
+                width: 1rem;
+                height: 1rem;
+                margin-right: 0.5rem;
+            }
+
+            /* Map container adjustments */
+            #bts-map {
+                height: 300px;
+                border-radius: 12px;
+            }
+
+            .bts-map-title-bg {
+                padding: 0.5rem 1rem !important;
+                font-size: 1.1rem !important;
+                margin-bottom: 1rem;
+            }
         }
 
-        .bts-map-title-bg {
-            padding: 0.5rem 1rem !important;
-            font-size: 1.1rem !important;
-            margin-bottom: 1rem;
-        }
-    }
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.6rem !important;
+                padding: 0 0.5rem;
+            }
 
-    @media (max-width: 480px) {
-        .hero-title {
-            font-size: 1.6rem !important;
-            padding: 0 0.5rem;
-        }
+            .hero-subtitle {
+                font-size: 0.95rem !important;
+                padding: 0 0.25rem !important;
+            }
 
-        .hero-subtitle {
-            font-size: 0.95rem !important;
-            padding: 0 0.25rem !important;
-        }
+            .card {
+                margin-bottom: 0.75rem;
+            }
 
-        .card {
-            margin-bottom: 0.75rem;
-        }
+            .card-body {
+                padding: 1rem;
+            }
 
-        .card-body {
-            padding: 1rem;
-        }
+            .card-title {
+                font-size: 1.15rem;
+            }
 
-        .card-title {
-            font-size: 1.15rem;
-        }
+            .card-text {
+                font-size: 0.9rem;
+            }
 
-        .card-text {
-            font-size: 0.9rem;
+            .ticket-search-input {
+                font-size: 0.95rem;
+                padding: 0.65rem 0.9rem;
+            }
         }
-
-        .ticket-search-input {
-            font-size: 0.95rem;
-            padding: 0.65rem 0.9rem;
-        }
-    }
-</style>
-@vite(['resources/css/app.css', 'resources/js/app.js'])
-@livewireStyles
+    </style>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
 </head>
 
 <body>
@@ -1123,9 +1136,12 @@
             <div class="w-full flex justify-center">
                 <h2 class="hero-title text-center text-4xl font-bold text-blue-700 type-hero"></h2>
             </div>
-            <p class="hero-subtitle">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
-                Sistem ini membantu Anda melacak laporan secara real-time.</p>
-            <div class="hero-buttons">
+            <div class="hero-buttons w-full max-w-md mx-auto mt-6">
+                <p class="text-lg text-center">Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat,
+                    dan akurat.
+                    Sistem ini membantu Anda melacak laporan secara real-time.</p>
+            </div>
+            <div class="hero px-4 py-8">
                 <a href="{{ route('public.laporform') }}" class="register-button btn-create-report btn-small">
                     <svg xmlns="http://www.w3.org/2000/svg" class="inline-block mr-2 w-4 h-4 animate-pulse"
                         viewBox="0 0 20 20" fill="currentColor">
@@ -1155,12 +1171,12 @@
             </div>
 
             <!-- Pencarian Nomor Tiket -->
-            <div class="mt-4 ticket-search-container">
+            <div class="ticket-search-container px-4">
                 <h3 class="ticket-search-title">Cek Status Laporan Anda</h3>
                 <form action="{{ url('list-laporan') }}" method="GET" class="ticket-search-form">
-                    <div class="ticket-search-input-group">
-                        <input type="text" name="ticket" id="ticket" placeholder="Masukkan Nomor Tiket"
-                            class="ticket-search-input" required>
+                    <div class="ticket-search-input-group w-full">
+                        <input type="text" inputmode="search" name="ticket" id="ticket"
+                            placeholder="Masukkan Nomor Tiket" class="ticket-search-input" required>
                         <button type="submit" class="ticket-search-button">
                             <svg xmlns="http://www.w3.org/2000/svg" class="ticket-search-icon" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -1174,7 +1190,6 @@
             </div>
         </section>
 
-
         <!-- Section: Peta BTS -->
         <h2 class="mb-3 text-center text-primary" style="margin-top:6rem;">
             <span class="bg-white px-3 py-2 rounded shadow-md d-inline-block bts-map-title-bg">Peta Sebaran BTS
@@ -1183,7 +1198,6 @@
         <div class="container my-5 bg-white">
             <div id="bts-map" style="width:100%;height:400px;border-radius:16px;overflow:hidden;"></div>
         </div>
-
 
         <!-- Info Cards Section -->
         <div class="mt-5 row">
@@ -1236,8 +1250,6 @@
             </div>
         </div>
 
-
-
         <!-- LeafletJS CDN -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -1247,7 +1259,7 @@
                 var map = L.map('bts-map').setView([-0.693, 100.987], 10); // Default center Sijunjung
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,
-                    attribution: '© OpenStreetMap'
+                    attribution: '  OpenStreetMap'
                 }).addTo(map);
 
                 // Ambil data marker dari endpoint Laravel
