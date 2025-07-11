@@ -82,7 +82,7 @@
         height: 100%;
         overflow: hidden;
         z-index: -1;
-        background-color: #99cef1;
+        background-color: #daf0ff;
         /* Light blue sky for light mode */
         transition: background-color 0.3s ease;
     }
@@ -495,7 +495,7 @@
     }
 
     body.dark .app-subtitle {
-        color: #4f5255;
+        color: #b1b4b8;
     }
 
     /* Theme toggle */
