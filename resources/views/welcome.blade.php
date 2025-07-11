@@ -189,10 +189,16 @@
         display: none;
         flex-direction: column;
         justify-content: space-between;
-        width: 30px;
-        height: 21px;
+        width: 32px;
+        height: 24px;
+        padding: 4px;
         cursor: pointer;
         z-index: 200;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-menu-toggle:hover {
+        opacity: 0.8;
     }
 
     .mobile-menu-toggle span {
@@ -227,14 +233,25 @@
         left: 0;
         width: 100%;
         height: 0;
-        background-color: rgba(255, 255, 255, 0.95);
-        overflow: hidden;
-        transition: height 0.3s ease;
+        background-color: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        overflow-y: auto;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 150;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        padding-top: 80px;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .mega-menu.active {
+        height: 100vh;
+        opacity: 1;
+        visibility: visible;
     }
 
     body.dark .mega-menu {
@@ -252,13 +269,31 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        max-width: 1200px;
+        max-width: 500px;
+        padding: 1.5rem;
     }
 
     .mega-menu-section {
-        margin-bottom: 20px;
+        margin-bottom: 2rem;
         width: 100%;
         text-align: center;
+        animation: fadeInUp 0.5s ease forwards;
+        opacity: 0;
+    }
+
+    .mega-menu-section:nth-child(1) { animation-delay: 0.1s; }
+    .mega-menu-section:nth-child(2) { animation-delay: 0.2s; }
+    .mega-menu-section:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .mega-menu-title {
@@ -273,29 +308,47 @@
     }
 
     .mega-menu-links {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
     }
 
     .mega-menu-link {
-        padding: 8px 15px;
+        padding: 12px 20px;
         background-color: #f1f5f9;
-        border-radius: 5px;
+        border-radius: 8px;
         color: #1e40af;
         text-decoration: none;
         transition: all 0.2s ease;
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: center;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    body.dark .mega-menu {
+        background-color: rgba(15, 23, 42, 0.98);
     }
 
     body.dark .mega-menu-link {
         background-color: #1e293b;
         color: #93c5fd;
+        border-color: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    body.dark .mega-menu-link:hover {
+        background-color: #2d3748;
     }
 
     .mega-menu-link:hover {
         background-color: #e2e8f0;
         transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     body.dark .mega-menu-link:hover {
@@ -307,34 +360,87 @@
         overflow: hidden;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 992px) {
         .mobile-menu-toggle {
             display: flex;
         }
 
+        .desktop-nav {
+            display: none;
+        }
+
         .header {
-            padding: 1rem;
-            background-color: rgba(255, 255, 255, 0.9);
+            padding: 0.75rem 1rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         body.dark .header {
-            background-color: rgba(15, 23, 42, 0.9);
+            background-color: rgba(15, 23, 42, 0.95);
         }
 
         .logo {
-            height: 40px;
+            height: 36px;
+        }
+
+        .logo-container {
+            gap: 0.5rem;
         }
 
         .app-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            line-height: 1.2;
         }
 
         .app-subtitle {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
+            line-height: 1.2;
         }
 
         .main-content {
-            padding-top: 5rem;
+            padding-top: 4.5rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .hero {
+            padding: 2rem 0.5rem;
+        }
+
+        .hero-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            padding: 0 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-buttons {
+            flex-direction: column;
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+            gap: 0.75rem;
+        }
+
+        .register-button, .login-button {
+            width: 100%;
+            margin: 0;
+            padding: 0.7rem 1rem;
+            font-size: 0.95rem;
+            justify-content: center;
+        }
+
+        .ticket-search-container {
+            margin-top: 1.5rem;
+            padding: 0 0.5rem;
+        }
+
+        .ticket-search-title {
+            font-size: 1.1rem;
         }
     }
 
@@ -808,8 +914,24 @@
 
     /* Card styles for mobile */
     @media (max-width: 768px) {
+        .row {
+            margin-left: -8px;
+            margin-right: -8px;
+        }
+
+        .col-md-4 {
+            padding-left: 8px;
+            padding-right: 8px;
+            margin-bottom: 1rem;
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
         .card {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .card-body {
@@ -817,45 +939,84 @@
         }
 
         .card-title {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .ticket-search-container {
+            padding: 0 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .ticket-search-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .ticket-search-input {
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+        }
+
+        .ticket-search-button {
+            padding: 0 1.25rem;
+            font-size: 1rem;
+        }
+
+        .ticket-search-icon {
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Map container adjustments */
+        #bts-map {
+            height: 300px;
+            border-radius: 12px;
+        }
+
+        .bts-map-title-bg {
+            padding: 0.5rem 1rem !important;
+            font-size: 1.1rem !important;
+            margin-bottom: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-title {
+            font-size: 1.6rem !important;
+            padding: 0 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 0.95rem !important;
+            padding: 0 0.25rem !important;
+        }
+
+        .card {
+            margin-bottom: 0.75rem;
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
         }
 
         .card-text {
             font-size: 0.9rem;
         }
 
-        .row {
-            margin-left: -10px;
-            margin-right: -10px;
-        }
-
-        .col-md-4 {
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-
-        .ticket-search-container {
-            padding: 0 1rem;
-        }
-
-        .ticket-search-title {
-            font-size: 1.1rem;
-        }
-
         .ticket-search-input {
-            padding: 0.6rem 0.8rem;
-            font-size: 0.9rem;
-        }
-
-        .ticket-search-button {
-            padding: 0.6rem 1rem;
-            font-size: 0.9rem;
-        }
-
-        .ticket-search-icon {
-            width: 1rem;
-            height: 1rem;
-            margin-right: 0.3rem;
+            font-size: 0.95rem;
+            padding: 0.65rem 0.9rem;
         }
     }
 </style>
