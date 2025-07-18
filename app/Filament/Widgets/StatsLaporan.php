@@ -18,6 +18,7 @@ class StatsLaporan extends BaseWidget
         return [
             Stat::make('Users', User::query()->count())
                 ->description('Users')
+                ->url(route('filament.admin.resources.users.index'))
                 ->descriptionIcon('heroicon-m-users')
                 ->color('success'),
             Stat::make('Jumlah Laporan', Lapor::query()->count())
