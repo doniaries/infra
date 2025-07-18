@@ -8,15 +8,15 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListDataJorongs extends ListRecords
 {
-  protected static string $resource = DataJorongResource::class;
+    protected static string $resource = DataJorongResource::class;
 
-  protected function getHeaderActions(): array
-  {
-    return [
-      Actions\CreateAction::make(),
-      \EightyNine\ExcelImport\ExcelImportAction::make()
-        ->slideOver()
-        ->color("success"),
-    ];
-  }
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\CreateAction::make(),
+            //   \EightyNine\ExcelImport\ExcelImportAction::make()
+            //     ->slideOver()
+            //     ->color("success"),
+        ];
+    }
 }

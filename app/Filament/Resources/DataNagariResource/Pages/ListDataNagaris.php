@@ -8,15 +8,15 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListDataNagaris extends ListRecords
 {
-  protected static string $resource = DataNagariResource::class;
+    protected static string $resource = DataNagariResource::class;
 
-  protected function getHeaderActions(): array
-  {
-    return [
-      Actions\CreateAction::make(),
-      \EightyNine\ExcelImport\ExcelImportAction::make()
-        ->slideOver()
-        ->color("success"),
-    ];
-  }
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\CreateAction::make(),
+            //   \EightyNine\ExcelImport\ExcelImportAction::make()
+            //     ->slideOver()
+            //     ->color("success"),
+        ];
+    }
 }
