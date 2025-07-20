@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('jorongs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('nagari_id')->constrained('nagaris')->onDelete('cascade');
-            $table->string('nama');
-            
+            $table->string('nama_jorong');
+
+
+
             $table->timestamps();
 
             $table->unique(['nagari_id', 'nama']);
             $table->index('nagari_id');
             $table->index('nama');
-            
         });
     }
 
