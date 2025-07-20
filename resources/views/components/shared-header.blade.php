@@ -1013,206 +1013,296 @@
 @livewireStyles
 </head>
 
-<body>
+<body class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Animated Background -->
     <div class="animated-bg">
         <div class="stars" id="stars"></div>
     </div>
 
+    <!-- Main Content Wrapper -->
+    <div class="flex flex-col flex-1">
+        <!-- Header -->
 
-    <!-- Header -->
-    <header class="header">
-        <div class="logo-container">
-            <!-- Logo dan Nama Aplikasi yang bisa diklik -->
-            <a href="{{ url('/') }}" class="transition-opacity logo-container hover:opacity-90">
-                <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="logo">
+
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <!-- Logo dan Nama Aplikasi yang bisa diklik -->
+                <a href="{{ url('/') }}" class="transition-opacity logo-container hover:opacity-90">
+                    <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung"
+                        class="logo">
+                    <div>
+                        <h1 class="app-title">{{ config('app.name') }}</h1>
+                        <p class="app-subtitle">Sistem Informasi Infrastruktur TI</p>
+                    </div>
+                    <img src="{{ asset('images/logo-geopark.png') }}" alt="Logo Geopark Silokek"
+                        style="height: 40px; width: auto;">
+                </a>
+            </div>
+            <div class="d-flex align-items-center">
+                <!-- Desktop Navigation -->
+                <nav class="d-none d-md-flex align-items-center me-4">
+                    <a href="{{ route('public.laporform') }}"
+                        class="me-4 text-decoration-none text-dark dark:text-white">
+                        <i class="fas fa-plus-circle me-1"></i> Buat Laporan
+                    </a>
+                    <a href="{{ route('list.laporan') }}" class="me-4 text-decoration-none text-dark dark:text-white">
+                        <i class="fas fa-list me-1"></i> Daftar Laporan
+                    </a>
+                    <a href="{{ route('list.bts') }}" class="me-4 text-decoration-none text-dark dark:text-white">
+                        <i class="fas fa-broadcast-tower me-1"></i> Data BTS
+                    </a>
+                    <a href="{{ route('list.nagari') }}" class="me-4 text-decoration-none text-dark dark:text-white">
+                        <i class="fas fa-map-marker-alt me-1"></i> Data Nagari
+                    </a>
+                    <a href="{{ route('list.jorong') }}" class="me-4 text-decoration-none text-dark dark:text-white">
+                        <i class="fas fa-map me-1"></i> Data Jorong
+                    </a>
+
+                    <a href="{{ route('login') }}" class="btn-icon" title="Hanya untuk member area">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </nav>
+
+
+                <div class="theme-toggle me-3" id="theme-toggle"></div>
+                <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mega Menu -->
+        <div class="mega-menu" id="megaMenu">
+            <div class="mega-menu-content">
+                <button class="mega-menu-close" id="megaMenuClose" aria-label="Tutup Menu">&times;</button>
+                <div class="mega-menu-section">
+                    <h3 class="mega-menu-title dark:text-white">Menu Utama</h3>
+                    <div class="mega-menu-links">
+                        <a href="{{ asset('/') }}" class="mega-menu-link dark:text-gray-200">Home</a>
+                        <a href="list-laporan" class="mega-menu-link dark:text-gray-200">Daftar Laporan</a>
+                        <a href="{{ route('list.bts') }}" class="mega-menu-link dark:text-gray-200">Data BTS</a>
+                        <a href="{{ route('list.nagari') }}" class="mega-menu-link dark:text-gray-200">Data Nagari</a>
+                        <a href="{{ route('list.jorong') }}" class="mega-menu-link dark:text-gray-200">Data Jorong</a>
+                    </div>
+                </div>
+                <div class="mega-menu-section">
+                    <h3 class="mega-menu-title dark:text-white">Akses Cepat</h3>
+                    <div class="mega-menu-links">
+                        <a href="{{ route('public.laporform') }}" class="mega-menu-link dark:text-gray-200">Buat
+                            Laporan</a>
+                        <a href="{{ route('login') }}" class="mega-menu-link dark:text-gray-200">Login</a>
+                    </div>
+                </div>
+                <div class="mega-menu-section">
+                    <h3 class="mega-menu-title dark:text-white">Informasi</h3>
+                    <div class="mega-menu-links">
+                        <a href="#tentang" class="mega-menu-link dark:text-gray-200">Tentang Aplikasi</a>
+                        <a href="#kontak" class="mega-menu-link dark:text-gray-200">Kontak Kami</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Scroll Handler -->
+        <script>
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Initialize header state on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                }
+            });
+        </script>
+
+        <!-- Custom Scripts -->
+        <script>
+            // Mobile Menu Toggle
+            document.addEventListener('DOMContentLoaded', function() {
+                const menuToggle = document.getElementById('mobileMenuToggle');
+                const megaMenu = document.getElementById('megaMenu');
+                const megaMenuLinks = megaMenu ? megaMenu.querySelectorAll('a') : [];
+                const megaMenuClose = document.getElementById('megaMenuClose');
+
+                if (menuToggle && megaMenu) {
+                    menuToggle.addEventListener('click', function() {
+                        megaMenu.classList.toggle('active');
+                    });
+                }
+
+                megaMenuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        megaMenu.classList.remove('active');
+                    });
+                });
+
+                if (megaMenuClose) {
+                    megaMenuClose.addEventListener('click', function() {
+                        megaMenu.classList.remove('active');
+                    });
+                }
+            });
+        </script>
+
+        <script>
+            // Create stars
+            function createStars() {
+                const stars = document.getElementById('stars');
+                const count = 100;
+
+                for (let i = 0; i < count; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.width = `${Math.random() * 3}px`;
+                    star.style.height = star.style.width;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 2}s`;
+                    stars.appendChild(star);
+                }
+            }
+
+            // Theme toggle
+            function setupThemeToggle() {
+                const toggle = document.getElementById('theme-toggle');
+                const body = document.body;
+                const theme = localStorage.getItem('theme');
+
+                if (theme === 'dark') {
+                    body.classList.add('dark');
+                    toggle.classList.add('dark');
+                }
+
+                toggle.addEventListener('click', () => {
+                    body.classList.toggle('dark');
+                    toggle.classList.toggle('dark');
+
+                    const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
+                    localStorage.setItem('theme', currentTheme);
+                });
+            }
+
+            // Interactive landmarks
+            function setupLandmarks() {
+                const landmarks = document.querySelectorAll('.landmark');
+
+                landmarks.forEach(landmark => {
+                    landmark.addEventListener('click', () => {
+                        landmark.classList.toggle('clicked');
+                        setTimeout(() => {
+                            landmark.classList.remove('clicked');
+                        }, 1000);
+                    });
+                });
+            }
+
+            // Initialize
+            document.addEventListener('DOMContentLoaded', () => {
+                createStars();
+                setupThemeToggle();
+                setupLandmarks();
+            });
+        </script>
+
+        @livewireScripts
+        <!-- Typewriter effect is now handled by Tailwind CSS plugin -->
+    </div> <!-- End of flex-1 -->
+
+    {{-- <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-auto">
+        <div class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About Section -->
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <img src="{{ asset('images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="h-12 w-auto mr-3">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Dinas Komunikasi dan Informatika</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Kabupaten Sijunjung</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Menyediakan informasi terbaru seputar infrastruktur dan teknologi informasi di Kabupaten Sijunjung.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
                 <div>
-                    <h1 class="app-title">{{ config('app.name') }}</h1>
-                    <p class="app-subtitle">Sistem Informasi Infrastruktur TI</p>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Tautan Cepat</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors">Beranda</a></li>
+                        <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors">Tentang Kami</a></li>
+                        <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors">Layanan</a></li>
+                        <li><a href="#" class="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors">Kontak</a></li>
+                    </ul>
                 </div>
-                <img src="{{ asset('images/logo-geopark.png') }}" alt="Logo Geopark Silokek"
-                    style="height: 40px; width: auto;">
-            </a>
-        </div>
-        <div class="d-flex align-items-center">
-            <!-- Desktop Navigation -->
-            <nav class="d-none d-md-flex align-items-center me-4">
-                <a href="{{ route('public.laporform') }}" class="me-4 text-decoration-none text-dark dark:text-white">
-                    <i class="fas fa-plus-circle me-1"></i> Buat Laporan
-                </a>
-                <a href="{{ route('list.laporan') }}" class="me-4 text-decoration-none text-dark dark:text-white">
-                    <i class="fas fa-list me-1"></i> Daftar Laporan
-                </a>
-                <a href="{{ route('list.bts') }}" class="me-4 text-decoration-none text-dark dark:text-white">
-                    <i class="fas fa-broadcast-tower me-1"></i> Data BTS
-                </a>
-                <a href="{{ route('list.nagari') }}" class="me-4 text-decoration-none text-dark dark:text-white">
-                    <i class="fas fa-map-marker-alt me-1"></i> Data Nagari
-                </a>
-                <a href="{{ route('list.jorong') }}" class="me-4 text-decoration-none text-dark dark:text-white">
-                    <i class="fas fa-map me-1"></i> Data Jorong
-                </a>
 
-                <a href="{{ route('login') }}" class="btn-icon" title="Hanya untuk member area">
-                    <i class="fas fa-user"></i>
-                </a>
-            </nav>
-
-
-            <div class="theme-toggle me-3" id="theme-toggle"></div>
-            <div class="mobile-menu-toggle" id="mobileMenuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </header>
-
-    <!-- Mega Menu -->
-    <div class="mega-menu" id="megaMenu">
-        <div class="mega-menu-content">
-            <button class="mega-menu-close" id="megaMenuClose" aria-label="Tutup Menu">&times;</button>
-            <div class="mega-menu-section">
-                <h3 class="mega-menu-title dark:text-white">Menu Utama</h3>
-                <div class="mega-menu-links">
-                    <a href="{{ asset('/') }}" class="mega-menu-link dark:text-gray-200">Home</a>
-                    <a href="list-laporan" class="mega-menu-link dark:text-gray-200">Daftar Laporan</a>
-                    <a href="{{ route('list.bts') }}" class="mega-menu-link dark:text-gray-200">Data BTS</a>
-                    <a href="{{ route('list.nagari') }}" class="mega-menu-link dark:text-gray-200">Data Nagari</a>
-                    <a href="{{ route('list.jorong') }}" class="mega-menu-link dark:text-gray-200">Data Jorong</a>
+                <!-- Contact & Social -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Hubungi Kami</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                            <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i>
+                            <span>Jl. Lintas Sumatra No. 1, Muaro Sijunjung</span>
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                            <i class="fas fa-phone-alt mr-3 text-blue-500"></i>
+                            <span>+62 852 1234 5678</span>
+                        </li>
+                        <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                            <i class="fas fa-envelope mr-3 text-blue-500"></i>
+                            <span>info@sijunjungkab.go.id</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="mt-4">
+                        <h4 class="text-sm font-medium text-gray-800 dark:text-white mb-2">Ikuti Kami</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors">
+                                <i class="fab fa-facebook-f text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-blue-400 dark:text-gray-400 dark:hover:text-blue-400 transition-colors">
+                                <i class="fab fa-twitter text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-pink-600 dark:text-gray-400 dark:hover:text-pink-400 transition-colors">
+                                <i class="fab fa-instagram text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400 transition-colors">
+                                <i class="fab fa-youtube text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="mega-menu-section">
-                <h3 class="mega-menu-title dark:text-white">Akses Cepat</h3>
-                <div class="mega-menu-links">
-                    <a href="{{ route('public.laporform') }}" class="mega-menu-link dark:text-gray-200">Buat
-                        Laporan</a>
-                    <a href="{{ route('login') }}" class="mega-menu-link dark:text-gray-200">Login</a>
-                </div>
-            </div>
-            <div class="mega-menu-section">
-                <h3 class="mega-menu-title dark:text-white">Informasi</h3>
-                <div class="mega-menu-links">
-                    <a href="#tentang" class="mega-menu-link dark:text-gray-200">Tentang Aplikasi</a>
-                    <a href="#kontak" class="mega-menu-link dark:text-gray-200">Kontak Kami</a>
+
+            <!-- Copyright -->
+            <div class="border-t border-gray-200 dark:border-gray-800 mt-8 pt-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        &copy; {{ date('Y') }} Dinas Komunikasi dan Informatika Kabupaten Sijunjung. All rights reserved.
+                    </p>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="#" class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors">Kebijakan Privasi</a>
+                        <a href="#" class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors">Syarat & Ketentuan</a>
+                        <a href="#" class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors">Peta Situs</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-
-
-    <!-- Scroll Handler -->
-    <script>
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Initialize header state on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            }
-        });
-    </script>
-
-    <!-- Custom Scripts -->
-    <script>
-        // Mobile Menu Toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.getElementById('mobileMenuToggle');
-            const megaMenu = document.getElementById('megaMenu');
-            const megaMenuLinks = megaMenu ? megaMenu.querySelectorAll('a') : [];
-            const megaMenuClose = document.getElementById('megaMenuClose');
-
-            if (menuToggle && megaMenu) {
-                menuToggle.addEventListener('click', function() {
-                    megaMenu.classList.toggle('active');
-                });
-            }
-
-            megaMenuLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    megaMenu.classList.remove('active');
-                });
-            });
-
-            if (megaMenuClose) {
-                megaMenuClose.addEventListener('click', function() {
-                    megaMenu.classList.remove('active');
-                });
-            }
-        });
-    </script>
-
-    <script>
-        // Create stars
-        function createStars() {
-            const stars = document.getElementById('stars');
-            const count = 100;
-
-            for (let i = 0; i < count; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.width = `${Math.random() * 3}px`;
-                star.style.height = star.style.width;
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.animationDelay = `${Math.random() * 2}s`;
-                stars.appendChild(star);
-            }
-        }
-
-        // Theme toggle
-        function setupThemeToggle() {
-            const toggle = document.getElementById('theme-toggle');
-            const body = document.body;
-            const theme = localStorage.getItem('theme');
-
-            if (theme === 'dark') {
-                body.classList.add('dark');
-                toggle.classList.add('dark');
-            }
-
-            toggle.addEventListener('click', () => {
-                body.classList.toggle('dark');
-                toggle.classList.toggle('dark');
-
-                const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
-                localStorage.setItem('theme', currentTheme);
-            });
-        }
-
-        // Interactive landmarks
-        function setupLandmarks() {
-            const landmarks = document.querySelectorAll('.landmark');
-
-            landmarks.forEach(landmark => {
-                landmark.addEventListener('click', () => {
-                    landmark.classList.toggle('clicked');
-                    setTimeout(() => {
-                        landmark.classList.remove('clicked');
-                    }, 1000);
-                });
-            });
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            createStars();
-            setupThemeToggle();
-            setupLandmarks();
-        });
-    </script>
-
-    @livewireScripts
-    <!-- Typewriter effect is now handled by Tailwind CSS plugin -->
+    </footer> --}}
 </body>
 
 </html>
