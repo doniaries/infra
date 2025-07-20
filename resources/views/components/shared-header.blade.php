@@ -1,7 +1,189 @@
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="{{ asset('images/kabupaten-sijunjung.png') }}">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700|instrument-sans:400,500,600" rel="stylesheet" />
+
+<!-- CSS Plugins -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{{-- <link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/fontawesome.min.css') }}"> --}}
+<link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/brands.css') }}">
+<link rel="stylesheet" href="{{ asset('/front/plugins/font-awesome/solid.css') }}">
+<link rel="stylesheet" href="{{ asset('/front/css/style.css') }}">
+
+<!-- Styles -->
 <style>
+    /* Typewriter cursor animation */
+    .caret {
+        display: inline-block;
+        width: 2px;
+        background-color: currentColor;
+        margin-left: 2px;
+        animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+
+        from,
+        to {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+    }
+
+    /* Typewriter container */
+    .type-hero {
+        min-height: 1.5em;
+        display: inline-block;
+        text-align: center;
+    }
+
+    /* Base styles */
+    body {
+        font-family: 'Poppins', sans-serif;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        position: relative;
+        padding-top: 150px;
+        /* Add padding to prevent content from being hidden behind fixed header */
+    }
+
+    /* Dark mode styles */
+    body.dark {
+        background-color: #0f172a;
+        color: #8b8b8b;
+    }
+
+    /* Table styling */
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin: 1.5rem 0;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    th,
+    td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+        color: #1a202c;
+    }
+
+    th {
+        background-color: #f7fafc;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* Dark mode table styles */
+    body.dark table {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    body.dark th,
+    body.dark td {
+        color: #1a202c !important;
+        /* Force black text in dark mode */
+        border-color: #2d3748;
+    }
+
+    body.dark th {
+        background-color: #2d3748;
+        color: #f7fafc !important;
+    }
+
+    body.dark tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Responsive button sizes */
+    @media (min-width: 992px) {
+        .register-button {
+            padding: 0.4rem 1rem !important;
+            font-size: 0.9rem !important;
+        }
+
+        .register-button svg {
+            width: 14px !important;
+            height: 14px !important;
+            margin-right: 0.4rem !important;
+        }
+    }
+
+    /* Sky background */
+    .animated-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1;
+        background-color: #eef2f5;
+        /* Light blue sky for light mode */
+        transition: background-color 0.3s ease;
+    }
+
+    body.dark .animated-bg {
+        background-color: #0c1222;
+        /* Dark blue night sky for dark mode */
+    }
+
+    /* Stars (visible only in dark mode) */
+    .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    body.dark .stars {
+        opacity: 1;
+    }
+
+    .star {
+        position: absolute;
+        background-color: #ffffff;
+        border-radius: 50%;
+        animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+        0% {
+            opacity: 0.2;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+
+
     /* Header styles */
     .header {
-        background-color: transparent;
+        background-color: #ffffff;
         padding: 1rem 2rem;
         position: fixed;
         top: 0;
@@ -12,6 +194,7 @@
         justify-content: space-between;
         align-items: center;
         transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .header nav a {
@@ -42,11 +225,12 @@
     }
 
     body.dark .header nav a {
-        color: #60a5fa;
+        color: #fff !important;
     }
 
-    body.dark .header nav a:hover {
-        color: #93c5fd;
+    body.dark .header nav a:hover,
+    body.dark .header nav a.active {
+        color: #60a5fa !important;
     }
 
     body.dark .header nav a::after {
@@ -58,8 +242,12 @@
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
+    body.dark .header {
+        background-color: #0f172a;
+    }
+
     body.dark .header.scrolled {
-        background-color: rgba(15, 23, 42, 0.95);
+        background-color: rgba(15, 23, 42, 0.98);
     }
 
     /* Mobile menu styles */
@@ -210,6 +398,10 @@
         .app-subtitle {
             font-size: 0.75rem;
         }
+
+        .main-content {
+            padding-top: 5rem;
+        }
     }
 
     .logo-container {
@@ -231,7 +423,7 @@
     .app-title {
         font-size: 1.5rem;
         font-weight: 600;
-        color: #2563eb;
+        color: #12130f;
         margin: 0;
     }
 
@@ -280,6 +472,93 @@
     .theme-toggle.dark::after {
         transform: translateX(24px);
         background-color: #f59e0b;
+    }
+
+    /* Main content */
+    .main-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 5rem 2rem 2rem;
+    }
+
+    /* Hero section */
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 3rem 1rem;
+        margin-bottom: 3rem;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #181b15;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+
+    body.dark .hero-title {
+        color: #a5fa60;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: #64748b;
+        max-width: 800px;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .hero-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 1.8rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+        }
+
+        hero-buttons a {
+            padding: 0.5rem 1rem !important;
+            font-size: 0.8rem !important;
+            border-radius: 0.375rem !important;
+            width: 100%;
+            max-width: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-buttons a svg {
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.5rem;
+        }
+
+        .register-button,
+        .login-button {
+            margin-right: 0;
+            margin-bottom: 1rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .desktop-nav {
+            display: none;
+        }
+    }
+
+    body.dark .hero-subtitle {
+        color: #94a3b8;
     }
 
     /* Login button with animation */
@@ -329,326 +608,478 @@
     body.dark .login-button:before {
         background-color: #2563eb;
     }
-</style>
 
-
-<div class="container px-4 mx-auto">
-    <div class="flex flex-wrap gap-2 justify-between items-center">
-        <!-- Logo dan Nama Aplikasi yang bisa diklik -->
-        <a href="{{ url('/') }}" class="transition-opacity logo-container hover:opacity-90 min-w-fit">
-            <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="logo">
-            <div>
-                <h1 class="app-title">{{ config('app.name') }}</h1>
-                <p class="app-subtitle">Sistem Informasi Infrastruktur TI</p>
-            </div>
-            <!-- Logo Geopark di sebelah kanan judul -->
-            <img src="{{ asset('images/logo-geopark.png') }}" alt="Logo Geopark Silokek"
-                style="height: 40px; width: auto;">
-        </a>
-        <!-- Menu Navigasi dan Theme Toggle -->
-        <nav class="flex flex-wrap gap-2 items-center mt-2 md:gap-4 md:mt-0">
-            <a href="{{ route('public.laporform') }}" class="nav-link {{ $activeMenu === 'lapor' ? 'active' : '' }}">
-                <i class="fas fa-plus-circle me-1"></i> Buat Laporan
-            </a>
-            <a href="{{ route('list.laporan') }}" class="nav-link {{ $activeMenu === 'laporan' ? 'active' : '' }}">
-                <i class="fas fa-list me-1"></i> Daftar Laporan
-            </a>
-            <a href="{{ route('list.bts') }}" class="nav-link {{ $activeMenu === 'bts' ? 'active' : '' }}">
-                <i class="fas fa-broadcast-tower me-1"></i> Data BTS
-            </a>
-            <a href="{{ route('list.nagari') }}" class="nav-link {{ $activeMenu === 'nagari' ? 'active' : '' }}">
-                <i class="fas fa-map-marker-alt me-1"></i> Data Nagari
-            </a>
-        </nav>
-        <a href="{{ route('login') }}" class="login-button ms-3 d-none d-md-inline-block">
-            Login
-        </a>
-        <div class="theme-toggle ms-2" id="theme-toggle"></div>
-    </div>
-</div>
-</header>
-
-<style>
-    .pt-120 {
-        padding-top: 120px;
-    }
-
-    /* Base styles */
-    body {
-        font-family: 'Poppins', sans-serif;
-        transition: background-color 0.3s ease, color 0.3s ease;
-        margin: 0;
-        padding: 0;
-    }
-
-    /* Dark mode styles */
-    body.dark {
-        background-color: #0f172a;
-        color: #f8fafc;
-    }
-
-    /* Sky background */
-    .animated-bg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: -1;
-        background-color: #e0f2fe;
-        transition: background-color 0.3s ease;
-    }
-
-    body.dark .animated-bg {
-        background-color: #0c1222;
-    }
-
-    /* Stars (visible only in dark mode) */
-    .stars {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    body.dark .stars {
-        opacity: 1;
-    }
-
-    .star {
-        position: absolute;
-        background-color: #ffffff;
-        border-radius: 50%;
-        animation: twinkle 2s infinite alternate;
-    }
-
-    @keyframes twinkle {
-        0% {
-            opacity: 0.2;
-        }
-
-        100% {
-            opacity: 1;
-        }
-    }
-
-    /* Header styles */
-    .header {
-        background-color: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(10px);
-        padding: 1rem 2rem;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    }
-
-    body.dark .header {
-        background-color: rgba(15, 23, 42, 0.8);
-    }
-
-    .logo-container {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-    }
-
-    .logo {
-        height: 50px;
-        width: auto;
-        transition: transform 0.3s ease;
-    }
-
-    .logo:hover {
-        transform: scale(1.05);
-    }
-
-    .app-title {
-        font-size: 1.5rem;
+    /* Register button */
+    .register-button {
+        display: inline-block;
+        background-color: #10b981;
+        color: white;
         font-weight: 600;
-        color: #2563eb;
-        margin: 0;
-    }
-
-    body.dark .app-title {
-        color: #60a5fa;
-    }
-
-    .app-subtitle {
-        font-size: 0.875rem;
-        color: #64748b;
-        margin: 0;
-    }
-
-    body.dark .app-subtitle {
-        color: #94a3b8;
-    }
-
-    /* Navigation links */
-    .nav-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1.25rem;
-        color: #2563eb;
-        font-weight: 600;
-        font-family: 'Poppins', sans-serif;
-        font-size: 1rem;
-        letter-spacing: 0.01em;
+        padding: 0.75rem 2rem;
         border-radius: 0.5rem;
-        background: none;
-        border: none;
-        transition: color 0.2s, background 0.2s;
         text-decoration: none;
-    }
-
-    .nav-link:hover {
-        color: #1e40af;
-        background: rgba(37, 99, 235, 0.08);
-        text-decoration: none;
-    }
-
-    .nav-link.active {
-        color: #1e40af;
-        background: rgba(37, 99, 235, 0.13);
-        font-weight: 700;
-    }
-
-    body.dark .nav-link {
-        color: #fff !important;
-    }
-
-    body.dark .nav-link:hover {
-        color: #60a5fa !important;
-        background: rgba(96, 165, 250, 0.08);
-    }
-
-    body.dark .nav-link.active {
-        color: #60a5fa !important;
-        background: rgba(96, 165, 250, 0.13);
-        font-weight: 700;
-    }
-
-    .nav-button:hover {
-        background-color: #1d4ed8;
-    }
-
-    body.dark .nav-button {
-        background-color: #3b82f6;
-    }
-
-    body.dark .nav-button:hover {
-        background-color: #2563eb;
-    }
-
-    /* Theme toggle */
-    .theme-toggle {
-        cursor: pointer;
-        width: 48px;
-        height: 24px;
-        border-radius: 12px;
-        background-color: #e2e8f0;
-        position: relative;
         transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+        margin-right: 1rem;
+        text-align: center;
     }
 
-    .theme-toggle.dark {
-        background-color: #1f2937;
-    }
-
-    .theme-toggle::after {
+    .register-button:before {
         content: '';
         position: absolute;
-        top: 2px;
-        left: 2px;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: white;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 0%;
+        background-color: #059669;
         transition: all 0.3s ease;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 0.5rem;
+        z-index: -1;
     }
 
-    .theme-toggle.dark::after {
-        transform: translateX(24px);
+    .register-button:hover:before {
+        height: 100%;
+    }
+
+    .register-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    body.dark .register-button {
+        background-color: #10b981;
+        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+    }
+
+    body.dark .register-button:before {
+        background-color: #059669;
+    }
+
+    /* button warna */
+
+    /* Tambahan efek khusus */
+    .btn-laporan {
         background-color: #f59e0b;
+        box-shadow: 0 4px 6px rgba(245, 158, 11, 0.2);
     }
 
-    /* Hero title */
-    .hero-title {
+    .btn-laporan:before {
+        background-color: #d97706;
+    }
+
+    .btn-laporan:hover {
+        box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
+    }
+
+    /* Tombol ukuran kecil */
+    .btn-small {
+        padding: 0.5rem 1.25rem;
+        font-size: 0.875rem;
+        border-radius: 0.375rem;
+    }
+
+    .btn-bts {
+        background-color: #6366f1;
+        box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2);
+    }
+
+    .btn-bts:before {
+        background-color: #4f46e5;
+    }
+
+    .btn-bts:hover {
+        box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-nagari {
+        background-color: #10b981;
+        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+    }
+
+    .btn-nagari:before {
+        background-color: #059669;
+    }
+
+    .btn-nagari:hover {
+        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-jorong {
+        background-color: #8b5cf6;
+        box-shadow: 0 4px 6px rgba(139, 92, 246, 0.2);
+    }
+
+    .btn-jorong:before {
+        background-color: #7c3aed;
+    }
+
+    .btn-jorong:hover {
+        box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+    }
+
+    body.dark .btn-laporan {
+        background-color: #f59e0b;
+        box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
+    }
+
+    body.dark .btn-laporan:before {
+        background-color: #d97706;
+    }
+
+    body.dark .btn-laporan:hover {
+        box-shadow: 0 10px 20px rgba(245, 158, 11, 0.4);
+    }
+
+    body.dark .btn-bts {
+        background-color: #6366f1;
+        box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
+    }
+
+    body.dark .btn-bts:before {
+        background-color: #4f46e5;
+    }
+
+    body.dark .btn-bts:hover {
+        box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+    }
+
+    body.dark .btn-nagari {
+        background-color: #10b981;
+        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+    }
+
+    body.dark .btn-nagari:before {
+        background-color: #059669;
+    }
+
+    body.dark .btn-nagari:hover {
+        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    body.dark .btn-jorong {
+        background-color: #8b5cf6;
+        box-shadow: 0 4px 6px rgba(139, 92, 246, 0.3);
+    }
+
+    body.dark .btn-jorong:before {
+        background-color: #7c3aed;
+    }
+
+    body.dark .btn-jorong:hover {
+        box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+    }
+
+
+    /* Table styles */
+    .table-responsive {
+        margin-top: 2rem;
+    }
+
+    .table th {
+        background-color: #2f55d4;
+        color: white;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+
+    .badge {
+        padding: 0.5em 1em;
+    }
+
+    .bg-danger {
+        background-color: #dc3545 !important;
+    }
+
+    .bg-warning {
+        background-color: #ffc107 !important;
+    }
+
+    .bg-primary {
+        background-color: #0d6efd !important;
+    }
+
+    .bg-secondary {
+        background-color: #6c757d !important;
+    }
+
+    .bg-info {
+        background-color: #0dcaf0 !important;
+    }
+
+    .bg-success {
+        background-color: #198754 !important;
+    }
+
+    /* Ticket Search Styles */
+    .ticket-search-container {
+        margin-top: 2rem;
+        width: 100%;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ticket-search-title {
+        font-size: 1.25rem;
+        font-weight: 600;
         color: #1e40af;
+        margin-bottom: 1rem;
+        text-align: center;
     }
 
-    body.dark .hero-title {
+    body.dark .ticket-search-title {
         color: #60a5fa;
     }
 
-    /* Mobile responsive spacing */
-    @media (max-width: 640px) {
-        .container.px-4.py-8.mx-auto.pt-120 {
-            margin-top: 140px !important;
+    .ticket-search-form {
+        width: 100%;
+    }
+
+    .ticket-search-input-group {
+        display: flex;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .ticket-search-input-group:focus-within {
+        box-shadow: 0 10px 15px rgba(37, 99, 235, 0.2);
+        transform: translateY(-2px);
+    }
+
+    body.dark .ticket-search-input-group {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    body.dark .ticket-search-input-group:focus-within {
+        box-shadow: 0 10px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Card styles for mobile */
+    @media (max-width: 768px) {
+
+
+        .row {
+            margin-left: -10px;
+            margin-right: -10px;
         }
 
-        .filament-notifications,
-        .toast,
-        .alert {
-            margin-top: 140px !important;
+        .col-md-4 {
+            padding-left: 10px;
+            padding-right: 10px;
         }
+
+
     }
 </style>
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+@livewireStyles
+</head>
 
-<script>
-    // Create stars
-    function createStars() {
-        const stars = document.getElementById('stars');
-        if (!stars) return;
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="stars" id="stars"></div>
+    </div>
 
-        const count = 100;
 
-        for (let i = 0; i < count; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.width = `${Math.random() * 3}px`;
-            star.style.height = star.style.width;
-            star.style.left = `${Math.random() * 100}%`;
-            star.style.top = `${Math.random() * 100}%`;
-            star.style.animationDelay = `${Math.random() * 2}s`;
-            stars.appendChild(star);
-        }
-    }
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <!-- Logo dan Nama Aplikasi yang bisa diklik -->
+            <a href="{{ url('/') }}" class="transition-opacity logo-container hover:opacity-90">
+                <img src="{{ asset('/images/kabupaten-sijunjung.png') }}" alt="Logo Kabupaten Sijunjung" class="logo">
+                <div>
+                    <h1 class="app-title">{{ config('app.name') }}</h1>
+                    <p class="app-subtitle">Sistem Informasi Infrastruktur TI</p>
+                </div>
+                <!-- Logo Geopark di sebelah kanan judul -->
+                <img src="{{ asset('images/logo-geopark.png') }}" alt="Logo Geopark Silokek"
+                    style="height: 40px; width: auto;">
+            </a>
+        </div>
+        <div class="d-flex align-items-center">
+            <!-- Desktop Navigation -->
+            <nav class="d-none d-md-flex align-items-center me-4">
+                <a href="{{ route('public.laporform') }}" class="me-4 text-decoration-none text-dark dark:text-white">
+                    <i class="fas fa-plus-circle me-1"></i> Buat Laporan
+                </a>
+                <a href="{{ route('list.laporan') }}" class="me-4 text-decoration-none text-dark dark:text-white">
+                    <i class="fas fa-list me-1"></i> Daftar Laporan
+                </a>
+                <a href="{{ route('list.bts') }}" class="me-4 text-decoration-none text-dark dark:text-white">
+                    <i class="fas fa-broadcast-tower me-1"></i> Data BTS
+                </a>
+                <a href="{{ route('list.nagari') }}" class="me-4 text-decoration-none text-dark dark:text-white">
+                    <i class="fas fa-map-marker-alt me-1"></i> Data Nagari
+                </a>
+                <a href="{{ route('list.jorong') }}" class="me-4 text-decoration-none text-dark dark:text-white">
+                    <i class="fas fa-map me-1"></i> Data Jorong
+                </a>
+            </nav>
 
-    // Theme toggle
-    function setupThemeToggle() {
-        const toggle = document.getElementById('theme-toggle');
-        if (!toggle) return;
+            <a href="{{ route('login') }}" class="login-button me-3 d-none d-md-inline-block dark:text-white"
+                title="Hanya untuk member area">Login</a>
+            <div class="theme-toggle me-3" id="theme-toggle"></div>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
 
-        const body = document.body;
-        const theme = localStorage.getItem('theme');
+    <!-- Mega Menu -->
+    <div class="mega-menu" id="megaMenu">
+        <div class="mega-menu-content">
+            <button class="mega-menu-close" id="megaMenuClose" aria-label="Tutup Menu">&times;</button>
+            <div class="mega-menu-section">
+                <h3 class="mega-menu-title dark:text-white">Menu Utama</h3>
+                <div class="mega-menu-links">
+                    <a href="{{ asset('/') }}" class="mega-menu-link dark:text-gray-200">Home</a>
+                    <a href="list-laporan" class="mega-menu-link dark:text-gray-200">Daftar Laporan</a>
+                    <a href="{{ route('list.bts') }}" class="mega-menu-link dark:text-gray-200">Data BTS</a>
+                    <a href="{{ route('list.nagari') }}" class="mega-menu-link dark:text-gray-200">Data Nagari</a>
+                    <a href="{{ route('list.jorong') }}" class="mega-menu-link dark:text-gray-200">Data Jorong</a>
+                </div>
+            </div>
+            <div class="mega-menu-section">
+                <h3 class="mega-menu-title dark:text-white">Akses Cepat</h3>
+                <div class="mega-menu-links">
+                    <a href="{{ route('public.laporform') }}" class="mega-menu-link dark:text-gray-200">Buat
+                        Laporan</a>
+                    <a href="{{ route('login') }}" class="mega-menu-link dark:text-gray-200">Login</a>
+                </div>
+            </div>
+            <div class="mega-menu-section">
+                <h3 class="mega-menu-title dark:text-white">Informasi</h3>
+                <div class="mega-menu-links">
+                    <a href="#tentang" class="mega-menu-link dark:text-gray-200">Tentang Aplikasi</a>
+                    <a href="#kontak" class="mega-menu-link dark:text-gray-200">Kontak Kami</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        if (theme === 'dark') {
-            body.classList.add('dark');
-            toggle.classList.add('dark');
-        }
 
-        toggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            toggle.classList.toggle('dark');
 
-            const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
-            localStorage.setItem('theme', currentTheme);
+    <!-- Scroll Handler -->
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
-    }
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', () => {
-        createStars();
-        setupThemeToggle();
-    });
-</script>
+        // Initialize header state on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            }
+        });
+    </script>
+
+    <!-- Custom Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('mobileMenuToggle');
+            const megaMenu = document.getElementById('megaMenu');
+            const megaMenuLinks = megaMenu ? megaMenu.querySelectorAll('a') : [];
+            const megaMenuClose = document.getElementById('megaMenuClose');
+
+            if (menuToggle && megaMenu) {
+                menuToggle.addEventListener('click', function() {
+                    megaMenu.classList.toggle('active');
+                });
+            }
+
+            megaMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    megaMenu.classList.remove('active');
+                });
+            });
+
+            if (megaMenuClose) {
+                megaMenuClose.addEventListener('click', function() {
+                    megaMenu.classList.remove('active');
+                });
+            }
+        });
+    </script>
+
+    <script>
+        // Create stars
+        function createStars() {
+            const stars = document.getElementById('stars');
+            const count = 100;
+
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 3}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                stars.appendChild(star);
+            }
+        }
+
+        // Theme toggle
+        function setupThemeToggle() {
+            const toggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const theme = localStorage.getItem('theme');
+
+            if (theme === 'dark') {
+                body.classList.add('dark');
+                toggle.classList.add('dark');
+            }
+
+            toggle.addEventListener('click', () => {
+                body.classList.toggle('dark');
+                toggle.classList.toggle('dark');
+
+                const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
+                localStorage.setItem('theme', currentTheme);
+            });
+        }
+
+        // Interactive landmarks
+        function setupLandmarks() {
+            const landmarks = document.querySelectorAll('.landmark');
+
+            landmarks.forEach(landmark => {
+                landmark.addEventListener('click', () => {
+                    landmark.classList.toggle('clicked');
+                    setTimeout(() => {
+                        landmark.classList.remove('clicked');
+                    }, 1000);
+                });
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            setupThemeToggle();
+            setupLandmarks();
+        });
+    </script>
+
+    @livewireScripts
+    <!-- Typewriter effect is now handled by Tailwind CSS plugin -->
+</body>
+
+</html>

@@ -2,7 +2,7 @@
     <x-shared-header activeMenu="laporan" />
     <section class="pb-8 pt-20 dark:bg-dark lg:pb-[70px] lg:pt-[120px]">
         <div class="container px-4 mx-auto">
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-6 mb-4 gap-4">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-8 mb-6 gap-4">
                 <h1 class="text-2xl text-center font-bold text-gray-800 dark:text-white">Daftar Laporan Infrastruktur
                 </h1>
                 <a href="{{ route('public.laporform') }}"
