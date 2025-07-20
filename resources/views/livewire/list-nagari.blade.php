@@ -4,9 +4,6 @@
         <div class="container px-4 mx-auto">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-6 mb-4 gap-4">
                 <h1 class="text-2xl text-center font-bold text-gray-800 dark:text-white">Data Nagari</h1>
-                <a href="{{ route('public.nagariform') }}"
-                    class="inline-block px-5 py-2 rounded-md bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 transition">+
-                    Tambah Nagari</a>
             </div>
             
             <script>
