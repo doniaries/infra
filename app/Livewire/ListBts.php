@@ -86,6 +86,9 @@ class ListBts extends Component implements HasTable, HasForms
 
     public function render()
     {
-        return view('livewire.list-bts');
+        $totalBts = Bts::count();
+        return view('livewire.list-bts', [
+            'totalData' => $totalBts
+        ]);
     }
 }

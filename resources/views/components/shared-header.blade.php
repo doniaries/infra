@@ -97,10 +97,9 @@
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
-    body.dark th,
     body.dark td {
-        color: #1a202c !important;
-        /* Force black text in dark mode */
+        color: #e2e8f0 !important;
+        /* Light gray text for better visibility */
         border-color: #2d3748;
     }
 
@@ -109,8 +108,140 @@
         color: #f7fafc !important;
     }
 
+    body.dark tr {
+        background-color: #1e293b;
+        /* Slightly lighter than body for better contrast */
+    }
+
     body.dark tr:nth-child(even) {
-        background-color: rgba(255, 255, 255, 0.05);
+        background-color: #1a2438;
+    }
+
+    /* Ensure section content is visible in dark mode */
+    body.dark section {
+        background-color: #0f172a;
+        color: #e2e8f0;
+    }
+
+    /* Ensure card content is visible in dark mode */
+    body.dark .bg-white {
+        background-color: #1e293b !important;
+        color: #e2e8f0 !important;
+    }
+
+    /* Ensure text in cards is visible */
+    body.dark .text-gray-800 {
+        color: #e2e8f0 !important;
+    }
+
+    /* Button styles for both light and dark modes */
+    .btn-primary {
+        display: inline-block;
+        padding: 0.5rem 1.25rem;
+        border-radius: 0.375rem;
+        font-weight: 600;
+        text-align: center;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        border: none;
+    }
+
+    /* Light mode button */
+    .btn-primary {
+        background-color: #2563eb;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #1d4ed8;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .btn-primary:active {
+        transform: translateY(0);
+    }
+
+    /* Dark mode button */
+    body.dark .btn-primary {
+        background-color: #3b82f6;
+        color: white;
+    }
+
+    body.dark .btn-primary:hover {
+        background-color: #2563eb;
+    }
+
+    /* Specific styling for the 'Tambah Laporan' button */
+    .btn-tambah {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1.25rem;
+        border-radius: 0.375rem;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    /* Light mode for Tambah Laporan button */
+    .btn-tambah {
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        color: white;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: none;
+        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-tambah:hover {
+        background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(37, 99, 235, 0.4);
+    }
+
+    .btn-tambah:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Dark mode for Tambah Laporan button */
+    body.dark .btn-tambah {
+        background-color: #3b82f6;
+        color: white;
+    }
+
+    body.dark .btn-tambah:hover {
+        background-color: #2563eb;
+    }
+
+    /* Icon button styles */
+    .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: #f1f5f9;
+        color: #1e40af;
+        transition: all 0.2s ease;
+    }
+
+    .btn-icon:hover {
+        background-color: #e2e8f0;
+        transform: translateY(-1px);
+    }
+
+    body.dark .btn-icon {
+        background-color: #1e293b;
+        color: #93c5fd;
+    }
+
+    body.dark .btn-icon:hover {
+        background-color: #334155;
     }
 
     /* Responsive button sizes */
@@ -899,7 +1030,6 @@
                     <h1 class="app-title">{{ config('app.name') }}</h1>
                     <p class="app-subtitle">Sistem Informasi Infrastruktur TI</p>
                 </div>
-                <!-- Logo Geopark di sebelah kanan judul -->
                 <img src="{{ asset('images/logo-geopark.png') }}" alt="Logo Geopark Silokek"
                     style="height: 40px; width: auto;">
             </a>
@@ -922,10 +1052,13 @@
                 <a href="{{ route('list.jorong') }}" class="me-4 text-decoration-none text-dark dark:text-white">
                     <i class="fas fa-map me-1"></i> Data Jorong
                 </a>
+
+                <a href="{{ route('login') }}" class="btn-icon" title="Hanya untuk member area">
+                    <i class="fas fa-user"></i>
+                </a>
             </nav>
 
-            <a href="{{ route('login') }}" class="login-button me-3 d-none d-md-inline-block dark:text-white"
-                title="Hanya untuk member area">Login</a>
+
             <div class="theme-toggle me-3" id="theme-toggle"></div>
             <div class="mobile-menu-toggle" id="mobileMenuToggle">
                 <span></span>

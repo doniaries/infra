@@ -98,6 +98,9 @@ class ListNagari extends Component implements HasTable, HasForms
 
     public function render()
     {
-        return view('livewire.list-nagari');
+        $totalNagari = Nagari::count();
+        return view('livewire.list-nagari', [
+            'totalData' => $totalNagari
+        ]);
     }
 }

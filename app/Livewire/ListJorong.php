@@ -93,6 +93,9 @@ class ListJorong extends Component implements HasTable, HasForms
 
     public function render()
     {
-        return view('livewire.list-jorong');
+        $totalJorong = Jorong::count();
+        return view('livewire.list-jorong', [
+            'totalData' => $totalJorong
+        ]);
     }
 }
