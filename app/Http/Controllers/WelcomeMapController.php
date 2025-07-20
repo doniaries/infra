@@ -31,15 +31,4 @@ class WelcomeMapController extends Controller
 
         return response()->json($btsMarkers);
     }
-    
-    public function showMap()
-    {
-        // Ambil data BTS untuk ditampilkan di halaman peta
-        $btsList = Bts::whereNotNull('titik_koordinat')->get();
-        $totalBts = $btsList->count();
-        
-        return view('livewire.peta-infrastruktur', [
-            'totalBts' => $totalBts
-        ]);
-    }
 }

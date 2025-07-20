@@ -5,11 +5,9 @@ namespace App\Models;
 use App\Models\Jorong;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use App\Traits\HasModelCache;
 
 class Bts extends Model
 {
-    use HasModelCache;
     protected $table = 'bts';
 
     protected $fillable = [

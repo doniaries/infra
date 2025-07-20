@@ -43,18 +43,18 @@ class UserSeeder extends Seeder
 
             // Pengguna1
             $pengguna1 = User::create([
-                'name' => 'Pengguna 1',
-                'email' => 'pengguna@gmail.com',
-                'password' => bcrypt('password'),
+                'name' => 'Pengguna',
+                'email' => 'pengguna1@gmail.com',
+                'password' => bcrypt('pengguna1'),
                 'is_active' => true,
             ]);
             $pengguna1->assignRole('pengguna');
 
             //Pengguna2
             $pengguna2 = User::create([
-                'name' => 'Pengguna 2',
+                'name' => 'Pengguna',
                 'email' => 'pengguna2@gmail.com',
-                'password' => bcrypt('password'),
+                'password' => bcrypt('pengguna2'),
                 'is_active' => true,
             ]);
             $pengguna2->assignRole('pengguna');

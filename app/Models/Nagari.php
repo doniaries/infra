@@ -9,31 +9,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Support\Facades\Cache;
-use App\Traits\HasModelCache;
 
 class Nagari extends Model
 {
-    use HasModelCache;
     protected $table = "nagaris";
 
     protected $fillable = [
+        'nama',
         'kecamatan_id',
-        'luas_nagari',
-        'nama_nagari',
-        'nama_wali_nagari',
-        'alamat_kantor',
-        'kontak_wali_nagari',
-        'jumlah_penduduk',
-        'jumlah_jorong',
-        'latitude',
-        'longitude',
 
-    ];
-
-    protected $casts = [
-        'luas_nagari' => 'integer',
-        'jumlah_penduduk' => 'integer',
-        'jumlah_jorong' => 'integer',
     ];
 
     public function kecamatan(): BelongsTo
@@ -47,14 +31,22 @@ class Nagari extends Model
     }
 
     // Mutator - Mengubah data sebelum disimpan ke database
-    public function setNamaNagariAttribute($value)
+    public function setNamaAttribute($value)
     {
-        $this->attributes['nama_nagari'] = strtoupper($value);
+        $this->attributes['nama'] = strtoupper($value);
     }
 
     // Accessor - Mengubah data ketika diambil dari database
-    public function getNamaNagariAttribute($value)
+    public function getNamaAttribute($value)
     {
         return strtoupper($value);
+    }
+
+    // Static cache for frequently accessed Nagari by ID
+    public static function getCachedById($id)
+    {
+        return Cache::rememberForever('nagari_' . $id, function () use ($id) {
+            return self::find($id);
+        });
     }
 }
