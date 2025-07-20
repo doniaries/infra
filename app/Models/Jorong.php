@@ -7,15 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 use Illuminate\Support\Facades\Cache;
+use App\Traits\HasModelCache;
 
 class Jorong extends Model
 {
+    use HasModelCache;
     protected $table = "jorongs";
 
     protected $fillable = [
         'nagari_id',
-        'nama',
+        'luas_jorong',
+        'nama_jorong',
+        'nama_kepala_jorong',
+        'kontak_kepala_jorong',
+        'jumlah_penduduk_jorong',
+        'latitude',
+        'longitude',
+    ];
 
+    protected $casts = [
+        'luas_jorong' => 'integer',
+        'jumlah_penduduk_jorong' => 'integer',
     ];
 
     public function nagari(): BelongsTo
@@ -24,22 +36,14 @@ class Jorong extends Model
     }
 
     // Mutator - Mengubah data sebelum disimpan ke database
-    public function setNamaAttribute($value)
+    public function setNamaJorongAttribute($value)
     {
-        $this->attributes['nama'] = strtoupper($value);
+        $this->attributes['nama_jorong'] = strtoupper($value);
     }
 
     // Accessor - Mengubah data ketika diambil dari database
-    public function getNamaAttribute($value)
+    public function getNamaJorongAttribute($value)
     {
         return strtoupper($value);
-    }
-
-    // Static cache for frequently accessed Jorong by ID
-    public static function getCachedById($id)
-    {
-        return Cache::rememberForever('jorong_' . $id, function () use ($id) {
-            return self::find($id);
-        });
     }
 }

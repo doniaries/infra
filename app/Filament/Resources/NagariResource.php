@@ -35,13 +35,45 @@ class NagariResource extends Resource
                     ->preload()
                     ->relationship('kecamatan', 'nama')
                     ->searchable(),
-                Forms\Components\TextInput::make('nama')
+                Forms\Components\TextInput::make('nama_nagari')
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->live()
                     ->extraInputAttributes(['style' => 'text-transform: uppercase']) // uppercase
                     ->maxLength(50),
-
+                Forms\Components\TextInput::make('nama_wali_nagari')
+                    ->required()
+                    ->label('Nama Wali Nagari')
+                    ->maxLength(100),
+                Forms\Components\TextInput::make('alamat_kantor')
+                    ->label('Alamat Kantor')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('kontak_wali_nagari')
+                    ->required()
+                    ->label('Kontak Wali Nagari')
+                    ->placeholder('081234567890')
+                    ->tel()
+                    ->maxLength(50),
+                Forms\Components\TextInput::make('luas_nagari')
+                    ->label('Luas Nagari')
+                    ->placeholder('tulis dalam angka ')
+                    ->numeric(),
+                Forms\Components\TextInput::make('jumlah_penduduk')
+                    ->label('Jumlah Penduduk')
+                    ->placeholder('tulis dalam angka ')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('jumlah_jorong')
+                    ->label('Jumlah Jorong')
+                    ->placeholder('tulis dalam angka ')
+                    ->required()
+                    ->numeric(),
+                // Forms\Components\TextInput::make('latitude')
+                //     ->label('Latitude')
+                //     ->maxLength(20),
+                // Forms\Components\TextInput::make('longitude')
+                //     ->label('Longitude')
+                //     ->maxLength(20),
             ]);
     }
 
@@ -49,8 +81,7 @@ class NagariResource extends Resource
     {
         return $table
             ->columns([
-
-                Tables\Columns\TextColumn::make('nama')
+                Tables\Columns\TextColumn::make('nama_nagari')
                     ->label('Nama Nagari')
                     ->searchable()
                     ->sortable(),
@@ -58,6 +89,25 @@ class NagariResource extends Resource
                     ->label('Nama Kecamatan')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('nama_wali_nagari')
+                    ->label('Nama Wali Nagari'),
+                Tables\Columns\TextColumn::make('alamat_kantor')
+                    ->label('Alamat Kantor'),
+                Tables\Columns\TextColumn::make('kontak_wali_nagari')
+                    ->label('Kontak Wali Nagari'),
+                Tables\Columns\TextColumn::make('luas_nagari')
+                    ->sortable()
+                    ->label('Luas Nagari'),
+                Tables\Columns\TextColumn::make('jumlah_penduduk')
+                    ->sortable()
+                    ->label('Jumlah Penduduk'),
+                Tables\Columns\TextColumn::make('jumlah_jorong')
+                    ->sortable()
+                    ->label('Jumlah Jorong'),
+                // Tables\Columns\TextColumn::make('latitude')
+                //     ->label('Latitude'),
+                // Tables\Columns\TextColumn::make('longitude')
+                //     ->label('Longitude'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -67,12 +117,15 @@ class NagariResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+
             ->defaultSort('kecamatan.nama', 'asc')
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->closeModalByClickingAway(false)
+                    ->slideOver(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

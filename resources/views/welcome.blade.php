@@ -1111,6 +1111,8 @@
                     <a href="{{ asset('/') }}" class="mega-menu-link">Home</a>
                     <a href="list-laporan" class="mega-menu-link">Daftar Laporan</a>
                     <a href="{{ route('list.bts') }}" class="mega-menu-link">Data BTS</a>
+                    <a href="{{ route('list.nagari') }}" class="mega-menu-link">Daftar Nagari</a>
+                    <a href="{{ route('list.jorong') }}" class="mega-menu-link">Daftar Jorong</a>
                 </div>
             </div>
             <div class="mega-menu-section">
@@ -1147,6 +1149,18 @@
                             clip-rule="evenodd" />
                     </svg>
                     Buat Laporan
+                </a>
+                <a href="{{ route('list.nagari') }}" class="register-button btn-laporan btn-small">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="inline-block mr-2 w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 2h10v10H5V5zm2 2a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2zm4-4a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd" />
+                    </svg>
+                    Daftar Nagari
+                </a>
+                <a href="{{ route('list.jorong') }}" class="register-button btn-laporan btn-small">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="inline-block mr-2 w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11.414V9a1 1 0 10-2 0v4.414l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 13.414z" clip-rule="evenodd" />
+                    </svg>
+                    Daftar Jorong
                 </a>
                 <a href="{{ url('list-laporan') }}" class="register-button btn-laporan btn-small">
                     <svg xmlns="http://www.w3.org/2000/svg" class="inline-block mr-2 w-4 h-4" viewBox="0 0 20 20"

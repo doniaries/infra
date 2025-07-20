@@ -24,6 +24,12 @@
             <a href="{{ route('public.laporform') }}" class="me-4 text-decoration-none text-dark">
                 <i class="fas fa-plus-circle me-1"></i> Buat Laporan
             </a>
+            <a href="{{ route('public.nagariform') }}" class="me-4 text-decoration-none text-dark">
+                <i class="fas fa-map-marker-alt me-1"></i> Input Nagari
+            </a>
+            <a href="{{ route('public.jorongform') }}" class="me-4 text-decoration-none text-dark">
+                <i class="fas fa-map-pin me-1"></i> Input Jorong
+            </a>
             <a href="{{ route('list.laporan') }}" class="me-4 text-decoration-none text-dark">
                 <i class="fas fa-list me-1"></i> Daftar Laporan
             </a>
@@ -51,6 +57,8 @@
             <h3 class="mega-menu-title">Menu Utama</h3>
             <div class="mega-menu-links">
                 <a href="{{ asset('/') }}" class="mega-menu-link">Home</a>
+                <a href="{{ route('public.nagariform') }}" class="mega-menu-link">Input Nagari</a>
+                <a href="{{ route('public.jorongform') }}" class="mega-menu-link">Input Jorong</a>
                 <a href="{{ route('list.laporan') }}" class="mega-menu-link">Daftar Laporan</a>
                 <a href="{{ route('list.bts') }}" class="mega-menu-link">Data BTS</a>
             </div>

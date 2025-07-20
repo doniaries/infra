@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\Cache;
 
+use App\Traits\HasModelCache;
+
 class Kecamatan extends Model
 {
+    use HasModelCache;
 
     protected $table = "kecamatans";
 
@@ -41,13 +44,5 @@ class Kecamatan extends Model
     public function getNamaAttribute($value)
     {
         return strtoupper($value);
-    }
-
-    // Static cache for frequently accessed Kecamatan by ID
-    public static function getCachedById($id)
-    {
-        return Cache::rememberForever('kecamatan_' . $id, function () use ($id) {
-            return self::find($id);
-        });
     }
 }

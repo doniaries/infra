@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasModelCache;
 
 class Opd extends Model
 {
+    use HasModelCache;
     use HasFactory;
 
 
