@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasModelCache;
 
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
 
 class Kecamatan extends Model
 {
-
+    use HasModelCache;
     protected $table = "kecamatans";
 
 

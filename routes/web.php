@@ -2,7 +2,9 @@
 
 use App\Livewire\Home;
 use App\Livewire\ListBts;
+use App\Livewire\ListJorong;
 use App\Livewire\ListLaporan;
+use App\Livewire\ListNagari;
 use App\Livewire\PublicLaporForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +29,8 @@ Route::get('/login', function () {
 Route::get('/bts-map-data', [\App\Http\Controllers\WelcomeMapController::class, 'index']);
 Route::get('/list-laporan', ListLaporan::class)->name('list.laporan');
 Route::get('/list-bts', ListBts::class)->name('list.bts');
+Route::get('/list-nagari', ListNagari::class)->name('list.nagari');
+Route::get('/list-jorong', ListJorong::class)->name('list.jorong');
 
 // Tangkap semua route yang tidak ditemukan (hanya satu fallback)
 Route::fallback(function () {

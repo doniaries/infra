@@ -14,17 +14,18 @@ return new class extends Migration
         Schema::create('nagaris', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kecamatan_id')->constrained('kecamatans')->onDelete('cascade');
-            $table->string('nama_nagari');
-            $table->string('nama_wali_nagari');
-            $table->string('kontak_wali_nagari');
-            $table->string('alamat_kantor_nagari');
-            $table->integer('jumlah_penduduk');
-            $table->integer('jumlah_jorong');
+            $table->string('nama_nagari')->nullable();
+            $table->string('nama_wali_nagari')->nullable();
+            $table->string('kontak_wali_nagari')->nullable();
+            $table->string('alamat_kantor_nagari')->nullable();
+            $table->integer('jumlah_penduduk_nagari')->nullable();
+            $table->integer('jumlah_jorong')->nullable();
+            $table->integer('luas_nagari')->nullable();
             $table->timestamps();
 
-            $table->unique(['kecamatan_id', 'nama']);
+            $table->unique(['kecamatan_id', 'nama_nagari']);
             $table->index('kecamatan_id');
-            $table->index('nama');
+            $table->index('nama_nagari');
         });
     }
 

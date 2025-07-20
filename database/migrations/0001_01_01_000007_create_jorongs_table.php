@@ -14,15 +14,19 @@ return new class extends Migration
         Schema::create('jorongs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('nagari_id')->constrained('nagaris')->onDelete('cascade');
-            $table->string('nama_jorong');
+            $table->string('nama_jorong')->nullable();
+            $table->string('nama_kepala_jorong')->nullable();
+            $table->string('kontak_kepala_jorong')->nullable();
+            $table->integer('jumlah_penduduk_jorong')->nullable();
+            $table->integer('luas_jorong')->nullable();
 
 
 
             $table->timestamps();
 
-            $table->unique(['nagari_id', 'nama']);
+            $table->unique(['nagari_id', 'nama_jorong']);
             $table->index('nagari_id');
-            $table->index('nama');
+            $table->index('nama_jorong');
         });
     }
 

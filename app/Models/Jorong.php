@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Nagari;
+use App\Traits\HasModelCache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -10,12 +11,23 @@ use Illuminate\Support\Facades\Cache;
 
 class Jorong extends Model
 {
+    use HasModelCache;
+
     protected $table = "jorongs";
 
     protected $fillable = [
         'nagari_id',
-        'nama',
+        'nama_jorong',
+        'nama_kepala_jorong',
+        'kontak_kepala_jorong',
+        'jumlah_penduduk_jorong',
+        'luas_jorong',
 
+    ];
+
+    protected $casts = [
+        'jumlah_penduduk_jorong' => 'integer',
+        'luas_jorong' => 'integer',
     ];
 
     public function nagari(): BelongsTo
@@ -26,7 +38,7 @@ class Jorong extends Model
     // Mutator - Mengubah data sebelum disimpan ke database
     public function setNamaAttribute($value)
     {
-        $this->attributes['nama'] = strtoupper($value);
+        $this->attributes['nama_jorong'] = strtoupper($value);
     }
 
     // Accessor - Mengubah data ketika diambil dari database

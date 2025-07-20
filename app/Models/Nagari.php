@@ -2,22 +2,36 @@
 
 namespace App\Models;
 
-use App\Models\Kecamatan;
 use App\Models\Jorong;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
+use App\Models\Kecamatan;
+use App\Traits\HasModelCache;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Nagari extends Model
 {
+    use HasModelCache;
     protected $table = "nagaris";
 
     protected $fillable = [
-        'nama',
+        'nama_nagari',
+        'nama_wali_nagari',
+        'kontak_wali_nagari',
+        'alamat_kantor_nagari',
+        'jumlah_penduduk_nagari',
+        'jumlah_jorong',
+        'luas_nagari',
         'kecamatan_id',
 
+    ];
+
+    protected $casts = [
+        'jumlah_penduduk_nagari' => 'integer',
+        'jumlah_jorong' => 'integer',
+        'luas_nagari' => 'integer',
     ];
 
     public function kecamatan(): BelongsTo

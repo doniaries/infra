@@ -25,8 +25,15 @@
     }
 
     @keyframes blink {
-        from, to { opacity: 1; }
-        50% { opacity: 0; }
+
+        from,
+        to {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
     }
 
     /* Typewriter container */
@@ -75,7 +82,7 @@
         height: 100%;
         overflow: hidden;
         z-index: -1;
-        background-color: #1377b9;
+        background-color: #eef2f5;
         /* Light blue sky for light mode */
         transition: background-color 0.3s ease;
     }
@@ -628,6 +635,31 @@
         box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
     }
 
+    .btn-nagari {
+        background-color: #10b981;
+        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+    }
+
+    .btn-nagari:before {
+        background-color: #059669;
+    }
+
+    .btn-nagari:hover {
+        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-jorong {
+        background-color: #8b5cf6;
+        box-shadow: 0 4px 6px rgba(139, 92, 246, 0.2);
+    }
+
+    .btn-jorong:before {
+        background-color: #7c3aed;
+    }
+
+    .btn-jorong:hover {
+        box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+    }
 
     body.dark .btn-laporan {
         background-color: #f59e0b;
@@ -653,6 +685,32 @@
 
     body.dark .btn-bts:hover {
         box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+    }
+
+    body.dark .btn-nagari {
+        background-color: #10b981;
+        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+    }
+
+    body.dark .btn-nagari:before {
+        background-color: #059669;
+    }
+
+    body.dark .btn-nagari:hover {
+        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    body.dark .btn-jorong {
+        background-color: #8b5cf6;
+        box-shadow: 0 4px 6px rgba(139, 92, 246, 0.3);
+    }
+
+    body.dark .btn-jorong:before {
+        background-color: #7c3aed;
+    }
+
+    body.dark .btn-jorong:hover {
+        box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
     }
 
 
@@ -897,6 +955,12 @@
                 <a href="{{ route('list.bts') }}" class="me-4 text-decoration-none text-dark">
                     <i class="fas fa-broadcast-tower me-1"></i> Data BTS
                 </a>
+                <a href="{{ route('list.nagari') }}" class="me-4 text-decoration-none text-dark">
+                    <i class="fas fa-map-marker-alt me-1"></i> Data Nagari
+                </a>
+                <a href="{{ route('list.jorong') }}" class="me-4 text-decoration-none text-dark">
+                    <i class="fas fa-map me-1"></i> Data Jorong
+                </a>
             </nav>
 
             <a href="{{ route('login') }}" class="login-button me-3 d-none d-md-inline-block"
@@ -920,6 +984,8 @@
                     <a href="{{ asset('/') }}" class="mega-menu-link">Home</a>
                     <a href="list-laporan" class="mega-menu-link">Daftar Laporan</a>
                     <a href="{{ route('list.bts') }}" class="mega-menu-link">Data BTS</a>
+                    <a href="{{ route('list.nagari') }}" class="mega-menu-link">Data Nagari</a>
+                    <a href="{{ route('list.jorong') }}" class="mega-menu-link">Data Jorong</a>
                 </div>
             </div>
             <div class="mega-menu-section">
@@ -973,6 +1039,25 @@
                             d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                     </svg>
                     Data BTS
+                </a>
+                <a href="{{ route('list.nagari') }}" class="register-button btn-nagari btn-small">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="inline-block mr-2 w-4 h-4" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Data Nagari
+                </a>
+                <a href="{{ route('list.jorong') }}" class="register-button btn-jorong btn-small">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="inline-block mr-2 w-4 h-4" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                        <path fill-rule="evenodd"
+                            d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Data Jorong
                 </a>
             </div>
 

@@ -356,6 +356,9 @@
             <a href="{{ route('list.bts') }}" class="nav-link {{ $activeMenu === 'bts' ? 'active' : '' }}">
                 <i class="fas fa-broadcast-tower me-1"></i> Data BTS
             </a>
+            <a href="{{ route('list.nagari') }}" class="nav-link {{ $activeMenu === 'nagari' ? 'active' : '' }}">
+                <i class="fas fa-map-marker-alt me-1"></i> Data Nagari
+            </a>
         </nav>
         <a href="{{ route('login') }}" class="login-button ms-3 d-none d-md-inline-block">
             Login
