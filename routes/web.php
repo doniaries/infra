@@ -33,6 +33,7 @@ Route::get('/login', function () {
 
 // Daftarkan rute-rute penting sebelum fallback
 Route::get('/bts-map-data', [\App\Http\Controllers\WelcomeMapController::class, 'index']);
+Route::get('/peta-infrastruktur', [\App\Http\Controllers\WelcomeMapController::class, 'showMap'])->name('public.peta');
 Route::get('/list-laporan', ListLaporan::class)->name('list.laporan');
 Route::get('/list-bts', ListBts::class)->name('list.bts');
 Route::get('/list-nagari', ListNagari::class)->name('list.nagari');

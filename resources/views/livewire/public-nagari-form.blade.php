@@ -7,11 +7,13 @@
                     {{ $this->nagariId ? 'Edit Data Nagari' : 'Form Data Nagari' }}
                 </h1>
             </div>
-            <div class="overflow-x-auto rounded-lg shadow-lg bg-white dark:bg-gray-800 p-6 border border-gray-200 dark:border-gray-700 mb-6 form-container">
+            <div
+                class="overflow-x-auto rounded-lg shadow-lg bg-white dark:bg-gray-800 p-6 border border-gray-200 dark:border-gray-700 mb-6 form-container">
                 <form wire:submit.prevent="submit" class="space-y-6">
                     {{ $this->form }}
                     <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                        <a href="{{ url('/') }}" class="px-6 py-3 text-center rounded-lg form-button form-button-back">Kembali</a>
+                        <a href="{{ url('/') }}"
+                            class="px-6 py-3 text-center rounded-lg form-button form-button-back">Kembali</a>
                         <button type="submit" class="px-6 py-3 rounded-lg form-button form-button-submit">
                             {{ $this->nagariId ? 'Update Data Nagari' : 'Kirim Data Nagari' }}
                         </button>
