@@ -188,7 +188,7 @@ class ListLaporan extends Component implements HasTable, HasForms
     public function render()
     {
         $totalLaporan = Lapor::count();
-        $laporans = \App\Models\Lapor::with('opd')->latest()->get();
+        $laporans = \App\Models\Lapor::with('opd')->latest()->paginate(10);
 
         return view('livewire.list-laporan', [
             'totalLaporan' => $totalLaporan,

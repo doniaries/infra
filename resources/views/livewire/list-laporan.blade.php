@@ -77,8 +77,9 @@
                     </tbody>
                 </table>
             </div>
+            <div class="mt-4">
+                {{ $laporans->links() }}
+            </div>
         </div>
-</div>
-</section>
-
+    </section>
 </div>
